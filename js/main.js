@@ -112,6 +112,7 @@
 
     var backdrop = modal.querySelector(".ref-lightbox__backdrop");
     var figure = modal.querySelector(".ref-lightbox__figure");
+    var media = modal.querySelector(".ref-lightbox__media");
     var img = modal.querySelector(".ref-lightbox__img");
     var btnPrev = modal.querySelector(".ref-lightbox__prev");
     var btnNext = modal.querySelector(".ref-lightbox__next");
@@ -206,15 +207,16 @@
       go(1);
     });
 
-    if (figure) {
-      figure.addEventListener(
+    var swipeTarget = media || figure;
+    if (swipeTarget) {
+      swipeTarget.addEventListener(
         "touchstart",
         function (e) {
           touchStartX = e.changedTouches[0].screenX;
         },
         { passive: true }
       );
-      figure.addEventListener(
+      swipeTarget.addEventListener(
         "touchend",
         function (e) {
           var x = e.changedTouches[0].screenX;
@@ -228,7 +230,7 @@
     }
   })();
 
-  /* Testimonials karousel: gap a diák között, translateX = i * (viewport + gap) px */
+  /* Testimonials karousel: mobil = 1 kártya / dia; asztal = 2 kártya / „oldal”. Viewport magasság = aktív dia. */
   (function testimonialsCarousel() {
     var root = document.querySelector("[data-testimonials-carousel]");
     if (!root) return;
@@ -236,14 +238,21 @@
     var viewport = root.querySelector(".testimonials-carousel__viewport");
     var track = root.querySelector(".testimonials-carousel__track");
     var slides = root.querySelectorAll(".testimonials-carousel__slide");
-    var dots = root.querySelectorAll(".testimonials-carousel__dot");
+    var dotsMobile = root.querySelectorAll(".testimonials-carousel__dots--mobile .testimonials-carousel__dot");
+    var dotsDesktop = root.querySelectorAll(".testimonials-carousel__dots--desktop .testimonials-carousel__dot");
     var n = slides.length;
-    var i = 0;
+    var slideIdx = 0;
+    var pageIdx = 0;
     var timer = null;
     var intervalMs = 15000;
-    var slideStepPx = 0;
+    var lastMobile = null;
+    var resizeT;
 
-    if (!track || !viewport || !n) return;
+    if (!track || !viewport || n < 1) return;
+
+    function isMobile() {
+      return window.matchMedia("(max-width: 1024px)").matches;
+    }
 
     function parseGapPx() {
       var cs = window.getComputedStyle(track);
@@ -252,41 +261,114 @@
       return isNaN(parsed) ? 0 : parsed;
     }
 
-    function measure() {
-      var w = Math.round(viewport.getBoundingClientRect().width);
-      if (w < 1) return;
-      var gapPx = parseGapPx();
-      slideStepPx = w + gapPx;
-      slides.forEach(function (slide) {
-        slide.style.flex = "0 0 " + w + "px";
-        slide.style.width = w + "px";
-        slide.style.maxWidth = w + "px";
-        slide.style.minWidth = w + "px";
+    function updateViewportHeight() {
+      /* Két rAF: stabil layout; ne állítsuk height: auto-ra — az megszakítaná a CSS height átmenetet. */
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          var h = 0;
+          if (isMobile()) {
+            slides.forEach(function (slide) {
+              h = Math.max(h, slide.offsetHeight);
+            });
+          } else {
+            for (var i = 0; i < n; i += 2) {
+              var a = slides[i];
+              var b = slides[i + 1];
+              h = Math.max(h, Math.max(a ? a.offsetHeight : 0, b ? b.offsetHeight : 0));
+            }
+          }
+          if (h > 0) viewport.style.height = Math.round(h) + "px";
+        });
       });
-      track.style.transform = "translateX(-" + Math.round(i * slideStepPx) + "px)";
+    }
+
+    function syncDesktopPairHeights(mobile) {
+      slides.forEach(function (slide) {
+        slide.style.height = "";
+      });
+      if (mobile) return;
+
+      for (var i = 0; i < n; i += 2) {
+        var a = slides[i];
+        var b = slides[i + 1];
+        if (!a) continue;
+        var ah = a.offsetHeight;
+        var bh = b ? b.offsetHeight : 0;
+        var h = Math.max(ah, bh);
+        if (h > 0) {
+          a.style.height = h + "px";
+          if (b) b.style.height = h + "px";
+        }
+      }
+    }
+
+    function measure() {
+      var vw = Math.round(viewport.getBoundingClientRect().width);
+      if (vw < 1) return;
+      var gapPx = parseGapPx();
+      var mobile = isMobile();
+      var slideW;
+      if (mobile) {
+        slideW = vw;
+        slides.forEach(function (slide) {
+          slide.style.flex = "0 0 " + slideW + "px";
+          slide.style.width = slideW + "px";
+          slide.style.maxWidth = slideW + "px";
+          slide.style.minWidth = slideW + "px";
+        });
+        track.style.transform = "translateX(-" + Math.round(slideIdx * (slideW + gapPx)) + "px)";
+      } else {
+        slideW = Math.round((vw - gapPx) / 2);
+        slides.forEach(function (slide) {
+          slide.style.flex = "0 0 " + slideW + "px";
+          slide.style.width = slideW + "px";
+          slide.style.maxWidth = slideW + "px";
+          slide.style.minWidth = slideW + "px";
+        });
+        track.style.transform = "translateX(-" + Math.round(pageIdx * (vw + gapPx)) + "px)";
+      }
+      syncDesktopPairHeights(mobile);
+      updateViewportHeight();
     }
 
     function setAria() {
+      var mobile = isMobile();
       slides.forEach(function (slide, idx) {
-        slide.setAttribute("aria-hidden", idx !== i ? "true" : "false");
+        var visible = false;
+        if (mobile) visible = idx === slideIdx;
+        else visible = idx === pageIdx * 2 || idx === pageIdx * 2 + 1;
+        slide.setAttribute("aria-hidden", visible ? "false" : "true");
       });
-      dots.forEach(function (dot, idx) {
-        var on = idx === i;
+      dotsMobile.forEach(function (dot, idx) {
+        var on = mobile && idx === slideIdx;
+        dot.classList.toggle("is-active", on);
+        dot.setAttribute("aria-selected", on ? "true" : "false");
+        dot.tabIndex = on ? 0 : -1;
+      });
+      dotsDesktop.forEach(function (dot, idx) {
+        var on = !mobile && idx === pageIdx;
         dot.classList.toggle("is-active", on);
         dot.setAttribute("aria-selected", on ? "true" : "false");
         dot.tabIndex = on ? 0 : -1;
       });
     }
 
-    function go(to) {
-      i = ((to % n) + n) % n;
-      if (slideStepPx < 1) measure();
-      track.style.transform = "translateX(-" + Math.round(i * slideStepPx) + "px)";
+    function goSlide(to) {
+      slideIdx = ((to % n) + n) % n;
+      measure();
+      setAria();
+    }
+
+    function goPage(to) {
+      var maxPage = Math.max(0, Math.ceil(n / 2) - 1);
+      pageIdx = ((to % (maxPage + 1)) + (maxPage + 1)) % (maxPage + 1);
+      measure();
       setAria();
     }
 
     function next() {
-      go(i + 1);
+      if (isMobile()) goSlide(slideIdx + 1);
+      else goPage(pageIdx + 1);
     }
 
     function stopAutoplay() {
@@ -302,9 +384,30 @@
       timer = setInterval(next, intervalMs);
     }
 
-    dots.forEach(function (dot, idx) {
+    function syncModeIfChanged() {
+      var mobile = isMobile();
+      if (lastMobile === null) {
+        lastMobile = mobile;
+        return;
+      }
+      if (mobile !== lastMobile) {
+        if (mobile) slideIdx = pageIdx * 2;
+        else pageIdx = Math.min(Math.max(0, Math.ceil(n / 2) - 1), Math.floor(slideIdx / 2));
+        lastMobile = mobile;
+      }
+    }
+
+    dotsMobile.forEach(function (dot, idx) {
       dot.addEventListener("click", function () {
-        go(idx);
+        goSlide(idx);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    dotsDesktop.forEach(function (dot, idx) {
+      dot.addEventListener("click", function () {
+        goPage(idx);
         stopAutoplay();
         startAutoplay();
       });
@@ -322,14 +425,32 @@
       else startAutoplay();
     });
 
-    var resizeT;
     window.addEventListener("resize", function () {
+      syncModeIfChanged();
       clearTimeout(resizeT);
       resizeT = setTimeout(function () {
         measure();
       }, 80);
     });
 
+    var mqBr = window.matchMedia("(max-width: 1024px)");
+    function onMqChange() {
+      syncModeIfChanged();
+      measure();
+      setAria();
+    }
+    if (mqBr.addEventListener) mqBr.addEventListener("change", onMqChange);
+    else if (mqBr.addListener) mqBr.addListener(onMqChange);
+
+    slides.forEach(function (slide) {
+      Array.prototype.forEach.call(slide.querySelectorAll("img"), function (img) {
+        img.addEventListener("load", function () {
+          updateViewportHeight();
+        });
+      });
+    });
+
+    lastMobile = isMobile();
     measure();
     setAria();
     startAutoplay();
