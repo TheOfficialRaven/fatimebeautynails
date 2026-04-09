@@ -240,6 +240,8 @@
     var slides = root.querySelectorAll(".testimonials-carousel__slide");
     var dotsMobile = root.querySelectorAll(".testimonials-carousel__dots--mobile .testimonials-carousel__dot");
     var dotsDesktop = root.querySelectorAll(".testimonials-carousel__dots--desktop .testimonials-carousel__dot");
+    var prevBtns = root.querySelectorAll("[data-testimonials-prev]");
+    var nextBtns = root.querySelectorAll("[data-testimonials-next]");
     var n = slides.length;
     var slideIdx = 0;
     var pageIdx = 0;
@@ -408,6 +410,24 @@
     dotsDesktop.forEach(function (dot, idx) {
       dot.addEventListener("click", function () {
         goPage(idx);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    prevBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (isMobile()) goSlide(slideIdx - 1);
+        else goPage(pageIdx - 1);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    nextBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (isMobile()) goSlide(slideIdx + 1);
+        else goPage(pageIdx + 1);
         stopAutoplay();
         startAutoplay();
       });
