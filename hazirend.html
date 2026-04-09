@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Házirend — Fatime Beauty</title>
+  <title>Hausordnung — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-hazirend">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html">Wimpern</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html">Árlista</a></li>
-              <li><a href="kapcsolat.html">Kapcsolat</a></li>
-              <li><a href="hazirend.html" aria-current="page">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html">Preisliste</a></li>
+              <li><a href="kapcsolat.html">Kontakt</a></li>
+              <li><a href="hazirend.html" aria-current="page">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="hazirend.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/hazirend.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -81,10 +83,9 @@
       <div class="page-hero__grid">
         <div class="container hazirend-hero__panel-row">
           <div class="hazirend-hero-panel">
-            <h1 id="page-hero-title" class="hazirend-hero-panel__title">Házirend</h1>
+            <h1 id="page-hero-title" class="hazirend-hero-panel__title">Hausordnung</h1>
             <p class="hazirend-hero-panel__lead">
-              A házirend azért van, hogy mindenki számára kellemes, tiszteletteljes legyen a szalonban töltött idő, és az időpontok zökkenőmentesen,
-              gördülékenyen zajlanjanak. Kérlek, vedd figyelembe az alábbi pontokat — így mi is a legjobb szolgáltatást tudjuk nyújtani neked.
+              Die Hausordnung sorgt dafür, dass sich alle Gäste im Salon wohlfühlen und Termine reibungslos ablaufen. Bitte beachte die folgenden Punkte – so kann ich dir den bestmöglichen Service bieten.
             </p>
           </div>
         </div>
@@ -92,71 +93,66 @@
     </section>
 
     <section class="hazirend-rules-section" aria-labelledby="hazirend-rules-heading">
-      <h2 id="hazirend-rules-heading" class="visually-hidden">Szabályok</h2>
+      <h2 id="hazirend-rules-heading" class="visually-hidden">Regeln</h2>
       <div class="container">
         <ul class="hazirend-rules" role="list">
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Időpont-egyeztetés</h3>
+              <h3 class="hazirend-rules__title">Terminvereinbarung</h3>
               <p class="hazirend-rules__text">
-                Időpontot online foglalási rendszeren keresztül vagy telefonon egyeztethetünk. Kérlek, jelezd pontosan, milyen kezelésre szeretnél
-                jönni, hogy megfelelő időtartalmat tudjunk biztosítani számodra.
+                Termine vereinbaren wir online oder telefonisch. Bitte gib genau an, welche Behandlung du wünschst, damit wir ausreichend Zeit einplanen können.
               </p>
             </div>
           </li>
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Érkezés</h3>
+              <h3 class="hazirend-rules__title">Ankunft</h3>
               <p class="hazirend-rules__text">
-                A többi vendég és a foglalt programok tiszteletben tartása érdekében kérlek, legfeljebb 10–15 perccel a kezdés előtt érkezz a szalonba.
+                Bitte komm aus Rücksicht auf andere Gäste und den Zeitplan höchstens 10–15 Minuten vor Beginn des Termins.
               </p>
             </div>
           </li>
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Lemondás és késés</h3>
+              <h3 class="hazirend-rules__title">Absage und Verspätung</h3>
               <p class="hazirend-rules__text">
-                A foglalt időpont lemondását vagy áthelyezését legalább 24 órával korábban jelezd. Későbbi lemondás vagy meg nem jelenés esetén a
-                kezelés díjának 100%-át számoljuk fel.
+                Bitte sage Termine oder Verschiebungen mindestens 24 Stunden vorher ab. Bei kurzfristiger Absage oder Nichterscheinen wird die Behandlung zu 100 % in Rechnung gestellt.
               </p>
             </div>
           </li>
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Vendégvonzás</h3>
+              <h3 class="hazirend-rules__title">Begleitpersonen</h3>
               <p class="hazirend-rules__text">
-                A kezelőhelyiségbe csak az adott szolgáltatást igénybe vevő vendég tartózkodhat. Kísérőket és további vendégeket a kezelőtérben nem
-                tudunk fogadni.
+                Im Behandlungsraum darf nur die Person sein, die die Behandlung erhält. Begleitpersonen können wir im Behandlungsbereich nicht aufnehmen.
               </p>
             </div>
           </li>
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Betegség</h3>
+              <h3 class="hazirend-rules__title">Krankheit</h3>
               <p class="hazirend-rules__text">
-                Ha betegnek érzed magad, lázad van, vagy fertőző megbetegedésre utaló tüneteid vannak, kérlek, halaszd az időpontot — saját
-                felépülésed és a többi vendég védelme érdekében.
+                Wenn du dich krank fühlst, Fieber hast oder Anzeichen einer ansteckenden Erkrankung, verschiebe bitte den Termin – zum Schutz deiner Genesung und der anderen Gäste.
               </p>
             </div>
           </li>
           <li class="hazirend-rules__item">
             <span class="hazirend-rules__mark" aria-hidden="true">✓</span>
             <div class="hazirend-rules__stack">
-              <h3 class="hazirend-rules__title">Kisállat, kisgyermek</h3>
+              <h3 class="hazirend-rules__title">Haustier, Kleinkind</h3>
               <p class="hazirend-rules__text">
-                Biztonsági és higiéniai okokból, valamint a nyugodt kezelőkörnyezet fenntartása miatt kisállat és kísérő nélküli kisgyermek a
-                kezelőhelyiségben nem tartózkodhat.
+                Aus Sicherheits- und Hygienegründen sowie zur ruhigen Atmosphäre dürfen im Behandlungsraum keine Haustiere und keine unbegleiteten Kleinkinder mitgebracht werden.
               </p>
             </div>
           </li>
         </ul>
         <div class="hazirend-rules__actions">
-          <a class="btn btn--primary hazirend-rules__back" href="index.html">Vissza a főoldalra &gt;</a>
+          <a class="btn btn--primary hazirend-rules__back" href="kapcsolat.html#uzenet">TERMIN BUCHEN &gt;</a>
         </div>
       </div>
     </section>
@@ -167,12 +163,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Fatime Beauty — professzionális szépségápolás, személyre szabott kezelésekkel és tiszteletteljes vendégközpontú hozzáállással.
+          Individuelle Kosmetik für Hautverjüngung und Problemhaut – mit modernen Methoden und natürlichen Wirkstoffen.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -214,10 +210,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Folge uns</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -228,7 +224,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -242,14 +238,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

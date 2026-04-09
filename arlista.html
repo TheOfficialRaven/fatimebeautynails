@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Árlista — Fatime Beauty</title>
+  <title>Preisliste — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-arlista">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html">Wimpern</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html" aria-current="page">Árlista</a></li>
-              <li><a href="kapcsolat.html">Kapcsolat</a></li>
-              <li><a href="hazirend.html">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html" aria-current="page">Preisliste</a></li>
+              <li><a href="kapcsolat.html">Kontakt</a></li>
+              <li><a href="hazirend.html">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="arlista.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/arlista.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -81,10 +83,10 @@
       <div class="page-hero__grid">
         <div class="container hazirend-hero__panel-row">
           <div class="hazirend-hero-panel">
-            <h1 id="page-hero-title" class="hazirend-hero-panel__title">Árak</h1>
-            <p class="hazirend-hero-panel__subtitle">Szolgáltatásaim</p>
+            <h1 id="page-hero-title" class="hazirend-hero-panel__title">Preise</h1>
+            <p class="hazirend-hero-panel__subtitle">Meine Leistungen</p>
             <p class="hazirend-hero-panel__lead">
-              Az alábbiakban megtekintheted szolgáltatásaim aktuális árait. Keress bizalommal, ha kérdésed merülne fel valamelyik kezeléssel kapcsolatban!
+              Hier findest du die aktuellen Preise meiner Leistungen. Melde dich gern, wenn du Fragen zu einer Behandlung hast.
             </p>
           </div>
         </div>
@@ -93,141 +95,32 @@
 
     <div class="arlista-content">
       <div class="container">
-        <ul class="price-nav-cards" aria-label="Ugrás az árlista szakaszokhoz">
-          <li class="price-nav-cards__item">
-            <a href="#price-kozmetika" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <rect x="6" y="8" width="20" height="18" rx="2" />
-                  <path d="M6 14h20M11 6v4M21 6v4" stroke-linecap="round" />
-                  <path d="M14 21l2 2 5-6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Kozmetika</span>
-            </a>
-          </li>
-          <li class="price-nav-cards__item">
-            <a href="#price-manikur" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <rect x="6" y="8" width="20" height="18" rx="2" />
-                  <path d="M6 14h20M11 6v4M21 6v4" stroke-linecap="round" />
-                  <circle cx="22" cy="22" r="5" />
-                  <path d="M20 22h4" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Manikűr &amp;<br />műköröm</span>
-            </a>
-          </li>
-          <li class="price-nav-cards__item">
-            <a href="#price-pedikur" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <ellipse cx="16" cy="22" rx="7" ry="4" />
-                  <path d="M12 20c-2-4 0-8 4-10M20 20c2-4 0-8-4-10" stroke-linecap="round" />
-                  <circle cx="16" cy="11" r="2.5" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Pedikűr</span>
-            </a>
-          </li>
-          <li class="price-nav-cards__item">
-            <a href="#price-lifting" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <path d="M8 22c4-8 12-8 16 0" stroke-linecap="round" />
-                  <path d="M11 18l2-4M16 16v-5M21 18l-2-4" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Lifting</span>
-            </a>
-          </li>
-          <li class="price-nav-cards__item">
-            <a href="#price-piercing" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <circle cx="16" cy="14" r="3" />
-                  <path d="M16 17v9M13 26h6" stroke-linecap="round" />
-                  <path d="M22 10l4-3" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Piercing</span>
-            </a>
-          </li>
-          <li class="price-nav-cards__item">
-            <a href="#price-pilla" class="price-nav-card">
-              <span class="price-nav-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
-                  <path d="M9 20c2-6 5-9 7-9s5 3 7 9" stroke-linecap="round" />
-                  <path d="M10 17v-3M13 15v-5M16 14V9M19 15v-5M22 17v-3" stroke-linecap="round" />
-                </svg>
-              </span>
-              <span class="price-nav-card__label">Szempilla<br />építés</span>
-            </a>
-          </li>
-        </ul>
 
         <section class="price-block" id="price-kozmetika" aria-labelledby="price-kozmetika-title">
-          <h2 id="price-kozmetika-title" class="price-block__title">Kozmetika árlista</h2>
+          <h2 id="price-kozmetika-title" class="price-block__title">Kosmetik — Preisliste</h2>
 
           <div class="price-table-wrap">
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="3" class="price-table__th--group">Klasszikus arckezelések</th>
+                  <th colspan="3" class="price-table__th--group">Manuelle behandlungen</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Alapár</th>
-                  <th scope="col">Diák / nyugdíjas</th>
+                  <th scope="col">Leistung</th>
+                  <th scope="col">Gesicht &amp; Hals</th>
+                  <th scope="col">+Dekolleté</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Tisztító nagykezelés (60–90 perc)</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Tini kezelés (60 perc)</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">8 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">+ Vió kiegészítő kezelés</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">+ UH kiegészítő kezelés</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Változó korúak arckezelése (60–70 perc)</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Mélyhidratáló tápláló arckezelés (60 perc)</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Regeneráló vitaminos arcfeltöltés (60 perc)</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Sminkeltávolítás + radír + tonizálás (20 perc)</td>
-                  <td class="price-table__price price-table__price--center">4 500 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Szemöldök kiszedés / festés / fazon (kiszálláskor / kezeléskor)</td>
-                  <td class="price-table__price price-table__price--center">2 500 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
+                <tr><td class="price-table__service">Nur Reinigungs + peeling + cream</td><td class="price-table__price price-table__price--center">80 CHF</td><td class="price-table__dash">-</td></tr>
+                <tr><td class="price-table__service">Massage | 30 min.</td><td class="price-table__price price-table__price--center">80 CHF</td><td class="price-table__price price-table__price--center">70 CHF</td></tr>
+                <tr><td class="price-table__service">Gesichtsreinigung</td><td class="price-table__price price-table__price--center">110 CHF</td><td class="price-table__dash">-</td></tr>
+                <tr><td class="price-table__service">+ Mikrocurrent peeling</td><td class="price-table__price price-table__price--center">10 CHF</td><td class="price-table__dash">-</td></tr>
+                <tr><td class="price-table__service">Ester C Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">160 CHF</td><td class="price-table__price price-table__price--center">190 CHF</td></tr>
+                <tr><td class="price-table__service">Bioplasma Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">130 CHF</td><td class="price-table__price price-table__price--center">150 CHF</td></tr>
+                <tr><td class="price-table__service">Nutri-Peptide Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">130 CHF</td><td class="price-table__dash">-</td></tr>
+                <tr><td class="price-table__service">Revitalizing C+E Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">120 CHF</td><td class="price-table__dash">-</td></tr>
+                <tr><td class="price-table__service">Entzündungshemmende C+E Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">100 CHF</td><td class="price-table__dash">-</td></tr>
               </tbody>
             </table>
           </div>
@@ -236,25 +129,17 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="3" class="price-table__th--group">Mezoterápiás arckezelések</th>
+                  <th colspan="3" class="price-table__th--group">Maschinelle gesichtsbehandlungen</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Alapár</th>
-                  <th scope="col">Diák / nyugdíjas</th>
+                  <th scope="col">Leistung</th>
+                  <th scope="col">Gesicht &amp; Hals</th>
+                  <th scope="col">+Dekolleté</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Tű nélküli mezoterápia (60–70 perc)</td>
-                  <td class="price-table__price price-table__price--center">14 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Tűs mezoterápia (Derma roller) (60–90 perc)</td>
-                  <td class="price-table__price price-table__price--center">18 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">16 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Plasma Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">130 CHF</td><td class="price-table__price price-table__price--center">160 CHF</td></tr>
+                <tr><td class="price-table__service">Radiowfrequenz C Gesichtsbehandlung</td><td class="price-table__price price-table__price--center">230 CHF</td><td class="price-table__price price-table__price--center">240 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -263,62 +148,26 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Gyantázás</th>
+                  <th colspan="2" class="price-table__th--group">Waxing</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Szemöldök (szemöldökcsipesz)</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Bajusz / áll / pajesz</td>
-                  <td class="price-table__price">1 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Arc teljes</td>
-                  <td class="price-table__price">3 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Hónalj</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Kar könyökig</td>
-                  <td class="price-table__price">3 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Kar végig</td>
-                  <td class="price-table__price">4 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Comb</td>
-                  <td class="price-table__price">4 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Lábszár térdig</td>
-                  <td class="price-table__price">3 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Láb végig</td>
-                  <td class="price-table__price">6 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Bikini vonal</td>
-                  <td class="price-table__price">3 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Teljes intim (csak hölgyeknek)</td>
-                  <td class="price-table__price">7 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Hát / mellkas</td>
-                  <td class="price-table__price">4 500 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Augenbrauen</td><td class="price-table__price">14 CHF</td></tr>
+                <tr><td class="price-table__service">Oberlippe</td><td class="price-table__price">10 CHF</td></tr>
+                <tr><td class="price-table__service">Kinn</td><td class="price-table__price">10 CHF</td></tr>
+                <tr><td class="price-table__service">Ganzes Gesicht</td><td class="price-table__price">31 CHF</td></tr>
+                <tr><td class="price-table__service">Achseln</td><td class="price-table__price">20 CHF</td></tr>
+                <tr><td class="price-table__service">Oberarme</td><td class="price-table__price">20 CHF</td></tr>
+                <tr><td class="price-table__service">Unterarme</td><td class="price-table__price">20 CHF</td></tr>
+                <tr><td class="price-table__service">Oberschenkel</td><td class="price-table__price">30 CHF</td></tr>
+                <tr><td class="price-table__service">Unterschenkel</td><td class="price-table__price">20 CHF</td></tr>
+                <tr><td class="price-table__service">Bikini zone</td><td class="price-table__price">20 CHF</td></tr>
+                <tr><td class="price-table__service">Ganze intimbereich</td><td class="price-table__price">30 CHF</td></tr>
+                <tr><td class="price-table__service">Rücken</td><td class="price-table__price">15 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -327,26 +176,17 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Festések</th>
+                  <th colspan="2" class="price-table__th--group">Bilden</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Szempilla festés</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Szemöldök festés</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Szemöldök szedés</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Tages Make-up</td><td class="price-table__price">35 CHF</td></tr>
+                <tr><td class="price-table__service">Abends Make-up</td><td class="price-table__price">50 CHF</td></tr>
+                <tr><td class="price-table__service">Braut Make-up</td><td class="price-table__price">65 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -355,54 +195,35 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Gépi kezelések</th>
+                  <th colspan="2" class="price-table__th--group">Augenbrauen &amp; wimpernfarben</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Ultrahang</td>
-                  <td class="price-table__price">4 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">VIO kezelés</td>
-                  <td class="price-table__price">2 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Augenbrauen</td><td class="price-table__price">15 CHF</td></tr>
+                <tr><td class="price-table__service">Wimpern</td><td class="price-table__price">15 CHF</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <section class="price-block" id="price-manikur" aria-labelledby="price-manikur-title">
-          <h2 id="price-manikur-title" class="price-block__title">Manikűr</h2>
+          <h2 id="price-manikur-title" class="price-block__title">Maniküre</h2>
 
           <div class="price-table-wrap">
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Klasszikus</th>
-                </tr>
-                <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th colspan="2" class="price-table__th--group">Maniküre</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Manikűr (formázás, áztatás, polírozás)</td>
-                  <td class="price-table__price">4 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Francia manikűr</td>
-                  <td class="price-table__price">5 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Japán manikűr (P.Shine)</td>
-                  <td class="price-table__price">5 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Traditionelle Maniküre</td><td class="price-table__price">15 CHF</td></tr>
+                <tr><td class="price-table__service">Japanische Maniküre</td><td class="price-table__price">27 CHF</td></tr>
+                <tr><td class="price-table__service">Lackierung (nur Farbe)</td><td class="price-table__price">7.5 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -411,34 +232,19 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="4" class="price-table__th--group">Géllakk</th>
+                  <th colspan="4" class="price-table__th--group">Gellack</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">S (Rövid)</th>
-                  <th scope="col">M (Közepes)</th>
-                  <th scope="col">L (Hosszú)</th>
+                  <th scope="col">Leistung</th>
+                  <th scope="col">S<br />bis 10mm</th>
+                  <th scope="col">M<br />bis 16mm</th>
+                  <th scope="col">L<br />bis 10mm</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Géllakk – kéz (egy színben)</td>
-                  <td class="price-table__price price-table__price--center">6 500 Ft</td>
-                  <td class="price-table__price price-table__price--center">7 500 Ft</td>
-                  <td class="price-table__price price-table__price--center">8 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">French / Ombre / díszítés</td>
-                  <td class="price-table__price price-table__price--center">+ 1 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">+ 1 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">+ 1 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Régi géllakk eltávolítás</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Gelack mit maniküre</td><td class="price-table__price price-table__price--center">53 CHF</td><td class="price-table__price price-table__price--center">55 CHF</td><td class="price-table__price price-table__price--center">57 CHF</td></tr>
+                <tr><td class="price-table__service">+ French / Baby-boomer</td><td class="price-table__price price-table__price--center">58 CHF</td><td class="price-table__price price-table__price--center">60 CHF</td><td class="price-table__price price-table__price--center">62 CHF</td></tr>
+                <tr><td class="price-table__service">Gelack entfernen</td><td class="price-table__price price-table__price--center">20 CHF</td><td class="price-table__price price-table__price--center">25 CHF</td><td class="price-table__price price-table__price--center">30 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -447,52 +253,24 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="5" class="price-table__th--group">Műköröm</th>
+                  <th colspan="6" class="price-table__th--group">Neumodellage / auffüllen</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">S</th>
-                  <th scope="col">M</th>
-                  <th scope="col">L</th>
-                  <th scope="col">XL</th>
+                  <th scope="col">Leistung</th>
+                  <th scope="col">XS<br />bis 7mm</th>
+                  <th scope="col">S<br />bis 9mm</th>
+                  <th scope="col">M<br />bis 11mm</th>
+                  <th scope="col">L<br />bis 17mm</th>
+                  <th scope="col">XL<br />bis 26mm</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés zselével / acrylgéllel + egy szín</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">14 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">16 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Töltés zselével / acrylgéllel + egy szín</td>
-                  <td class="price-table__price price-table__price--center">8 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">12 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">14 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Építés sablonnal (pótlás 1 ujjra)</td>
-                  <td class="price-table__price price-table__price--center">1 500 Ft</td>
-                  <td class="price-table__price price-table__price--center">2 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">2 500 Ft</td>
-                  <td class="price-table__price price-table__price--center">3 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Saját köröm erősítés zselével / gél lakkal</td>
-                  <td class="price-table__price price-table__price--center">7 000 Ft</td>
-                  <td class="price-table__price price-table__price--center">8 500 Ft</td>
-                  <td class="price-table__price price-table__price--center">10 000 Ft</td>
-                  <td class="price-table__dash">–</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Díszítés (kő, matrica, csillám)</td>
-                  <td class="price-table__price price-table__price--center">+ 500 Ft / db</td>
-                  <td class="price-table__price price-table__price--center">+ 500 Ft / db</td>
-                  <td class="price-table__price price-table__price--center">+ 500 Ft / db</td>
-                  <td class="price-table__price price-table__price--center">+ 500 Ft / db</td>
-                </tr>
+                <tr><td class="price-table__service">Gel / Acryl-Gel | Neumodellage</td><td class="price-table__price price-table__price--center">75 CHF</td><td class="price-table__price price-table__price--center">85 CHF</td><td class="price-table__price price-table__price--center">100 CHF</td><td class="price-table__price price-table__price--center">105 CHF</td><td class="price-table__price price-table__price--center">115 CHF</td></tr>
+                <tr><td class="price-table__service">Gel / Acryl-Gel | Auffüllen</td><td class="price-table__price price-table__price--center">60 CHF</td><td class="price-table__price price-table__price--center">70 CHF</td><td class="price-table__price price-table__price--center">80 CHF</td><td class="price-table__price price-table__price--center">90 CHF</td><td class="price-table__price price-table__price--center">100 CHF</td></tr>
+                <tr><td class="price-table__service">Gel / Acryl-Gel | French / Baby-boomer Neumodellage</td><td class="price-table__price price-table__price--center">80 CHF</td><td class="price-table__price price-table__price--center">90 CHF</td><td class="price-table__price price-table__price--center">100 CHF</td><td class="price-table__price price-table__price--center">110 CHF</td><td class="price-table__price price-table__price--center">120 CHF</td></tr>
+                <tr><td class="price-table__service">Gel / Acryl-Gel | French / Baby-boomer auffüllen</td><td class="price-table__price price-table__price--center">65 CHF</td><td class="price-table__price price-table__price--center">75 CHF</td><td class="price-table__price price-table__price--center">85 CHF</td><td class="price-table__price price-table__price--center">95 CHF</td><td class="price-table__price price-table__price--center">105 CHF</td></tr>
+                <tr><td class="price-table__service">Refill</td><td class="price-table__price price-table__price--center">30 CHF</td><td class="price-table__price price-table__price--center">32 CHF</td><td class="price-table__price price-table__price--center">34 CHF</td><td class="price-table__price price-table__price--center">36 CHF</td><td class="price-table__price price-table__price--center">38 CHF</td></tr>
+                <tr><td class="price-table__service">Reparaturen garantie 1 Woche</td><td class="price-table__price price-table__price--center">+5 CHF</td><td class="price-table__price price-table__price--center">+6 CHF</td><td class="price-table__price price-table__price--center">+7 CHF</td><td class="price-table__price price-table__price--center">+8 CHF</td><td class="price-table__price price-table__price--center">+9 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -501,68 +279,43 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Egyéb</th>
-                </tr>
-                <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th colspan="2" class="price-table__th--group">Nailart</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Műköröm eltávolítás</td>
-                  <td class="price-table__price">4 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Körömpótlás (1 ujjra)</td>
-                  <td class="price-table__price">1 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Paraffinos kézápolás</td>
-                  <td class="price-table__price">3 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Strass</td><td class="price-table__price">0.5 CHF / Stk</td></tr>
+                <tr><td class="price-table__service">Nagelsticker</td><td class="price-table__price">0.5 CHF - 10 CHF</td></tr>
+                <tr><td class="price-table__service">+ Foil Nagel /Kreppfolie mit Strasssteinen verziert</td><td class="price-table__price">XS 5 CHF | S 7 CHF | M 9 CHF | L 11 CHF | XL 13 CHF</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <section class="price-block" id="price-pedikur" aria-labelledby="price-pedikur-title">
-          <h2 id="price-pedikur-title" class="price-block__title">Pedikűr</h2>
+          <h2 id="price-pedikur-title" class="price-block__title">Pediküre</h2>
           <div class="price-table-wrap">
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Pedikűr</th>
+                  <th colspan="2" class="price-table__th--group">Pediküre</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Esztétikai pedikűr (áztatás, formázás, krémezés)</td>
-                  <td class="price-table__price">6 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Gyógypedikűr (tyúkszem eltávolítás, benőtt köröm)</td>
-                  <td class="price-table__price">8 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Kombinált pedikűr (esztétikai + géllakk)</td>
-                  <td class="price-table__price">10 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Körömvágás lábon</td>
-                  <td class="price-table__price">3 500 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Callux Pediküre</td><td class="price-table__price">60 CHF</td></tr>
+                <tr><td class="price-table__service">Callux Fußpflege + normaler Lack</td><td class="price-table__price">70 CHF</td></tr>
+                <tr><td class="price-table__service">Callux Fußpflege + Gellack</td><td class="price-table__price">85 CHF</td></tr>
+                <tr><td class="price-table__service">Nur Gellack</td><td class="price-table__price">40 CHF</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <section class="price-block" id="price-lifting" aria-labelledby="price-lifting-title">
-          <h2 id="price-lifting-title" class="price-block__title">Szempilla- és szemöldöklifting</h2>
+          <h2 id="price-lifting-title" class="price-block__title">Wimpern- &amp; Augenbrauen-Lifting</h2>
           <div class="price-table-wrap">
             <table class="price-table">
               <thead>
@@ -570,19 +323,13 @@
                   <th colspan="2" class="price-table__th--group">Wimpern- &amp; Augenbrauen-Lifting</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Szemöldök lifting</td>
-                  <td class="price-table__price">8 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Szempilla lifting</td>
-                  <td class="price-table__price">10 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Augenbrauen lifting</td><td class="price-table__price">70 CHF</td></tr>
+                <tr><td class="price-table__service">Wimpern lifting</td><td class="price-table__price">60 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -597,47 +344,35 @@
                   <th colspan="2" class="price-table__th--group">Piercing</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Füllyukasztás (párban, orvosi fém fülbevalóval)</td>
-                  <td class="price-table__price">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Orrpiercing</td>
-                  <td class="price-table__price">5 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Ohrlochstechen</td><td class="price-table__price">90 CHF / 1 paar</td></tr>
+                <tr><td class="price-table__service">Nasenpiercing</td><td class="price-table__price">40 CHF</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
         <section class="price-block" id="price-pilla" aria-labelledby="price-pilla-title">
-          <h2 id="price-pilla-title" class="price-block__title">Szempilla építés</h2>
+          <h2 id="price-pilla-title" class="price-block__title">Wimpernverlängerung</h2>
 
           <div class="price-table-wrap">
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">Szempilla építés</th>
+                  <th colspan="2" class="price-table__th--group">Wimpernverlängerung</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Szempilla leoldás</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">Szemöldök festés</td>
-                  <td class="price-table__price">2 500 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">Ablösen / Entfernen</td><td class="price-table__price">25 CHF</td></tr>
+                <tr><td class="price-table__service">Wimpern entfernen</td><td class="price-table__price">20 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -646,30 +381,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">1D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">1D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">12 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">8 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">11 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">1D wimpern | Neu</td><td class="price-table__price">90 CHF</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">55 CHF</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">55 CHF</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">70 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -678,30 +401,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">2D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">2D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">14 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">10 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">12 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">13 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">2D wimpern | Neu</td><td class="price-table__price">100 CHF</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">60 CHF</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">70 CHF</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">80 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -710,30 +421,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">3D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">3D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">16 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">12 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">14 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">15 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">3D wimpern | Neu</td><td class="price-table__price">110 CHF</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">70 CHF</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">80 CHF</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">90 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -742,30 +441,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">4D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">4D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">18 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">14 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">16 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">17 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">4D wimpern | Neu</td><td class="price-table__price">120 CHF</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">80 CHF</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">90 CHF</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">100 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -774,30 +461,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">5D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">5D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">20 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">16 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">18 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">19 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">5D wimpern | Neu</td><td class="price-table__price">130 CHF</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">90 CHF</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">100 CHF</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">110 CHF</td></tr>
               </tbody>
             </table>
           </div>
@@ -806,30 +481,18 @@
             <table class="price-table">
               <thead>
                 <tr class="price-table__head-row price-table__head-row--group">
-                  <th colspan="2" class="price-table__th--group">6D szempilla</th>
+                  <th colspan="2" class="price-table__th--group">10D wimpern</th>
                 </tr>
                 <tr class="price-table__head-row price-table__head-row--cols">
-                  <th scope="col">Megnevezés</th>
-                  <th scope="col">Ár</th>
+                  <th scope="col">Bezeichnung</th>
+                  <th scope="col">Preis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="price-table__service">Építés (szett)</td>
-                  <td class="price-table__price">22 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">2 hetes töltés</td>
-                  <td class="price-table__price">18 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">3 hetes töltés</td>
-                  <td class="price-table__price">20 000 Ft</td>
-                </tr>
-                <tr>
-                  <td class="price-table__service">4 hetes töltés</td>
-                  <td class="price-table__price">21 000 Ft</td>
-                </tr>
+                <tr><td class="price-table__service">10D wimpern | Neu</td><td class="price-table__price">150 Chf</td></tr>
+                <tr><td class="price-table__service">2 woche</td><td class="price-table__price">110 Chf</td></tr>
+                <tr><td class="price-table__service">3 woche</td><td class="price-table__price">120 Chf</td></tr>
+                <tr><td class="price-table__service">4 woche</td><td class="price-table__price">130 Chf</td></tr>
               </tbody>
             </table>
           </div>
@@ -843,12 +506,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Fatime Beauty — professzionális szépségápolás, személyre szabott kezelésekkel és tiszteletteljes vendégközpontú hozzáállással.
+          Fatime Beauty – professionelle Beauty-Pflege, massgeschneiderte Behandlungen und ein respektvoller, gästeorientierter Ansatz.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -890,10 +553,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Social Media</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -904,7 +567,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -918,14 +581,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pilla — Fatime Beauty</title>
+  <title>Wimpern — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-pilla">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html" aria-current="page">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html" aria-current="page">Wimpern</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html">Árlista</a></li>
-              <li><a href="kapcsolat.html">Kapcsolat</a></li>
-              <li><a href="hazirend.html">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html">Preisliste</a></li>
+              <li><a href="kapcsolat.html">Kontakt</a></li>
+              <li><a href="hazirend.html">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="pilla.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/pilla.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -80,11 +82,11 @@
       </div>
       <div class="page-hero__grid">
         <div class="page-hero__content">
-          <h1 id="page-hero-title" class="page-hero__title">Pilla</h1>
+          <h1 id="page-hero-title" class="page-hero__title">Wimpern</h1>
           <p class="page-hero__lead">
-            Természetes vagy intenzív hatású szempilla-hosszabbítás és -dúsítás — precíz technika, kíméletes anyagok és tartós, vonzó eredmény.
+            Ein längerer, vollerer und selbstbewussterer Blick – auch im Alltag.
           </p>
-          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">Időpontot kérek &gt;</a>
+          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">TERMIN ANFRAGEN &gt;</a>
         </div>
       </div>
     </section>
@@ -95,40 +97,35 @@
           <img
             class="split-info__img"
             src="assets/imgs/split__info_img.png"
-            alt="Szempilla és szemöldök részlet, professzionális pillázás"
+            alt="Wimpern- und Brauendetail, professionelles Styling"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Pilla';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Wimpern';"
           />
         </figure>
         <div class="split-info__body">
-          <p class="subpage-kicker">Gyors, fájdalommentes megoldás!</p>
-          <h2 id="split-info-title" class="split-info__title section-title">Rövid leírás a pillázásról</h2>
+          <p class="subpage-kicker">Dein Blick – wenn er wirken soll</p>
+          <h2 id="split-info-title" class="split-info__title section-title">Welche Vorteile bietet die Wimpernverlängerung?</h2>
           <p>
-            A pilla szolgáltatás célja, hogy kiemelje a tekintetedet: egyénre szabott hosszúsággal, ívvel és sűrűséggel dolgozom, figyelembe véve a
-            természetes szempilláid állapotát és azt, milyen hatást szeretnél elérni — hétköznapitól az ünnepibb megjelenésig.
-          </p>
-          <p>
-            A kezelés higiénikus környezetben zajlik: előtte egyeztetjük az elképzelést, majd precízen, kíméletesen helyezem fel a szálakat. Az
-            alkalom végén részletes utóápolási tanácsot kapsz, hogy a pillák tartósak és szépek maradjanak.
+            Die Wimpernverlängerung ist eine moderne, haltbare und eindrucksvolle Methode für einen volleren, ausdrucksstärkeren Blick. Länge, Schwung und Dichte werden individuell abgestimmt.
           </p>
           <ul class="checklist" role="list">
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Vonzó, látható eredmények</span>
+              <span>Sofort vollerer, längerer Wimpernkranz</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Fájdalommentes eltávolítás és kezelés</span>
+              <span>Wählbare Schwünge: C, D, M, L</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Precíz, gyors behelyezés</span>
+              <span>Haltbar, ästhetisch und angenehm zu tragen</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Kíméletes utóápolási tanácsadás garanciával</span>
+              <span>Ausdrucksstark auch ohne Make-up</span>
             </li>
           </ul>
         </div>
@@ -137,25 +134,25 @@
 
     <section class="cta-banner cta-banner--tight" aria-labelledby="cta-price-title">
       <div class="container cta-banner__inner">
-        <h2 id="cta-price-title" class="cta-banner__title">Tekintsd meg pilla árlistánkat!</h2>
-        <a class="btn btn--white-green" href="arlista.html#price-pilla">Árlista &gt;</a>
+        <h2 id="cta-price-title" class="cta-banner__title">Sieh dir unsere Wimpern-Preisliste an!</h2>
+        <a class="btn btn--white-green" href="arlista.html#price-pilla">Preisliste &gt;</a>
       </div>
     </section>
 
     <section class="page-gallery-section" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section-head section-head--center page-gallery-section__head">
-          <p class="subpage-kicker">Rólam, munkáimról és szemléletemről</p>
-          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Intenzív tekintet, természetes hatás</h2>
+          <p class="subpage-kicker">Über mich, meine Arbeit und meine Philosophie</p>
+          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Intensiver Blick, natürlicher Look</h2>
           <p class="section-subtitle page-gallery-section__intro">
-            Pillás munkáim és hangulatképek a szalonból — lapozz a nyilakkal vagy a pontokkal.
+            Meine Wimpernarbeiten und Stimmungsbilder aus dem Salon – blättere mit Pfeilen oder Punkten.
           </p>
         </header>
-        <!-- Galéria: képek az assets/imgs/page-gallery/pilla/ mappában (01.png–12.png). Csak erre az aloldalra cseréld őket. -->
+        <!-- Galerie: Bilder in assets/imgs/page-gallery/pilla/ (01.png–12.png). Nur für diese Unterseite austauschen. -->
         <div class="page-gallery" data-page-gallery>
           <div class="page-gallery__stage">
             <div class="page-gallery__carousel">
-              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Előző képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Vorheriges Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                 </svg>
@@ -166,7 +163,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/01.png"
-                      alt="Pilla galéria, 1. kép"
+                      alt="Wimpern-Galerie, Bild 1"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -177,7 +174,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/02.png"
-                      alt="Pilla galéria, 2. kép"
+                      alt="Wimpern-Galerie, Bild 2"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -188,7 +185,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/03.png"
-                      alt="Pilla galéria, 3. kép"
+                      alt="Wimpern-Galerie, Bild 3"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -199,7 +196,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/04.png"
-                      alt="Pilla galéria, 4. kép"
+                      alt="Wimpern-Galerie, Bild 4"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -210,7 +207,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/05.png"
-                      alt="Pilla galéria, 5. kép"
+                      alt="Wimpern-Galerie, Bild 5"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -221,7 +218,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/06.png"
-                      alt="Pilla galéria, 6. kép"
+                      alt="Wimpern-Galerie, Bild 6"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -232,7 +229,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/07.png"
-                      alt="Pilla galéria, 7. kép"
+                      alt="Wimpern-Galerie, Bild 7"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -243,7 +240,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/08.png"
-                      alt="Pilla galéria, 8. kép"
+                      alt="Wimpern-Galerie, Bild 8"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -254,7 +251,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/09.png"
-                      alt="Pilla galéria, 9. kép"
+                      alt="Wimpern-Galerie, Bild 9"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -265,7 +262,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/10.png"
-                      alt="Pilla galéria, 10. kép"
+                      alt="Wimpern-Galerie, Bild 10"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -276,7 +273,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/11.png"
-                      alt="Pilla galéria, 11. kép"
+                      alt="Wimpern-Galerie, Bild 11"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -287,7 +284,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/pilla/12.png"
-                      alt="Pilla galéria, 12. kép"
+                      alt="Wimpern-Galerie, Bild 12"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -296,13 +293,13 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Következő képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Nächstes Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6" />
                 </svg>
               </button>
             </div>
-            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galéria pozíció"></nav>
+            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galerieposition"></nav>
           </div>
         </div>
       </div>
@@ -314,12 +311,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Pilla — szempilla-hosszabbítás és dúsítás természetes hatással, precíz kivitelezéssel és személyre szabott tanácsadással.
+          Wimpern – Verlängerung und Verdichtung mit natürlichem Look, präziser Arbeit und persönlicher Beratung.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -361,10 +358,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Folge uns</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -375,7 +372,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -389,14 +386,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

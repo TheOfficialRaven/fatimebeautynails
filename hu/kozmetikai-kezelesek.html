@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="hu">
 <head>
   <meta charset="UTF-8" />
   <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kosmetische Behandlungen — Fatime Beauty</title>
+  <title>Kozmetikai kezelések — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gilda+Display&family=League+Spartan:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
   <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
+
 </head>
 <body class="page-kozmetikai">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Hauptnavigation">
+      <nav class="nav" aria-label="Fő navigáció">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Startseite</a>
+            <a href="index.html" class="nav__link">Főoldal</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -34,14 +35,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
+              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
-              <li><a href="kozmetikai-kezelesek.html" aria-current="page">Kosmetische Behandlungen</a></li>
-              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
-              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
-              <li><a href="pilla.html">Wimpern</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
+              <li><a href="kozmetikai-kezelesek.html" aria-current="page">Kozmetikai kezelések</a></li>
+              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
+              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
+              <li><a href="pilla.html">Pilla</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -53,23 +54,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Info<span class="nav__caret" aria-hidden="true"></span></a
+              >Infó<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
-              <li><a href="arlista.html">Preisliste</a></li>
-              <li><a href="kapcsolat.html">Kontakt</a></li>
-              <li><a href="hazirend.html">Hausordnung</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
+              <li><a href="arlista.html">Árlista</a></li>
+              <li><a href="kapcsolat.html">Kapcsolat</a></li>
+              <li><a href="hazirend.html">Házirend</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Über mich</a>
+            <a href="rolam.html" class="nav__link">Rólam</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
-        <div class="lang-switch" aria-label="Sprachauswahl">
-          <a href="kozmetikai-kezelesek.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
+        <div class="lang-switch" aria-label="Nyelvválasztó">
+          <a href="../kozmetikai-kezelesek.html" class="lang-switch__link" hreflang="de" lang="de">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="hu/kozmetikai-kezelesek.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
+          <a href="kozmetikai-kezelesek.html" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
         </div>
       </nav>
     </div>
@@ -78,15 +79,15 @@
   <main class="page-sub page-sub--kozmetika">
     <section class="page-hero" aria-labelledby="page-hero-title">
       <div class="page-hero__image-bg" aria-hidden="true">
-        <img src="assets/imgs/Hero_background_img.png" alt="" width="1200" height="1400" loading="eager" />
+        <img src="../assets/imgs/Hero_background_img.png" alt="" width="1200" height="1400" loading="eager" />
       </div>
       <div class="page-hero__grid">
         <div class="page-hero__content">
-          <h1 id="page-hero-title" class="page-hero__title">Kosmetische Behandlungen</h1>
+          <h1 id="page-hero-title" class="page-hero__title">Kozmetikai kezelések</h1>
           <p class="page-hero__lead">
-            Individuelle Kosmetik, damit du wieder strahlst.
+            Személyre szabott kozmetikai kezelések, hogy újra ragyoghass.
           </p>
-          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">TERMIN ANFRAGEN &gt;</a>
+          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">Időpontot kérek! &gt;</a>
         </div>
       </div>
     </section>
@@ -96,46 +97,49 @@
         <figure class="split-info__media">
           <img
             class="split-info__img"
-            src="assets/imgs/split__info_img.png"
-            alt="Beratung im Salon"
+            src="../assets/imgs/split__info_img.png"
+            alt="Konzultáció a szalonban"
             width="640"
             height="640"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x640/F5F2ED/6b7f6e?text=Beratung';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x640/F5F2ED/6b7f6e?text=Konzultáció';"
           />
         </figure>
         <div class="split-info__body">
-          <p class="subpage-kicker">Professionelle Expertise, strahlendes Selbstvertrauen</p>
-          <h2 id="split-info-title" class="split-info__title section-title">Bewusste Hautpflege mit sichtbaren Resultaten</h2>
+          <p class="subpage-kicker">Professzionális szakértelem, fényesebb önbizalom</p>
+          <h2 id="split-info-title" class="split-info__title section-title">Tudatos bőrápolás látható eredményekért</h2>
           <p>
-            Meine kosmetischen Behandlungen richten sich an alle, die langfristig gesunde, ruhige, elastische Haut wünschen – ob bei Hautproblemen oder zur Vorbeugung von Alterungszeichen.
+            A kozmetikai kezeléseim azoknak szólnak, akik tartósan szeretnének egészséges, nyugodt, rugalmas bőrt - akár bőrproblémákkal
+            küzdenek, akár az öregedés jeleit szeretnék megelőzni.
           </p>
           <p>
-            Dabei wird die Haut tief gereinigt, gestrafft und regeneriert – mit Profi-Produkten sowie manuellen und Gerätetechniken. Ich arbeite mit modernsten Wirkstoffen, damit deine Haut langfristig gepflegt, ausgeglichen und strahlend bleibt.
+            A kezelések során a bőr mélytisztítása, feszesítése és regenerálása történik, míg a professzionális termékek, manuális és gépi
+            technikák kombinációjával. Legkorszerűbb hatóanyagokkal dolgozom, hogy a bőröd hosszú távon is ápolt, kiegyensúlyozott és
+            ragyogó maradjon.
           </p>
           <p>
-            Im Angebot sind unter anderem individuelle Reinigungs-, Glättungs-, Anti-Aging- und Lifting-Behandlungen.
+            A szolgáltatások között elérhetőek a személyre szabott tisztító, simító, ránctalanító és lifting kezelések.
           </p>
           <ul class="checklist" role="list">
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Individuelle Behandlung</span>
+              <span>Személyre szabott kezelés</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Für alle Hauttypen</span>
+              <span>Minden bőrtípusra</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Narbenpflege</span>
+              <span>Hegkezelés</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Langanhaltende Ergebnisse</span>
+              <span>Hosszantartó eredmények</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Profi-Produkte</span>
+              <span>Professzionális termékek</span>
             </li>
           </ul>
         </div>
@@ -145,46 +149,46 @@
     <section class="process-section" aria-labelledby="process-title">
       <div class="container">
         <header class="section-head section-head--center process-section__head">
-          <h2 id="process-title" class="section-title section-title--on-dark process-section__title">Wie läuft eine Behandlung ab?</h2>
+          <h2 id="process-title" class="section-title section-title--on-dark process-section__title">Hogyan zajlik egy kezelés?</h2>
           <p class="section-subtitle section-subtitle--on-dark process-section__intro">
-            Professionelle Beauty-Services mit persönlichem Ansatz
+            Professzionális szépségápolási szolgáltatások személyre szabott megközelítéssel
           </p>
         </header>
         <div class="process-section__cards">
           <article class="process-card">
             <div class="process-card__icon">
-              <img src="assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
+              <img src="../assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
             </div>
-            <h3 class="process-card__title">Termin</h3>
+            <h3 class="process-card__title">Időpont egyeztetés</h3>
             <p class="process-card__text">
-              Individuelle Gesichtsbehandlungen mit Premium-Wirkstoffen – für frischere, straffere und strahlendere Haut schon nach dem ersten Besuch.
+              Személyre szabott arckezelések prémium hatóanyagokkal, hogy a bőröd már az első alkalom után üdébb, feszesebb és ragyogóbb legyen.
             </p>
           </article>
           <article class="process-card">
             <div class="process-card__icon">
-              <img src="assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
+              <img src="../assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
             </div>
-            <h3 class="process-card__title">Diagnose und Behandlungsplan</h3>
+            <h3 class="process-card__title">Diagnosztika és kezelési terv</h3>
             <p class="process-card__text">
-              Mit einer individuellen Hautanalyse erfasse ich den Zustand deiner Haut und erstelle einen gezielten Plan für langanhaltende Resultate.
+              Személyre szabott bőrdiagnosztikával felmérem bőröd állapotát, majd célzott kezelési tervet állítok össze a tartós eredményekért.
             </p>
           </article>
           <article class="process-card">
             <div class="process-card__icon">
-              <img src="assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
+              <img src="../assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
             </div>
-            <h3 class="process-card__title">Kosmetische Behandlung</h3>
+            <h3 class="process-card__title">Kozmetikai kezelés</h3>
             <p class="process-card__text">
-              Die Behandlung erfolgt in steriler, ruhiger Atmosphäre mit Premium-Produkten und modernen Methoden – sichtbar und dennoch schonend.
+              Steril, nyugodt környezetben zajlik a kezelés, prémium termékekkel és korszerű technikákkal a látványos, mégis kíméletes eredményért.
             </p>
           </article>
           <article class="process-card">
             <div class="process-card__icon">
-              <img src="assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
+              <img src="../assets/icons/szolgaltatasok-icon.svg" alt="" width="48" height="48" decoding="async" />
             </div>
-            <h3 class="process-card__title">Tipps für zu Hause</h3>
+            <h3 class="process-card__title">Tanácsok otthonra</h3>
             <p class="process-card__text">
-              Du erhältst eine persönliche Pflegeanleitung für zu Hause – damit das Ergebnis bleibt und deine Haut langfristig gesund strahlt.
+              Személyes, otthoni ápolási útmutatót kapsz, hogy az eredmény tartós maradjon és bőröd hosszú távon is egészségesen ragyogjon.
             </p>
           </article>
         </div>
@@ -196,16 +200,16 @@
         <figure class="service-showcase__media">
           <img
             class="service-showcase__img"
-            src="assets/imgs/split__info_img.png"
-            alt="Manuelle Kosmetikbehandlung"
+            src="../assets/imgs/split__info_img.png"
+            alt="Manuális kozmetikai kezelés közben"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Behandlung';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Kezelés';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-a-title" class="service-showcase__title section-title">Manuelle Kosmetikbehandlungen</h2>
+          <h2 id="svc-a-title" class="service-showcase__title section-title">Manuális kozmetikai kezelések</h2>
           <ul class="service-panels service-panels--accordion" role="list">
             <li>
               <article class="service-panel">
@@ -216,7 +220,7 @@
                   aria-expanded="false"
                   aria-controls="svc-manual-p1"
                 >
-                  <span class="service-panel__title">Eszter G Gesichtsbehandlung | 1 Std.</span>
+                  <span class="service-panel__title">Eszter G-arckezelés | 1 óra</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -230,7 +234,8 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Individuelle Gesichtsbehandlung mit Reinigung, Peeling und nährenden Schritten – abgestimmt auf den aktuellen Zustand deiner Haut, mit Premium-Wirkstoffen.
+                          Személyre szabott arckezelés tisztítással, peelinggel és tápláló lépésekkel — a bőröd aktuális állapotához igazítva,
+                          prémium hatóanyagokkal.
                         </p>
                       </div>
                     </div>
@@ -247,7 +252,7 @@
                   aria-expanded="false"
                   aria-controls="svc-manual-p2"
                 >
-                  <span class="service-panel__title">Klassische Gesichtsreinigung | 1,5 Std.</span>
+                  <span class="service-panel__title">Hagyományos arctisztítás | 1,5 óra</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -261,7 +266,8 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Gründliche Mitesser- und Komedonenbehandlung, sanftes Peeling und beruhigende Maske – hygienisch und schonend, damit die Haut frisch und rein bleibt.
+                          Alapos mitesszer- és komedókezelés, gyengéd hámlasztás és nyugtató pakolás — higiénikus, kíméletes technikával, hogy a bőr
+                          friss és tiszta maradjon.
                         </p>
                       </div>
                     </div>
@@ -278,7 +284,7 @@
                   aria-expanded="false"
                   aria-controls="svc-manual-p3"
                 >
-                  <span class="service-panel__title">Premium-Feuchtigkeitsbehandlung | 50 Min.</span>
+                  <span class="service-panel__title">Prémium hidratáló kezelés | 50 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -292,7 +298,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Intensive Feuchtigkeit und straffende Wirkstoffe in einer Sitzung – ideal für blasse, feuchtigkeitsarme Haut, für spürbar weiche Haut und mehr Glanz.
+                          Intenzív hidratálás és feszesítő hatóanyagok egy ülésben — ideális fakó, vízhiányos bőrre, látványos puhaságért és ragyogásért.
                         </p>
                       </div>
                     </div>
@@ -310,16 +316,16 @@
         <figure class="service-showcase__media">
           <img
             class="service-showcase__img"
-            src="assets/imgs/split__info_img.png"
-            alt="Gerätegestützte Kosmetikbehandlung"
+            src="../assets/imgs/split__info_img.png"
+            alt="Gépi kozmetikai kezelés"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Geraet';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Gépi';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-b-title" class="service-showcase__title section-title">Gerätekosmetik</h2>
+          <h2 id="svc-b-title" class="service-showcase__title section-title">Gépi kozmetika</h2>
           <ul class="service-panels service-panels--accordion" role="list">
             <li>
               <article class="service-panel">
@@ -330,7 +336,7 @@
                   aria-expanded="false"
                   aria-controls="svc-machine-p1"
                 >
-                  <span class="service-panel__title">Ultraschall-Gesichtsbehandlung | 45 Min.</span>
+                  <span class="service-panel__title">Ultrahangos arckezelés | 45 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -344,7 +350,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Wirkstoff-Cocktail tiefer in die Haut mit Ultraschall – schnellere Aufnahme, schonende Behandlung, strahlendere Haut.
+                          Mélyebb rétegekbe juttatott hatóanyag-koktél ultrahanggal — gyorsabb felszívódás, kíméletes kezelés, ragyogóbb bőrkép.
                         </p>
                       </div>
                     </div>
@@ -361,7 +367,7 @@
                   aria-expanded="false"
                   aria-controls="svc-machine-p2"
                 >
-                  <span class="service-panel__title">Mikrodermabrasion | 50 Min.</span>
+                  <span class="service-panel__title">Mikrodermabrázió | 50 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -375,7 +381,8 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Sanftes Peeling für eine glattere Hautoberfläche und weniger Unregelmässigkeiten – nach Absprache, in der Stärke passend zu deinem Hauttyp.
+                          Finom hámlasztás a simább bőrfelszínért és az egyenetlenségek csökkentéséért — előzetes egyeztetéssel, bőrtípusodnak megfelelő
+                          erősséggel.
                         </p>
                       </div>
                     </div>
@@ -392,7 +399,7 @@
                   aria-expanded="false"
                   aria-controls="svc-machine-p3"
                 >
-                  <span class="service-panel__title">Vakuum-Tiefenreinigung | 45 Min.</span>
+                  <span class="service-panel__title">Vákuumos mélytisztítás | 45 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -406,7 +413,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Sanfte Vakuumtechnik zur Porenreinigung und Erfrischung der Haut – mit ergänzenden Schritten für ein ruhiges, ausgeruhtes Gefühl.
+                          Finom vákuumos technika a pórusok tisztítására és a bőr frissítésére — kiegészítő lépésekkel a nyugodt, kipihent érzésért.
                         </p>
                       </div>
                     </div>
@@ -424,8 +431,8 @@
         <figure class="service-showcase__media">
           <img
             class="service-showcase__img"
-            src="assets/imgs/split__info_img.png"
-            alt="Weitere kosmetische Behandlungen"
+            src="../assets/imgs/split__info_img.png"
+            alt="További kozmetikai kezelések"
             width="640"
             height="800"
             loading="lazy"
@@ -433,7 +440,7 @@
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-c-title" class="service-showcase__title section-title">Weitere kosmetische Behandlungen</h2>
+          <h2 id="svc-c-title" class="service-showcase__title section-title">További kozmetikai kezelések</h2>
           <ul class="service-panels service-panels--accordion" role="list">
             <li>
               <article class="service-panel">
@@ -444,7 +451,7 @@
                   aria-expanded="false"
                   aria-controls="svc-extra-p1"
                 >
-                  <span class="service-panel__title">Wimpern- und Brauenfärbung | 45 Min.</span>
+                  <span class="service-panel__title">Szempilla és szemöldök festés | 45 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -458,7 +465,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Natürlicher oder ausdrucksstärkerer Farbton – abgestimmt auf deine Brauenform und Wimpern, mit haltbarem, gleichmässigem Ergebnis.
+                          Természetes hatású vagy karakteresebb szín — a szemöldök formájához és a pilláidhoz igazítva, tartós, egyenletes eredménnyel.
                         </p>
                       </div>
                     </div>
@@ -475,7 +482,7 @@
                   aria-expanded="false"
                   aria-controls="svc-extra-p2"
                 >
-                  <span class="service-panel__title">Make-up (Anlass / Day) | 1 Std.</span>
+                  <span class="service-panel__title">Smink (alkalmi / nappali) | 1 óra</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -489,7 +496,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Individuelles Make-up passend zu Hauttyp und Anlass – haltbarer Finish, natürlich oder betont, nach Wunsch.
+                          Egyénre szabott smink bőrtípusodhoz és az alkalomhoz — tartós finish, természetes vagy hangsúlyos megjelenés, igény szerint.
                         </p>
                       </div>
                     </div>
@@ -506,7 +513,7 @@
                   aria-expanded="false"
                   aria-controls="svc-extra-p3"
                 >
-                  <span class="service-panel__title">Waxing | je nach Körperzone</span>
+                  <span class="service-panel__title">Gyanta | testrész szerint</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -519,11 +526,11 @@
                       aria-hidden="true"
                     >
                       <div class="service-panel__panel-inner">
-                        <p>Schnelle, hygienische Haarentfernung mit Premium-Wachs – mit der passenden Technik für die behandelte Zone.</p>
+                        <p>Gyors, higiénikus szőrtelenítés prémium gyantával — a kezelt területnek megfelelő technikával.</p>
                         <ul class="service-panel__list">
-                          <li>Bein, Arm, Achsel oder Bikinizone</li>
-                          <li>Vorbereitung und beruhigende Nachpflege</li>
-                          <li>Individuelle Dauer je nach Zone</li>
+                          <li>láb, kar, hónalj vagy bikini vonal</li>
+                          <li>előkészítés és nyugtató utóápolás</li>
+                          <li>személyre szabott időtartam a terület alapján</li>
                         </ul>
                       </div>
                     </div>
@@ -540,7 +547,7 @@
                   aria-expanded="false"
                   aria-controls="svc-extra-p4"
                 >
-                  <span class="service-panel__title">Augen- und Lippenpflege | 30 Min.</span>
+                  <span class="service-panel__title">Szemkörnyék- és szájápolás | 30 perc</span>
                   <span class="service-panel__expand" aria-hidden="true"></span>
                 </button>
                 <div class="service-panel__overflow">
@@ -554,7 +561,7 @@
                     >
                       <div class="service-panel__panel-inner">
                         <p>
-                          Schonende Pflege für empfindliche Partien – Feuchtigkeit, Frische und Verschönerung in einer kurzen, angenehmen Sitzung.
+                          Kíméletes ápolás a finom bőrfelületekre — hidratálás, frissítés és szépítés egy rövid, kellemes ülésben.
                         </p>
                       </div>
                     </div>
@@ -569,25 +576,25 @@
 
     <section class="cta-banner cta-banner--tight" aria-labelledby="cta-price-title">
       <div class="container cta-banner__inner">
-        <h2 id="cta-price-title" class="cta-banner__title">Sieh dir unsere Maniküre-Preisliste an!</h2>
-        <a class="btn btn--white-green" href="arlista.html#price-kozmetika">PREISE &gt;</a>
+        <h2 id="cta-price-title" class="cta-banner__title">Tekintsd meg kozmetikai árlistánkat!</h2>
+        <a class="btn btn--white-green" href="arlista.html#price-kozmetika">ÁRLISTA &gt;</a>
       </div>
     </section>
 
     <section class="page-gallery-section" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section-head section-head--center page-gallery-section__head">
-          <p class="subpage-kicker">Der Weg zur Schönheit</p>
-          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Sieh dir meine Referenzen an</h2>
+          <p class="subpage-kicker">A szépség útja</p>
+          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Tekintsd meg referenciamunkáim</h2>
           <p class="section-subtitle page-gallery-section__intro">
-            Blättere und entdecke echte Resultate in Bildern.
+            Lapozz, jegyezz megoldásokat, valódi eredményeket képekben.
           </p>
         </header>
-        <!-- Galerie: Bilder in assets/imgs/page-gallery/kozmetikai/ (01.png–12.png). Nur für diese Unterseite austauschen. -->
+        <!-- Galéria: képek az assets/imgs/page-gallery/kozmetikai/ mappában (01.png–12.png). Csak erre az aloldalra cseréld őket. -->
         <div class="page-gallery" data-page-gallery>
           <div class="page-gallery__stage">
             <div class="page-gallery__carousel">
-              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Vorheriges Bild">
+              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Előző képek">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                 </svg>
@@ -597,8 +604,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/01.png"
-                      alt="Kosmetik-Galerie, Bild 1"
+                      src="../assets/imgs/page-gallery/kozmetikai/01.png"
+                      alt="Kozmetikai galéria, 1. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -608,8 +615,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/02.png"
-                      alt="Kosmetik-Galerie, Bild 2"
+                      src="../assets/imgs/page-gallery/kozmetikai/02.png"
+                      alt="Kozmetikai galéria, 2. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -619,8 +626,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/03.png"
-                      alt="Kosmetik-Galerie, Bild 3"
+                      src="../assets/imgs/page-gallery/kozmetikai/03.png"
+                      alt="Kozmetikai galéria, 3. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -630,8 +637,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/04.png"
-                      alt="Kosmetik-Galerie, Bild 4"
+                      src="../assets/imgs/page-gallery/kozmetikai/04.png"
+                      alt="Kozmetikai galéria, 4. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -641,8 +648,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/05.png"
-                      alt="Kosmetik-Galerie, Bild 5"
+                      src="../assets/imgs/page-gallery/kozmetikai/05.png"
+                      alt="Kozmetikai galéria, 5. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -652,8 +659,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/06.png"
-                      alt="Kosmetik-Galerie, Bild 6"
+                      src="../assets/imgs/page-gallery/kozmetikai/06.png"
+                      alt="Kozmetikai galéria, 6. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -663,8 +670,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/07.png"
-                      alt="Kosmetik-Galerie, Bild 7"
+                      src="../assets/imgs/page-gallery/kozmetikai/07.png"
+                      alt="Kozmetikai galéria, 7. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -674,8 +681,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/08.png"
-                      alt="Kosmetik-Galerie, Bild 8"
+                      src="../assets/imgs/page-gallery/kozmetikai/08.png"
+                      alt="Kozmetikai galéria, 8. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -685,8 +692,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/09.png"
-                      alt="Kosmetik-Galerie, Bild 9"
+                      src="../assets/imgs/page-gallery/kozmetikai/09.png"
+                      alt="Kozmetikai galéria, 9. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -696,8 +703,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/10.png"
-                      alt="Kosmetik-Galerie, Bild 10"
+                      src="../assets/imgs/page-gallery/kozmetikai/10.png"
+                      alt="Kozmetikai galéria, 10. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -707,8 +714,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/11.png"
-                      alt="Kosmetik-Galerie, Bild 11"
+                      src="../assets/imgs/page-gallery/kozmetikai/11.png"
+                      alt="Kozmetikai galéria, 11. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -718,8 +725,8 @@
                   <div class="page-gallery__slide">
                     <img
                       class="page-gallery__img"
-                      src="assets/imgs/page-gallery/kozmetikai/12.png"
-                      alt="Kosmetik-Galerie, Bild 12"
+                      src="../assets/imgs/page-gallery/kozmetikai/12.png"
+                      alt="Kozmetikai galéria, 12. kép"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -728,13 +735,13 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Nächstes Bild">
+              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Következő képek">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6" />
                 </svg>
               </button>
             </div>
-            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galerieposition"></nav>
+            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galéria pozíció"></nav>
           </div>
         </div>
       </div>
@@ -746,12 +753,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Individuelle Kosmetik für Hautverjüngung und Problemhaut – mit modernen Methoden und natürlichen Wirkstoffen.
+          Személyre szabott kozmetikai kezelések bőrfiatalításra és problémás bőr kezelésére, modern technológiákkal és természetes hatóanyagokkal.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Kontakt</p>
+        <p class="footer__heading">Elérhetőség</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -793,10 +800,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Folge uns</p>
+        <p class="footer__heading">Kövess minket</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
+            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -807,7 +814,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
+            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -821,15 +828,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
+          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
+          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
         </p>
       </div>
     </div>
   </footer>
 
-  <script src="js/lang-transition-init.js"></script>
-  <script src="js/main.js"></script>
+  <script src="../js/lang-transition-init.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>

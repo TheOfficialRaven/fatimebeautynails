@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kapcsolat — Fatime Beauty</title>
+  <title>Kontakt — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-kapcsolat">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html">Wimpern</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html">Árlista</a></li>
-              <li><a href="kapcsolat.html" aria-current="page">Kapcsolat</a></li>
-              <li><a href="hazirend.html">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html">Preisliste</a></li>
+              <li><a href="kapcsolat.html" aria-current="page">Kontakt</a></li>
+              <li><a href="hazirend.html">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="kapcsolat.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/kapcsolat.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -82,11 +84,11 @@
         <div class="container hazirend-hero__panel-row">
           <div class="hazirend-hero-panel kapcsolat-hero-panel">
             <div class="kapcsolat-hero-panel__inner">
-              <h1 id="page-hero-title" class="kapcsolat-hero-panel__title">Kapcsolat</h1>
+              <h1 id="page-hero-title" class="kapcsolat-hero-panel__title">Kontakt</h1>
               <p class="kapcsolat-hero-panel__lead">
-                Az időpontkérést üzenetben vagy<br />
-                telefonon tudod megtenni.<br />
-                Fizetési lehetőség: készpénz
+                Terminanfragen kannst du per Nachricht oder<br />
+                telefonisch stellen.<br />
+                Zahlung: Barzahlung
               </p>
               <div class="kapcsolat-hero-panel__details">
                 <div class="kapcsolat-hero-panel__col">
@@ -130,7 +132,7 @@
                     <a class="kapcsolat-hero-panel__link" href="mailto:fatimegor8@gmail.com">fatimegor8@gmail.com</a>
                   </div>
                   <div class="kapcsolat-hero-panel__row kapcsolat-hero-panel__row--social">
-                    <a class="kapcsolat-hero-panel__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+                    <a class="kapcsolat-hero-panel__social-btn" href="#" aria-label="Facebook-Seite öffnen">
                       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path
                           fill="currentColor"
@@ -138,7 +140,7 @@
                         />
                       </svg>
                     </a>
-                    <a class="kapcsolat-hero-panel__social-btn" href="#" aria-label="Instagram profil megnyitása">
+                    <a class="kapcsolat-hero-panel__social-btn" href="#" aria-label="Instagram-Profil öffnen">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                         <circle cx="12" cy="12" r="4" />
@@ -159,7 +161,7 @@
         <div class="contact__media">
           <img
             src="assets/imgs/kontakt_img.png"
-            alt="Kozmetikai termékek és növényi díszítés"
+            alt="Kosmetikprodukte und Pflanzendeko"
             width="1200"
             height="1600"
             loading="lazy"
@@ -168,31 +170,31 @@
         </div>
         <div class="contact__form-wrap">
           <div class="contact__form-inner">
-            <h2 class="contact__title">Kérdezz bátran, egyeztessünk időpontot!</h2>
+            <h2 class="contact__title">Frage gern nach – lass uns einen Termin finden!</h2>
             <p class="contact__intro">
-              Időpontot foglalnál vagy kérdésed van? Írj, és 24 órán belül felveszem veled a kapcsolatot.
+              Möchtest du einen Termin oder hast du eine Frage? Schreib mir – ich melde mich innerhalb von 24 Stunden.
             </p>
             <form class="contact-form" action="#" method="post">
               <label class="field" for="kapcsolat-name">
-                <span class="field__label">Teljes név</span>
-                <input id="kapcsolat-name" type="text" name="name" placeholder="Teljes név" autocomplete="name" />
+                <span class="field__label">Vollständiger Name</span>
+                <input id="kapcsolat-name" type="text" name="name" placeholder="Vollständiger Name" autocomplete="name" />
               </label>
               <label class="field" for="kapcsolat-email">
-                <span class="field__label">Email</span>
-                <input id="kapcsolat-email" type="email" name="email" placeholder="E-mail cím" autocomplete="email" />
+                <span class="field__label">E-Mail</span>
+                <input id="kapcsolat-email" type="email" name="email" placeholder="E-Mail-Adresse" autocomplete="email" />
               </label>
               <label class="field" for="kapcsolat-message">
-                <span class="field__label">Üzenet</span>
-                <textarea id="kapcsolat-message" name="message" rows="6" placeholder="Üzenet"></textarea>
+                <span class="field__label">Nachricht</span>
+                <textarea id="kapcsolat-message" name="message" rows="6" placeholder="Nachricht"></textarea>
               </label>
               <label class="contact-form__consent">
                 <input type="checkbox" name="privacy" value="1" required />
                 <span class="contact-form__consent-text">
-                  Elolvastam és elfogadom az
-                  <a href="#" class="contact-form__policy-link">adatkezelési tájékoztatót.</a>
+                  Ich habe die
+                  <a href="#" class="contact-form__policy-link">Datenschutzerklärung</a> gelesen und akzeptiere sie.
                 </span>
               </label>
-              <button type="submit" class="btn btn--block btn--contact-send">KÜLDÉS</button>
+              <button type="submit" class="btn btn--block btn--contact-send">SENDEN</button>
             </form>
           </div>
         </div>
@@ -202,7 +204,7 @@
     <section class="faq" id="gyik">
       <div class="container">
         <header class="section-head section-head--center faq__head">
-          <h2 class="section-title faq__title">Gyakran Ismételt Kérdések</h2>
+          <h2 class="section-title faq__title">Häufig gestellte Fragen</h2>
         </header>
         <div class="faq__columns">
           <div class="faq__col">
@@ -220,15 +222,14 @@
                   </svg>
                 </span>
                 <span class="faq-item__question">
-                  Hogyan válasszam ki a legjobb szolgáltatást, ha nem vagyok biztos benne, melyik kezelésre van szükségem?
+                  Wie wähle ich die passende Leistung, wenn ich unsicher bin, welche Behandlung ich brauche?
                 </span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-1" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-1" aria-hidden="true">
                     <p>
-                      Előzetes konzultáción átbeszéljük az igényeidet és a bőröd / állapotod alapján javaslok kezeléseket. Nyugodtan hozz
-                      példákat vagy kérdéseket — együtt találjuk meg a számodra legjobb megoldást.
+                      In einem Vorgespräch klären wir deine Wünsche; je nach Haut und Befund schlage ich Behandlungen vor. Bring ruhig Beispiele oder Fragen mit – gemeinsam finden wir die beste Lösung.
                     </p>
                   </div>
                 </div>
@@ -247,14 +248,13 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Hogyan tudok időpontot foglalni?</span>
+                <span class="faq-item__question">Wie kann ich einen Termin buchen?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-2" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-2" aria-hidden="true">
                     <p>
-                      Írj az űrlapon, közösségi média üzenetben vagy telefonon — hamarosan visszajelzek, és egyeztetünk egy neked megfelelő
-                      időpontot.
+                      Schreib über das Formular, per Social Media oder telefonisch – ich melde mich bald und wir finden einen passenden Termin.
                     </p>
                   </div>
                 </div>
@@ -273,14 +273,13 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Van garancia? (1&nbsp;hét)</span>
+                <span class="faq-item__question">Gibt es eine Garantie?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-3" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-3" aria-hidden="true">
                     <p>
-                      Meghatározott kezeléseknél 1 héten belül jelezd, ha nem vagy elégedett — megbeszéljük az esetet, és a protokollnak
-                      megfelelően keresünk megoldást.
+                      Bei bestimmten Behandlungen melde dich innerhalb einer Woche, wenn du unzufrieden bist – wir besprechen den Fall und finden gemäss Protokoll eine Lösung.
                     </p>
                   </div>
                 </div>
@@ -301,14 +300,13 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Mi van, ha allergiás reakcióm lenne a használt anyagokra?</span>
+                <span class="faq-item__question">Was ist, wenn ich auf verwendete Produkte allergisch reagiere?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-4" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-4" aria-hidden="true">
                     <p>
-                      Kérlek mindig jelezd előre az ismert allergiákat. Szükség esetén próbakezeléssel vagy más termékkel dolgozunk — a biztonság
-                      az első.
+                      Bitte teile bekannte Allergien immer im Voraus mit. Bei Bedarf arbeiten wir mit einem Test oder anderen Produkten – Sicherheit steht an erster Stelle.
                     </p>
                   </div>
                 </div>
@@ -327,12 +325,12 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Vendégparkoló</span>
+                <span class="faq-item__question">Gastparkplatz</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-5" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-5" aria-hidden="true">
-                    <p>A szalon közelében vendégparkolási lehetőség érhető el — a pontos információt foglaláskor vagy a kapcsolat szekcióban találod.</p>
+                    <p>In der Nähe des Salons gibt es Gastparkplätze – genaue Infos erhältst du bei der Buchung oder im Kontaktbereich.</p>
                   </div>
                 </div>
               </div>
@@ -350,12 +348,12 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Milyen fizetési lehetőségek vannak?</span>
+                <span class="faq-item__question">Welche Zahlungsmöglichkeiten gibt es?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="faq-k-p-6" class="faq-item__panel" role="region" aria-labelledby="faq-k-t-6" aria-hidden="true">
-                    <p>Fizethetsz készpénzzel és bankkártyával is — részletek egyeztetéskor, szükség szerint számlát állítok ki.</p>
+                    <p>Du kannst bar oder mit Karte zahlen – Details bei der Terminvereinbarung; auf Wunsch stelle ich eine Rechnung aus.</p>
                   </div>
                 </div>
               </div>
@@ -371,12 +369,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Fatime Beauty — professzionális szépségápolás, személyre szabott kezelésekkel és tiszteletteljes vendégközpontú hozzáállással.
+          Fatime Beauty – professionelle Beauty-Pflege, massgeschneiderte Behandlungen und ein respektvoller, gästeorientierter Ansatz.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -418,10 +416,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Social Media</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -432,7 +430,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -446,14 +444,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

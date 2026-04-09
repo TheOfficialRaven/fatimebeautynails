@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Piercing — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-piercing">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html">Wimpern</a></li>
               <li><a href="piercing.html" aria-current="page">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html">Árlista</a></li>
-              <li><a href="kapcsolat.html">Kapcsolat</a></li>
-              <li><a href="hazirend.html">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html">Preisliste</a></li>
+              <li><a href="kapcsolat.html">Kontakt</a></li>
+              <li><a href="hazirend.html">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="piercing.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/piercing.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -82,9 +84,9 @@
         <div class="page-hero__content">
           <h1 id="page-hero-title" class="page-hero__title">Piercing</h1>
           <p class="page-hero__lead">
-            Fül és egyéb piercingek steril környezetben, szakmai tanácsadással és minőségi ékszerekkel — diszkrét, nyugodt légkörben.
+            Ausdrucksstarker, dennoch harmonischer Blick – auch im Alltag.
           </p>
-          <a class="btn btn--gold btn--hero-cta page-hero__cta page-hero__cta--uppercase" href="kapcsolat.html#uzenet">Időpontfoglalás &gt;</a>
+          <a class="btn btn--gold btn--hero-cta page-hero__cta page-hero__cta--uppercase" href="kapcsolat.html#uzenet">TERMIN ANFRAGEN &gt;</a>
         </div>
       </div>
     </section>
@@ -95,7 +97,7 @@
           <img
             class="split-info__img"
             src="assets/imgs/references-1.png"
-            alt="Piercing és ékszer részlet"
+            alt="Piercing und Schmuckdetail"
             width="640"
             height="800"
             loading="lazy"
@@ -103,32 +105,31 @@
           />
         </figure>
         <div class="split-info__body">
-          <p class="subpage-kicker">Szakszerű ellátás a te kényelmedért</p>
-          <h2 id="split-info-title" class="split-info__title section-title">Milyen előnyöket nyújt a professzionális piercing?</h2>
+          <p class="subpage-kicker">Über Sicherheit und Selbstausdruck</p>
+          <h2 id="split-info-title" class="split-info__title section-title">Was du über Piercings wissen solltest</h2>
           <p>
-            A piercing nemcsak esztétikai választás: fontos a megfelelő hely, az ékszer minősége és a gyógyulás támogatása. Előzetes egyeztetés
-            után átbeszéljük, milyen zónát szeretnél, milyen ékszert javaslok, és mire számíthatsz a kezelés alatt és utána.
-          </p>
-          <p>
-            Steril eszközökkel, higiénikus környezetben dolgozom — célom, hogy a beavatkozás gyors, biztonságos és kiszámítható legyen, majd részletes
-            utóápolási útmutatót kapsz a nyugodt gyógyuláshoz.
+            Piercings setze ich sauber und sicher, mit hohen Ansprüchen an Materialqualität und Präzision. Im Salon arbeite ich unter sterilen Bedingungen mit hautfreundlichen Metallen – für ein ästhetisches, langlebiges Ergebnis.
           </p>
           <ul class="checklist" role="list">
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Rövid idő alatt, szakszerűen elkészülő beavatkozás</span>
+              <span>Hypoallergen</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Steril eszközök és higiénikus, kontrollált környezet</span>
+              <span>Medizinischer / Ni-Titan-Schmuck</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Testbarát, minőségi ékszerek és egyéni tanácsadás</span>
+              <span>Schnelles, steriles Stechen</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Kíméletes technika és részletes utóápolási útmutató</span>
+              <span>Schmuck wird in einem Schritt sofort korrekt platziert</span>
+            </li>
+            <li class="checklist__item">
+              <span class="checklist__mark" aria-hidden="true">✓</span>
+              <span>Ab etwa 3 Monaten möglich</span>
             </li>
           </ul>
         </div>
@@ -137,25 +138,25 @@
 
     <section class="cta-banner cta-banner--tight" aria-labelledby="cta-price-title">
       <div class="container cta-banner__inner">
-        <h2 id="cta-price-title" class="cta-banner__title">Tekintsd meg piercing árlistánkat!</h2>
-        <a class="btn btn--white-green" href="arlista.html#price-piercing">Árlista &gt;</a>
+        <h2 id="cta-price-title" class="cta-banner__title">Sieh dir unsere Piercing-Preisliste an!</h2>
+        <a class="btn btn--white-green" href="arlista.html#price-piercing">PREISE &gt;</a>
       </div>
     </section>
 
     <section class="page-gallery-section" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section-head section-head--center page-gallery-section__head">
-          <p class="subpage-kicker">Nézz meg munkáinkat</p>
-          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Meggyőző címsor, röviden leírva</h2>
+          <p class="subpage-kicker">Piercing &amp; Schmuck</p>
+          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Sieh dir meine Referenzen an</h2>
           <p class="section-subtitle page-gallery-section__intro">
-            Piercing munkáink és hangulatképek a szalonból — lapozz a nyilakkal vagy a pontokkal.
+            Gepflegter Auftritt – echte Resultate in Bildern.
           </p>
         </header>
-        <!-- Galéria: képek az assets/imgs/page-gallery/piercing/ mappában (01.png–12.png). Csak erre az aloldalra cseréld őket. -->
+        <!-- Galerie: Bilder in assets/imgs/page-gallery/piercing/ (01.png–12.png). Nur für diese Unterseite austauschen. -->
         <div class="page-gallery" data-page-gallery>
           <div class="page-gallery__stage">
             <div class="page-gallery__carousel">
-              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Előző képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Vorheriges Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                 </svg>
@@ -166,7 +167,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/01.png"
-                      alt="Piercing galéria, 1. kép"
+                      alt="Piercing-Galerie, Bild 1"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -177,7 +178,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/02.png"
-                      alt="Piercing galéria, 2. kép"
+                      alt="Piercing-Galerie, Bild 2"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -188,7 +189,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/03.png"
-                      alt="Piercing galéria, 3. kép"
+                      alt="Piercing-Galerie, Bild 3"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -199,7 +200,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/04.png"
-                      alt="Piercing galéria, 4. kép"
+                      alt="Piercing-Galerie, Bild 4"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -210,7 +211,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/05.png"
-                      alt="Piercing galéria, 5. kép"
+                      alt="Piercing-Galerie, Bild 5"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -221,7 +222,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/06.png"
-                      alt="Piercing galéria, 6. kép"
+                      alt="Piercing-Galerie, Bild 6"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -232,7 +233,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/07.png"
-                      alt="Piercing galéria, 7. kép"
+                      alt="Piercing-Galerie, Bild 7"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -243,7 +244,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/08.png"
-                      alt="Piercing galéria, 8. kép"
+                      alt="Piercing-Galerie, Bild 8"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -254,7 +255,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/09.png"
-                      alt="Piercing galéria, 9. kép"
+                      alt="Piercing-Galerie, Bild 9"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -265,7 +266,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/10.png"
-                      alt="Piercing galéria, 10. kép"
+                      alt="Piercing-Galerie, Bild 10"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -276,7 +277,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/11.png"
-                      alt="Piercing galéria, 11. kép"
+                      alt="Piercing-Galerie, Bild 11"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -287,7 +288,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/piercing/12.png"
-                      alt="Piercing galéria, 12. kép"
+                      alt="Piercing-Galerie, Bild 12"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -296,13 +297,13 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Következő képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Nächstes Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6" />
                 </svg>
               </button>
             </div>
-            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galéria pozíció"></nav>
+            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galerieposition"></nav>
           </div>
         </div>
       </div>
@@ -314,12 +315,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Piercing — steril környezet, minőségi ékszerek és személyre szabott tanácsadás a biztonságos beavatkozásért és a nyugodt gyógyulásért.
+          Piercing – steriles Umfeld, hochwertiger Schmuck und persönliche Beratung für eine sichere Behandlung und entspanntes Heilen.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -361,10 +362,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Folge uns</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -375,7 +376,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -389,14 +390,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

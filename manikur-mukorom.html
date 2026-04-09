@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manikűr és műköröm — Fatime Beauty</title>
+  <title>Maniküre &amp; Modellage — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -11,18 +12,19 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
 </head>
 <body class="page-manikur">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Fő navigáció">
+      <nav class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Főoldal</a>
+            <a href="index.html" class="nav__link">Startseite</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -32,14 +34,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
+              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
-              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
-              <li><a href="manikur-mukorom.html" aria-current="page">Manikűr és műköröm</a></li>
-              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
-              <li><a href="pilla.html">Pilla</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
+              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
+              <li><a href="manikur-mukorom.html" aria-current="page">Maniküre &amp; Modellage</a></li>
+              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
+              <li><a href="pilla.html">Wimpern</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -51,23 +53,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Infó<span class="nav__caret" aria-hidden="true"></span></a
+              >Info<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
-              <li><a href="arlista.html">Árlista</a></li>
-              <li><a href="kapcsolat.html">Kapcsolat</a></li>
-              <li><a href="hazirend.html">Házirend</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
+              <li><a href="arlista.html">Preisliste</a></li>
+              <li><a href="kapcsolat.html">Kontakt</a></li>
+              <li><a href="hazirend.html">Hausordnung</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link">Rólam</a>
+            <a href="rolam.html" class="nav__link">Über mich</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
-        <div class="lang-switch" aria-label="Nyelvválasztó">
-          <a href="#" class="lang-switch__link" hreflang="de" lang="de">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
+        <div class="lang-switch" aria-label="Sprachauswahl">
+          <a href="manikur-mukorom.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="#" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
+          <a href="hu/manikur-mukorom.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
         </div>
       </nav>
     </div>
@@ -80,11 +82,11 @@
       </div>
       <div class="page-hero__grid">
         <div class="page-hero__content">
-          <h1 id="page-hero-title" class="page-hero__title">Manikűr és műköröm</h1>
+          <h1 id="page-hero-title" class="page-hero__title">Maniküre &amp; Modellage</h1>
           <p class="page-hero__lead">
-            Tiszta kezek, ápolt körmök. Érezd magad jól a saját bőrödben minden nap!
+            Haltbare, ordentliche und ästhetische Lösungen – auch für den Alltag.
           </p>
-          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">Időpontfoglalás &gt;</a>
+          <a class="btn btn--gold btn--hero-cta page-hero__cta" href="kapcsolat.html#uzenet">TERMIN ANFRAGEN &gt;</a>
         </div>
       </div>
     </section>
@@ -95,40 +97,42 @@
           <img
             class="split-info__img"
             src="assets/imgs/references-1.png"
-            alt="Ápolt köröm, manikűr részlet"
+            alt="Gepflegter Nagel, Maniküre-Detail"
             width="640"
             height="640"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x640/F5F2ED/6b7f6e?text=Manikűr';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x640/F5F2ED/6b7f6e?text=Manikuere';"
           />
         </figure>
         <div class="split-info__body">
-          <p class="subpage-kicker">Ápolt kezek, magabiztos megjelenés</p>
-          <h2 id="split-info-title" class="split-info__title section-title">Miért jó választás a manikűr vagy a műköröm?</h2>
+          <p class="subpage-kicker">Gepflegte Hände, selbstbewusster Auftritt</p>
+          <h2 id="split-info-title" class="split-info__title section-title">Warum Maniküre oder Nagelmodellage?</h2>
           <p>
-            A kezeink és körmeink mindennap látható részletek: egy igényes manikűr vagy tartós műköröm nemcsak esztétikus, hanem hozzájárul ahhoz is,
-            hogy magabiztosan mozdulj meg a munkában és a szabadidőben egyaránt.
+            Maniküre ist die Basis für gepflegte Hände – ordentliche, dauerhaft schöne Nägel. Gel-Lack und Modellage sind beliebt wegen Haltbarkeit, Glanz und Tragekomfort.
           </p>
           <p>
-            A szalonban steril eszközökkel, kíméletes technikával dolgozom: először megbeszéljük az elképzelésedet és az életmódodat, majd olyan
-            megoldást javaslok, ami tartós, kényelmes és a kezed természetes vonalait is figyelembe veszi.
+            Mit Acryl- und Geltechnik arbeite ich daran, dass natürliche oder modellierte Nägel perfekt, haltbar und schön wirken. Dabei achte ich auf jedes Detail – ob Alltag oder besonderer Anlass.
           </p>
           <ul class="checklist" role="list">
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Tartós, esztétikus eredmények</span>
+              <span>Hält die Schönheit bis zu 3–4 Wochen</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Fájdalommentes és biztonságos kezelések</span>
+              <span>Acryl: extra haltbar, formbar für längere Nägel</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Precíz, igényes, egyedi megoldások</span>
+              <span>Gel-Lack: flexibel, natürlich wirkend</span>
             </li>
             <li class="checklist__item">
               <span class="checklist__mark" aria-hidden="true">✓</span>
-              <span>Kellemes környezetben történő kezelések garantálva!</span>
+              <span>Ideal auch für brüchige Nägel</span>
+            </li>
+            <li class="checklist__item">
+              <span class="checklist__mark" aria-hidden="true">✓</span>
+              <span>Perfekt für Alltag und besondere Anlässe</span>
             </li>
           </ul>
         </div>
@@ -137,8 +141,8 @@
 
     <section class="cta-banner cta-banner--tight" aria-labelledby="cta-price-title">
       <div class="container cta-banner__inner">
-        <h2 id="cta-price-title" class="cta-banner__title">Tekintsd meg kozmetikai árlistánkat!</h2>
-        <a class="btn btn--white-green" href="arlista.html#price-manikur">Árlista &gt;</a>
+        <h2 id="cta-price-title" class="cta-banner__title">Sieh dir unsere Maniküre-Preisliste an!</h2>
+        <a class="btn btn--white-green" href="arlista.html#price-manikur">PREISE &gt;</a>
       </div>
     </section>
 
@@ -148,18 +152,17 @@
           <img
             class="service-showcase__img"
             src="assets/imgs/references-2.png"
-            alt="Épített műköröm — kész körmök"
+            alt="Modellierte Nägel — fertige Nägel"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Műköröm';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Modellage';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-epitett-title" class="service-showcase__title section-title">Épített műköröm</h2>
+          <h2 id="svc-epitett-title" class="service-showcase__title section-title">Modellierte Nägel</h2>
           <p>
-            Forma és hossz igény szerint, stabil alappal és szép ívekkel. Ideális, ha tartós, karakteres körmöt szeretnél — mindig a kezed
-            adottságaihoz és a mindennapi tevékenységeidhez igazítva.
+            Form und Länge nach Wunsch, mit stabiler Basis und schönen Schwüngen. Ideal, wenn du haltbare, charakterstarke Nägel möchtest – immer angepasst an deine Hände und deinen Alltag.
           </p>
         </div>
       </div>
@@ -171,18 +174,17 @@
           <img
             class="service-showcase__img"
             src="assets/imgs/references-1.png"
-            alt="Gél lakkozott körmök"
+            alt="Mit Gel-Lack lackierte Nägel"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Gél+lakk';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Gel+Lack';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-gel-title" class="service-showcase__title section-title">Gél lakk</h2>
+          <h2 id="svc-gel-title" class="service-showcase__title section-title">Gel-Lack</h2>
           <p>
-            Fényes, tartós szín hetekre — gyorsabb ütemben, mint a hagyományos lakkozás. Tökéletes választás, ha szereted a változatosságot, mégis
-            stabil, kifutásmentes eredményre vágysz.
+            Glänzende, haltbare Farbe für Wochen – schneller als klassisches Lackieren. Perfekt, wenn du Abwechslung magst und dennoch ein stabiles, auslauffreies Ergebnis willst.
           </p>
         </div>
       </div>
@@ -194,18 +196,17 @@
           <img
             class="service-showcase__img"
             src="assets/imgs/split__info_img.png"
-            alt="Természetes japán manikűr"
+            alt="Natürliche japanische Maniküre"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Japán+manikűr';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Japan+Manikuere';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-japan-title" class="service-showcase__title section-title">Tradicionális japán manikűr</h2>
+          <h2 id="svc-japan-title" class="service-showcase__title section-title">Traditionelle japanische Maniküre</h2>
           <p>
-            Finom, természetes hatás: a köröm és a bőr kíméletes ápolása, egészséges fény és ápolt megjelenés — minimális anyaghasználattal, a
-            hosszú távú körömállapotot szem előtt tartva.
+            Sanft und natürlich: schonende Pflege von Nagel und Haut, gesunder Glanz – mit minimalem Materialverbrauch und Fokus auf langfristige Nagelgesundheit.
           </p>
         </div>
       </div>
@@ -217,18 +218,17 @@
           <img
             class="service-showcase__img"
             src="assets/imgs/references-1.png"
-            alt="Klasszikus manikűr"
+            alt="Klassische Maniküre"
             width="640"
             height="800"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Manikűr';"
+            onerror="this.onerror=null;this.src='https://placehold.co/640x800/F5F2ED/6b7f6e?text=Manikuere';"
           />
         </figure>
         <div class="service-showcase__body">
-          <h2 id="svc-manikur-title" class="service-showcase__title section-title">Manikűr</h2>
+          <h2 id="svc-manikur-title" class="service-showcase__title section-title">Maniküre</h2>
           <p>
-            Formázás, bőrápolás és igény szerint lakkozás vagy természetes finish. Alap a mindennapos, ápolt megjelenéshez — gyorsan, higiénikusan,
-            a kezed komfortját szem előtt tartva.
+            Formen, Hautpflege und auf Wunsch Lack oder natürlicher Finish – schnell und hygienisch, mit Komfort für deine Hände.
           </p>
         </div>
       </div>
@@ -237,17 +237,17 @@
     <section class="page-gallery-section" aria-labelledby="gallery-heading">
       <div class="container">
         <header class="section-head section-head--center page-gallery-section__head">
-          <p class="subpage-kicker">Stílus, szépség, vonzerő</p>
-          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Inspirációk a szalonból</h2>
+          <p class="subpage-kicker">Schönheit, die strahlt</p>
+          <h2 id="gallery-heading" class="section-title page-gallery-section__title">Sieh dir meine Referenzen an</h2>
           <p class="section-subtitle page-gallery-section__intro">
-            Körömötletek és részletek — lapozz a nyilakkal vagy a pontokkal.
+            Gepflegter, stilvoller Look – echte Resultate in Bildern.
           </p>
         </header>
-        <!-- Galéria: képek az assets/imgs/page-gallery/manikur/ mappában (01.png–12.png). Csak erre az aloldalra cseréld őket. -->
+        <!-- Galerie: Bilder in assets/imgs/page-gallery/manikur/ (01.png–12.png). Nur für diese Unterseite austauschen. -->
         <div class="page-gallery" data-page-gallery>
           <div class="page-gallery__stage">
             <div class="page-gallery__carousel">
-              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Előző képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--prev" aria-label="Vorheriges Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                 </svg>
@@ -258,7 +258,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/01.png"
-                      alt="Manikűr galéria, 1. kép"
+                      alt="Maniküre-Galerie, Bild 1"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -269,7 +269,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/02.png"
-                      alt="Manikűr galéria, 2. kép"
+                      alt="Maniküre-Galerie, Bild 2"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -280,7 +280,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/03.png"
-                      alt="Manikűr galéria, 3. kép"
+                      alt="Maniküre-Galerie, Bild 3"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -291,7 +291,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/04.png"
-                      alt="Manikűr galéria, 4. kép"
+                      alt="Maniküre-Galerie, Bild 4"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -302,7 +302,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/05.png"
-                      alt="Manikűr galéria, 5. kép"
+                      alt="Maniküre-Galerie, Bild 5"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -313,7 +313,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/06.png"
-                      alt="Manikűr galéria, 6. kép"
+                      alt="Maniküre-Galerie, Bild 6"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -324,7 +324,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/07.png"
-                      alt="Manikűr galéria, 7. kép"
+                      alt="Maniküre-Galerie, Bild 7"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -335,7 +335,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/08.png"
-                      alt="Manikűr galéria, 8. kép"
+                      alt="Maniküre-Galerie, Bild 8"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -346,7 +346,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/09.png"
-                      alt="Manikűr galéria, 9. kép"
+                      alt="Maniküre-Galerie, Bild 9"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -357,7 +357,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/10.png"
-                      alt="Manikűr galéria, 10. kép"
+                      alt="Maniküre-Galerie, Bild 10"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -368,7 +368,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/11.png"
-                      alt="Manikűr galéria, 11. kép"
+                      alt="Maniküre-Galerie, Bild 11"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -379,7 +379,7 @@
                     <img
                       class="page-gallery__img"
                       src="assets/imgs/page-gallery/manikur/12.png"
-                      alt="Manikűr galéria, 12. kép"
+                      alt="Maniküre-Galerie, Bild 12"
                       width="640"
                       height="800"
                       loading="lazy"
@@ -388,13 +388,13 @@
                   </div>
                 </div>
               </div>
-              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Következő képek">
+              <button type="button" class="page-gallery__nav page-gallery__nav--next" aria-label="Nächstes Bild">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6" />
                 </svg>
               </button>
             </div>
-            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galéria pozíció"></nav>
+            <nav class="page-gallery__dots" data-page-gallery-dots aria-label="Galerieposition"></nav>
           </div>
         </div>
       </div>
@@ -406,12 +406,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Manikűr, gél lakk és műköröm — precíz kivitelezés, steril környezet és személyre szabott tanácsadás, hogy a kezeid mindig ápoltak legyenek.
+          Maniküre, Gel-Lack und Modellage – präzise Arbeit, steriles Umfeld und persönliche Beratung für immer gepflegte Hände.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Elérhetőség</p>
+        <p class="footer__heading">Kontakt</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -453,10 +453,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Közösségi média</p>
+        <p class="footer__heading">Folge uns</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -467,7 +467,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
+            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -481,14 +481,15 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
+          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <script src="js/lang-transition-init.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

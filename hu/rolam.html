@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="hu">
 <head>
   <meta charset="UTF-8" />
   <style>html{background-color:#faf9f7}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Über mich — Fatime Beauty</title>
+  <title>Rólam — Fatime Beauty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gilda+Display&family=League+Spartan:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
   <script>(function(){try{if(sessionStorage.getItem("langTextTransition")==="1"&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)){document.documentElement.classList.add("lang-enter-pending");document.documentElement.style.backgroundColor="#faf9f7";}}catch(e){}})();</script>
+
 </head>
 <body class="page-rolam">
   <header class="site-header">
     <div class="container header__inner">
       <a href="index.html" class="logo">LOGO</a>
-      <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+      <button type="button" class="nav-toggle" aria-label="Menü megnyitása" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav" aria-label="Hauptnavigation">
+      <nav class="nav" aria-label="Fő navigáció">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="index.html" class="nav__link">Startseite</a>
+            <a href="index.html" class="nav__link">Főoldal</a>
           </li>
           <li class="nav__item nav__item--dropdown">
             <a
@@ -34,14 +35,14 @@
               aria-expanded="false"
               aria-controls="nav-sub-szolg"
               aria-haspopup="true"
-              >Leistungen<span class="nav__caret" aria-hidden="true"></span></a
+              >Szolgáltatások<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Untermenü Leistungen">
-              <li><a href="kozmetikai-kezelesek.html">Kosmetische Behandlungen</a></li>
-              <li><a href="manikur-mukorom.html">Maniküre &amp; Modellage</a></li>
-              <li><a href="callux-pedikur.html">Callux-Pediküre</a></li>
-              <li><a href="szempilla-szemoldok-lifting.html">Wimpernlifting &amp; Brauen-Lamination</a></li>
-              <li><a href="pilla.html">Wimpern</a></li>
+            <ul class="nav__sub" id="nav-sub-szolg" role="menu" aria-label="Szolgáltatások almenü">
+              <li><a href="kozmetikai-kezelesek.html">Kozmetikai kezelések</a></li>
+              <li><a href="manikur-mukorom.html">Manikűr és műköröm</a></li>
+              <li><a href="callux-pedikur.html">Callux pedikűr</a></li>
+              <li><a href="szempilla-szemoldok-lifting.html">Szempilla lifting &amp; szemöldök laminálás</a></li>
+              <li><a href="pilla.html">Pilla</a></li>
               <li><a href="piercing.html">Piercing</a></li>
             </ul>
           </li>
@@ -53,23 +54,23 @@
               aria-expanded="false"
               aria-controls="nav-sub-info"
               aria-haspopup="true"
-              >Info<span class="nav__caret" aria-hidden="true"></span></a
+              >Infó<span class="nav__caret" aria-hidden="true"></span></a
             >
-            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Untermenü Info">
-              <li><a href="arlista.html">Preisliste</a></li>
-              <li><a href="kapcsolat.html">Kontakt</a></li>
-              <li><a href="hazirend.html">Hausordnung</a></li>
+            <ul class="nav__sub" id="nav-sub-info" role="menu" aria-label="Infó almenü">
+              <li><a href="arlista.html">Árlista</a></li>
+              <li><a href="kapcsolat.html">Kapcsolat</a></li>
+              <li><a href="hazirend.html">Házirend</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="rolam.html" class="nav__link" aria-current="page">Über mich</a>
+            <a href="rolam.html" class="nav__link" aria-current="page">Rólam</a>
           </li>
         </ul>
-        <a class="btn btn--header-cta" href="kapcsolat.html">Kontakt</a>
-        <div class="lang-switch" aria-label="Sprachauswahl">
-          <a href="rolam.html" class="lang-switch__link lang-switch__link--current" hreflang="de" lang="de" aria-current="true">DE</a>
+        <a class="btn btn--header-cta" href="kapcsolat.html">Kapcsolat</a>
+        <div class="lang-switch" aria-label="Nyelvválasztó">
+          <a href="../rolam.html" class="lang-switch__link" hreflang="de" lang="de">DE</a>
           <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <a href="hu/rolam.html" class="lang-switch__link" hreflang="hu" lang="hu">HU</a>
+          <a href="rolam.html" class="lang-switch__link lang-switch__link--current" hreflang="hu" lang="hu" aria-current="true">HU</a>
         </div>
       </nav>
     </div>
@@ -78,15 +79,16 @@
   <main class="page-sub page-sub--rolam">
     <section class="page-hero" aria-labelledby="page-hero-title">
       <div class="page-hero__image-bg" aria-hidden="true">
-        <img src="assets/imgs/Hero_background_img.png" alt="" width="1200" height="1400" loading="eager" />
+        <img src="../assets/imgs/Hero_background_img.png" alt="" width="1200" height="1400" loading="eager" />
       </div>
       <div class="page-hero__grid">
         <div class="page-hero__content">
-          <h1 id="page-hero-title" class="page-hero__title">Lerne mich näher kennen</h1>
+          <h1 id="page-hero-title" class="page-hero__title">Ismerj meg jobban</h1>
           <p class="page-hero__lead">
-            Hinter Fatime Beauty stehen menschliche Aufmerksamkeit, fachliche Leidenschaft und der Wunsch, dass sich jede Gästin in ihrer Haut wohlfühlt. Hier lernst du mich, meine Philosophie und das kennen, was dich erwartet, wenn du bei mir buchst.
+            A Fatime Beauty mögött emberi figyelem, szakmai elkötelezettség és az a vágy áll, hogy minden vendég magabiztosan és jól érezze magát a bőrében.
+            Itt megismerhetsz engem, a munkám filozófiáját és azt, mire számíthatsz, ha hozzám foglalsz időpontot.
           </p>
-          <a class="btn btn--gold btn--hero-cta page-hero__cta page-hero__cta--uppercase" href="kapcsolat.html#uzenet">Terminbuchung &gt;</a>
+          <a class="btn btn--gold btn--hero-cta page-hero__cta page-hero__cta--uppercase" href="kapcsolat.html#uzenet">Időpontfoglalás &gt;</a>
         </div>
       </div>
     </section>
@@ -95,40 +97,40 @@
       <div class="why-me__grid">
         <div class="why-me__media">
           <img
-            src="assets/imgs/why-me.png"
-            alt="Portrait der Expertin"
+            src="../assets/imgs/why-me.png"
+            alt="Szakember portré"
             width="800"
             height="1200"
             loading="lazy"
-            onerror="this.onerror=null;this.src='https://placehold.co/800x1200/F2F2F2/55735b?text=Portrait';"
+            onerror="this.onerror=null;this.src='https://placehold.co/800x1200/F2F2F2/55735b?text=Portré';"
           />
         </div>
         <div class="why-me__content">
-          <h2 id="why-me-title" class="why-me__title">Warum deine Schönheit in meine Hände?</h2>
+          <h2 id="why-me-title" class="why-me__title">Miért bízd rám szépséged?</h2>
           <p class="why-me__text">
-            Mehrjährige Erfahrung, regelmässige Fortbildung und verlässliche Premium-Marken. Bei jeder Behandlung stehen Sicherheit und ein ästhetisches Ergebnis an erster Stelle.
+            Helyettesítő szöveg: több éves tapasztalat, folyamatos továbbképzés és megbízható, prémium márkák használata. Minden kezelésnél a biztonság és az esztétikus eredmény az elsődleges cél.
           </p>
           <p class="why-me__text">
-            Persönlicher Ton, ruhiges Ambiente und ausführliche Beratung – so finden wir gemeinsam die beste Lösung für dich.
+            Helyettesítő szöveg: személyes hangvétel, nyugodt környezet és részletes konzultáció — így együtt találjuk meg a számodra legjobb megoldást.
           </p>
           <p class="why-me__text">
-            Klare Hygieneregeln und Rücksicht auf deine Bedürfnisse in jedem Schritt – für eine ruhige, sichere Erfahrung.
+            Helyettesítő szöveg: a szalon higiéniai szabályai és a vendég igényeinek figyelembevétele minden lépésben — nyugodt, biztonságos élményt kapsz.
           </p>
           <div class="stats stats--why">
             <div class="stats__item">
               <span class="stats__value">6+</span>
-              <span class="stats__label">Jahre Berufserfahrung</span>
+              <span class="stats__label">év szakmai tapasztalat</span>
             </div>
             <div class="stats__item">
               <span class="stats__value">15+</span>
-              <span class="stats__label">Zertifikate</span>
+              <span class="stats__label">szakmai tanúsítvány</span>
             </div>
             <div class="stats__item">
               <span class="stats__value">485+</span>
-              <span class="stats__label">zufriedene Gäste</span>
+              <span class="stats__label">elégedett vendég</span>
             </div>
           </div>
-          <a class="btn btn--white-green btn--why-cta" href="kapcsolat.html#uzenet">Terminbuchung &gt;</a>
+          <a class="btn btn--white-green btn--why-cta" href="kapcsolat.html#uzenet">Időpontfoglalás &gt;</a>
         </div>
       </div>
     </section>
@@ -138,12 +140,12 @@
         <header class="section-head section-head--center">
           <h2 id="rolam-gallery-heading" class="section-title">Fatime Beauty Nails</h2>
         </header>
-        <!-- Platzhalterbilder von der Startseite / gemeinsame Assets; Klick öffnet dieselbe Lightbox wie bei den Referenzen. -->
+        <!-- Placeholder képek a főoldalról / közös assetek; kattintásra ugyanaz a lightbox mint a referenciáknál. -->
         <div class="rolam-masonry">
           <div class="rolam-masonry__cell rolam-masonry__cell--tl">
             <img
-              src="assets/imgs/references-1.png"
-              alt="Referenzbild aus meiner Arbeit"
+              src="../assets/imgs/references-1.png"
+              alt="Referenciakép — munkáimból"
               width="400"
               height="400"
               loading="lazy"
@@ -152,8 +154,8 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--tr">
             <img
-              src="assets/imgs/references-2.png"
-              alt="Referenzbild aus meiner Arbeit"
+              src="../assets/imgs/references-2.png"
+              alt="Referenciakép — munkáimból"
               width="400"
               height="400"
               loading="lazy"
@@ -162,8 +164,8 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--bl">
             <img
-              src="assets/imgs/Hero_img.png"
-              alt="Gästin bei der Gesichtsbehandlung — Hero-Bild"
+              src="../assets/imgs/Hero_img.png"
+              alt="Vendégek arcápolás közben — hero kép"
               width="960"
               height="1200"
               loading="lazy"
@@ -172,8 +174,8 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--br">
             <img
-              src="assets/imgs/why-me.png"
-              alt="Portrait der Expertin"
+              src="../assets/imgs/why-me.png"
+              alt="Szakember portré"
               width="800"
               height="1200"
               loading="lazy"
@@ -186,24 +188,24 @@
 
     <section class="cta-banner cta-banner--tight" aria-labelledby="rolam-cta-price-title">
       <div class="container cta-banner__inner">
-        <h2 id="rolam-cta-price-title" class="cta-banner__title">Sieh dir meine Preisliste an</h2>
-        <a class="btn btn--white-green" href="arlista.html">Preisliste &gt;</a>
+        <h2 id="rolam-cta-price-title" class="cta-banner__title">Tekintsd meg az árlistámat</h2>
+        <a class="btn btn--white-green" href="arlista.html">Árlista &gt;</a>
       </div>
     </section>
 
     <section class="testimonials" aria-labelledby="rolam-testimonials-heading">
       <div class="container">
         <header class="section-head testimonials__head">
-          <p class="testimonials__kicker">Massstab für Qualität: Gäste, die wiederkommen.</p>
-          <h2 class="section-title" id="rolam-testimonials-heading">Echte Resultate, zufriedene Gäste</h2>
+          <p class="testimonials__kicker">A minőség mércéje: a visszatérő vendégek.</p>
+          <h2 class="section-title" id="rolam-testimonials-heading">Valódi eredmények, elégedett vendégek</h2>
         </header>
 
         <div
           class="testimonials-carousel"
           data-testimonials-carousel
           role="region"
-          aria-roledescription="Karussell"
-          aria-label="Kundenstimmen"
+          aria-roledescription="karousel"
+          aria-label="Vendégvélemények"
         >
           <div class="testimonials-carousel__viewport">
             <div class="testimonials-carousel__track">
@@ -225,7 +227,9 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Nach schlechten Erfahrungen traute ich mich lange nicht zur Kosmetikerin – nach dem ersten Termin hier hat sich das geändert. Meine Haut strahlt nach jeder Behandlung, und mit Fatimes Hilfe habe ich die passende Pflegeroutine für meinen Hauttyp gefunden. Sehr empfehlenswert!
+                      Korábbi rossz tapasztalatok miatt sokáig nem mertem kozmetikushoz járni, de ez az itt töltött első alkalmat követően
+                      megváltozott. A bőröm minden kezelés után szint ragyog, remekül érzem magam, és Eliza segítségével sikerült kialakítanom a
+                      helyes, bőrtípusomnak megfelelő arcápolási rutint. Szívből ajánlom!
                     </p>
                     <cite class="testimonial-card__name">Fruzsi</cite>
                   </div>
@@ -250,7 +254,9 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Fatime ist sehr herzlich und eine Kosmetikerin mit Leib und Seele; der Salon ist wunderschön, sauber und stimmungsvoll – ich komme immer gern wieder. Zuletzt hatte ich eine 10er-Kur für Gesichtsverjüngung, das Ergebnis spricht für sich, und ich habe viele Komplimente bekommen. Absolute Empfehlung!
+                      Eliza nagyon kedves, csupaszív kozmetikus, a kozmetika csodaszép, tiszta, hangulatos, mindig örömmel járok ide vissza.
+                      Legutóbb a 10 alkalmas arcfiatalító kezelést vettem igénybe, és az eredmény magáért beszél, azóta több pozitív visszajelzést
+                      is kaptam ismerőseimtől. Csak ajánlani tudom Elizát!
                     </p>
                     <cite class="testimonial-card__name">Magdi</cite>
                   </div>
@@ -275,7 +281,8 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Diskret, aufmerksam und eine wunderschöne, klare Atmosphäre. Nach den Behandlungen ist meine Haut viel ebenmässiger und hydratisiert – endlich habe ich die richtige Expertin gefunden.
+                      Diszkrét, figyelmes hozzáállás és gyönyörű, letisztult környezet. A kezelések után a bőröm sokkal egyenletesebb és
+                      hidratáltabb — végre megtaláltam a számomra megfelelő szakembert.
                     </p>
                     <cite class="testimonial-card__name">Eszter</cite>
                   </div>
@@ -300,7 +307,8 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Jedes Mal bekomme ich genau das, was wir besprochen haben. Wimpern- und Brauenbehandlungen sind haltbar und natürlich – viele fragen, wo ich war.
+                      Minden alkalommal pontosan azt kapom, amit megbeszéltünk. A szempilla- és szemöldökkezelések tartósak, természetes hatásúak
+                      — sokan meg is kérdezik, hol készült.
                     </p>
                     <cite class="testimonial-card__name">Judit</cite>
                   </div>
@@ -325,7 +333,8 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Ruhige Atmosphäre, gründliche Beratung und Premium-Materialien. Meine Maniküre blieb wochenlang schön – selten war ich so zufrieden.
+                      Nyugodt légkör, alapos konzultáció és prémium anyagok. A manikűröm hetekig szép maradt — ritka, hogy ennyire elégedett
+                      legyek a végeredménnyel.
                     </p>
                     <cite class="testimonial-card__name">Réka</cite>
                   </div>
@@ -350,7 +359,8 @@
                   />
                   <div class="testimonial-card__content">
                     <p class="testimonial-card__quote">
-                        Vor der Hochzeit hatte ich ein Make-up-Probing: wir haben geduldig Varianten ausprobiert, am grossen Tag hielt alles perfekt. Sehr zu empfehlen für besondere Anlässe.
+                      Esküvő előtt sminkpróbán voltam: türelmesen kipróbáltuk a variációkat, a nagy napon tökéletesen tartott. Meleg szívvel
+                      ajánlom mindenkinek, aki fontos alkalomra készül.
                     </p>
                     <cite class="testimonial-card__name">Zsófi</cite>
                   </div>
@@ -360,50 +370,50 @@
           </div>
 
           <div class="testimonials-carousel__controls testimonials-carousel__controls--mobile">
-            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--prev" data-testimonials-prev aria-label="Vorherige Kundenstimme">
+            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--prev" data-testimonials-prev aria-label="Előző vélemény">
               <span aria-hidden="true">‹</span>
             </button>
-            <div class="testimonials-carousel__dots testimonials-carousel__dots--mobile" role="tablist" aria-label="Kundenstimme wählen">
+            <div class="testimonials-carousel__dots testimonials-carousel__dots--mobile" role="tablist" aria-label="Válassz véleményt">
               <button type="button" class="testimonials-carousel__dot is-active" id="rolam-testimonials-tab-m-0" role="tab" aria-selected="true" aria-controls="rolam-testimonials-slide-0" tabindex="0" data-dot="0">
-                <span class="visually-hidden">1. Stimme</span>
+                <span class="visually-hidden">1. vélemény</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-m-1" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-1" tabindex="-1" data-dot="1">
-                <span class="visually-hidden">2. Stimme</span>
+                <span class="visually-hidden">2. vélemény</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-m-2" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-2" tabindex="-1" data-dot="2">
-                <span class="visually-hidden">3. Stimme</span>
+                <span class="visually-hidden">3. vélemény</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-m-3" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-3" tabindex="-1" data-dot="3">
-                <span class="visually-hidden">4. Stimme</span>
+                <span class="visually-hidden">4. vélemény</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-m-4" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-4" tabindex="-1" data-dot="4">
-                <span class="visually-hidden">5. Stimme</span>
+                <span class="visually-hidden">5. vélemény</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-m-5" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-5" tabindex="-1" data-dot="5">
-                <span class="visually-hidden">6. Stimme</span>
+                <span class="visually-hidden">6. vélemény</span>
               </button>
             </div>
-            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--next" data-testimonials-next aria-label="Nächste Kundenstimme">
+            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--next" data-testimonials-next aria-label="Következő vélemény">
               <span aria-hidden="true">›</span>
             </button>
           </div>
 
           <div class="testimonials-carousel__controls testimonials-carousel__controls--desktop">
-            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--prev" data-testimonials-prev aria-label="Vorherige Seite">
+            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--prev" data-testimonials-prev aria-label="Előző oldal">
               <span aria-hidden="true">‹</span>
             </button>
-            <div class="testimonials-carousel__dots testimonials-carousel__dots--desktop" role="tablist" aria-label="Seite wählen (zwei Stimmen)">
+            <div class="testimonials-carousel__dots testimonials-carousel__dots--desktop" role="tablist" aria-label="Válassz oldalt (két vélemény)">
               <button type="button" class="testimonials-carousel__dot is-active" id="rolam-testimonials-tab-d-0" role="tab" aria-selected="true" aria-controls="rolam-testimonials-slide-0" tabindex="0" data-dot-page="0">
-                <span class="visually-hidden">1. Seite (Fruzsi, Magdi)</span>
+                <span class="visually-hidden">1. oldal (Fruzsi, Magdi)</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-d-1" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-2" tabindex="-1" data-dot-page="1">
-                <span class="visually-hidden">2. Seite (Eszter, Judit)</span>
+                <span class="visually-hidden">2. oldal (Eszter, Judit)</span>
               </button>
               <button type="button" class="testimonials-carousel__dot" id="rolam-testimonials-tab-d-2" role="tab" aria-selected="false" aria-controls="rolam-testimonials-slide-4" tabindex="-1" data-dot-page="2">
-                <span class="visually-hidden">3. Seite (Réka, Zsófi)</span>
+                <span class="visually-hidden">3. oldal (Réka, Zsófi)</span>
               </button>
             </div>
-            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--next" data-testimonials-next aria-label="Nächste Seite">
+            <button type="button" class="testimonials-carousel__nav testimonials-carousel__nav--next" data-testimonials-next aria-label="Következő oldal">
               <span aria-hidden="true">›</span>
             </button>
           </div>
@@ -414,7 +424,7 @@
     <section class="faq" id="gyik">
       <div class="container">
         <header class="section-head section-head--center faq__head">
-          <h2 class="section-title faq__title">Häufig gestellte Fragen</h2>
+          <h2 class="section-title faq__title">Gyakran Ismételt Kérdések</h2>
         </header>
         <div class="faq__columns">
           <div class="faq__col">
@@ -432,14 +442,15 @@
                   </svg>
                 </span>
                 <span class="faq-item__question">
-                  Wie wähle ich die passende Leistung, wenn ich unsicher bin, welche Behandlung ich brauche?
+                  Hogyan válasszam ki a legjobb szolgáltatást, ha nem vagyok biztos benne, melyik kezelésre van szükségem?
                 </span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-1" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-1" aria-hidden="true">
                     <p>
-                      In einem Vorgespräch klären wir deine Wünsche; je nach Haut und Befund schlage ich Behandlungen vor. Bring ruhig Beispiele oder Fragen mit – gemeinsam finden wir die beste Lösung.
+                      Előzetes konzultáción átbeszéljük az igényeidet és a bőröd / állapotod alapján javaslok kezeléseket. Nyugodtan hozz
+                      példákat vagy kérdéseket — együtt találjuk meg a számodra legjobb megoldást.
                     </p>
                   </div>
                 </div>
@@ -458,13 +469,14 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Wie kann ich einen Termin buchen?</span>
+                <span class="faq-item__question">Hogyan tudok időpontot foglalni?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-2" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-2" aria-hidden="true">
                     <p>
-                      Schreib über das Formular, per Social Media oder telefonisch – ich melde mich bald und wir finden einen passenden Termin.
+                      Írj az űrlapon, közösségi média üzenetben vagy telefonon — hamarosan visszajelzek, és egyeztetünk egy neked megfelelő
+                      időpontot.
                     </p>
                   </div>
                 </div>
@@ -483,13 +495,14 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Gibt es eine Garantie? (1&nbsp;Woche)</span>
+                <span class="faq-item__question">Van garancia? (1&nbsp;hét)</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-3" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-3" aria-hidden="true">
                     <p>
-                      Bei bestimmten Behandlungen melde dich innerhalb einer Woche, wenn du unzufrieden bist – wir besprechen den Fall und finden gemäss Protokoll eine Lösung.
+                      Meghatározott kezeléseknél 1 héten belül jelezd, ha nem vagy elégedett — megbeszéljük az esetet, és a protokollnak
+                      megfelelően keresünk megoldást.
                     </p>
                   </div>
                 </div>
@@ -510,13 +523,14 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Was ist, wenn ich auf verwendete Produkte allergisch reagiere?</span>
+                <span class="faq-item__question">Mi van, ha allergiás reakcióm lenne a használt anyagokra?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-4" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-4" aria-hidden="true">
                     <p>
-                      Bitte teile bekannte Allergien immer im Voraus mit. Bei Bedarf arbeiten wir mit einem Test oder anderen Produkten – Sicherheit steht an erster Stelle.
+                      Kérlek mindig jelezd előre az ismert allergiákat. Szükség esetén próbakezeléssel vagy más termékkel dolgozunk — a biztonság
+                      az első.
                     </p>
                   </div>
                 </div>
@@ -535,12 +549,12 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Gastparkplatz</span>
+                <span class="faq-item__question">Vendégparkoló</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-5" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-5" aria-hidden="true">
-                    <p>In der Nähe des Salons gibt es Gastparkplätze – genaue Infos erhältst du bei der Buchung oder im Kontaktbereich.</p>
+                    <p>A szalon közelében vendégparkolási lehetőség érhető el — a pontos információt foglaláskor vagy a kapcsolat szekcióban találod.</p>
                   </div>
                 </div>
               </div>
@@ -558,12 +572,12 @@
                     <path d="M5.5 8L0 0h11L5.5 8z" fill="currentColor" />
                   </svg>
                 </span>
-                <span class="faq-item__question">Welche Zahlungsmöglichkeiten gibt es?</span>
+                <span class="faq-item__question">Milyen fizetési lehetőségek vannak?</span>
               </button>
               <div class="faq-item__overflow">
                 <div class="faq-item__overflow-inner">
                   <div id="rolam-faq-p-6" class="faq-item__panel" role="region" aria-labelledby="rolam-faq-t-6" aria-hidden="true">
-                    <p>Du kannst bar oder mit Karte zahlen – Details bei der Terminvereinbarung; auf Wunsch stelle ich eine Rechnung aus.</p>
+                    <p>Fizethetsz készpénzzel és bankkártyával is — részletek egyeztetéskor, szükség szerint számlát állítok ki.</p>
                   </div>
                 </div>
               </div>
@@ -579,12 +593,12 @@
       <div class="footer__col footer__col--brand">
         <p class="footer__logo">LOGO</p>
         <p class="footer__about">
-          Fatime Beauty – professionelle Beauty-Pflege, massgeschneiderte Behandlungen und ein respektvoller, gästeorientierter Ansatz.
+          Fatime Beauty — professzionális szépségápolás, személyre szabott kezelésekkel és tiszteletteljes vendégközpontú hozzáállással.
         </p>
       </div>
 
       <div class="footer__col footer__col--reach">
-        <p class="footer__heading">Kontakt</p>
+        <p class="footer__heading">Elérhetőség</p>
         <ul class="footer__contact" role="list">
           <li>
             <span class="footer__contact-icon" aria-hidden="true">
@@ -626,10 +640,10 @@
         </ul>
       </div>
       <div class="footer__col footer__col--follow">
-        <p class="footer__heading">Social Media</p>
+        <p class="footer__heading">Közösségi média</p>
         <ul class="footer__social-icons" role="list">
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Facebook-Seite öffnen">
+            <a class="footer__social-btn" href="#" aria-label="Facebook oldal megnyitása">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.25" />
                 <path
@@ -640,7 +654,7 @@
             </a>
           </li>
           <li>
-            <a class="footer__social-btn" href="#" aria-label="Instagram-Profil öffnen">
+            <a class="footer__social-btn" href="#" aria-label="Instagram profil megnyitása">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <circle cx="12" cy="12" r="3.5" />
@@ -654,9 +668,9 @@
     <div class="footer__bar">
       <div class="container footer__bar-inner">
         <p class="footer__legal">
-          © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
+          © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
+          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
         </p>
       </div>
     </div>
@@ -668,24 +682,24 @@
     hidden
     role="dialog"
     aria-modal="true"
-    aria-label="Bild vergrößert"
+    aria-label="Kép nagyítva"
   >
-    <button type="button" class="ref-lightbox__backdrop" tabindex="-1" aria-label="Schließen"></button>
+    <button type="button" class="ref-lightbox__backdrop" tabindex="-1" aria-label="Bezárás"></button>
     <div class="ref-lightbox__stage">
       <div class="ref-lightbox__figure">
         <div class="ref-lightbox__media">
           <img class="ref-lightbox__img" alt="" width="1200" height="1200" decoding="async" />
-          <button type="button" class="ref-lightbox__close" aria-label="Schließen">
+          <button type="button" class="ref-lightbox__close" aria-label="Bezárás">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
             </svg>
           </button>
-          <button type="button" class="ref-lightbox__nav ref-lightbox__prev" aria-label="Vorheriges Bild">
+          <button type="button" class="ref-lightbox__nav ref-lightbox__prev" aria-label="Előző kép">
             <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          <button type="button" class="ref-lightbox__nav ref-lightbox__next" aria-label="Nächstes Bild">
+          <button type="button" class="ref-lightbox__nav ref-lightbox__next" aria-label="Következő kép">
             <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -695,7 +709,7 @@
     </div>
   </div>
 
-  <script src="js/lang-transition-init.js"></script>
-  <script src="js/main.js"></script>
+  <script src="../js/lang-transition-init.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
