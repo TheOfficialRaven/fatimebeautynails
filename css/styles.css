@@ -3918,7 +3918,7 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__title {
-    font-size: clamp(1.95rem, 5.4vw, 3.05rem);
+    font-size: clamp(2.1rem, 5.4vw, 3.05rem);
     line-height: 1.14;
   }
 
