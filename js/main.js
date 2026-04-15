@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".nav-toggle");
   var yearEl = document.getElementById("year");
@@ -762,4 +762,154 @@
     });
   })();
 
+  (function welcomeCouponPopup() {
+    var delayMs = 10000;
+    var popupRoot = null;
+    var onEsc = null;
+
+    function isHuLanguage() {
+      var lang = ((document.documentElement && document.documentElement.lang) || "").toLowerCase();
+      return lang.indexOf("hu") === 0;
+    }
+
+    function getPopupImagePath() {
+      var path = window.location.pathname || "";
+      var isHuPage = /(^|\/)hu(\/|$)/i.test(path);
+      return isHuPage ? "../assets/imgs/popup_img.png" : "assets/imgs/popup_img.png";
+    }
+
+    function getPopupCopy() {
+      if (isHuLanguage()) {
+        return {
+          closeLabel: "Bezárás",
+          imageAlt: "Kedvezményes ajánlat",
+          title: "10% KEDVEZMÉNY!",
+          text:
+            "Először jársz a szalonban? Minden első vendégem részére egy 10%-os kupont biztosítom, amit az e-mail címedre küldjük ki. Töltsd ki az alábbi mezőket és élj a lehetőséggel.",
+          namePlaceholder: "Teljes név",
+          emailPlaceholder: "E-mail cím",
+          privacyText: "Elolvastam és elfogadom az",
+          privacyLinkText: "adatkezelési tájékoztatót.",
+          privacyHref: "hazirend.html",
+          submitLabel: "Kérem a kupont!",
+        };
+      }
+      return {
+        closeLabel: "Schliessen",
+        imageAlt: "Rabattangebot",
+        title: "10% RABATT!",
+        text:
+          "Bist du zum ersten Mal im Salon? Fur alle Neukundinnen gibt es einen 10%-Gutschein, den ich dir per E-Mail zusende. Fulle bitte die Felder unten aus und sichere dir dein Angebot.",
+        namePlaceholder: "Vollstandiger Name",
+        emailPlaceholder: "E-Mail-Adresse",
+        privacyText: "Ich habe die",
+        privacyLinkText: "Datenschutzerklarung gelesen und akzeptiere sie.",
+        privacyHref: "hausordnung.html",
+        submitLabel: "Gutschein anfordern",
+      };
+    }
+
+    function closePopup() {
+      if (!popupRoot) return;
+      popupRoot.classList.remove("coupon-popup--visible");
+      popupRoot.setAttribute("aria-hidden", "true");
+      if (onEsc) {
+        document.removeEventListener("keydown", onEsc);
+        onEsc = null;
+      }
+      window.setTimeout(function () {
+        if (popupRoot && popupRoot.parentNode) {
+          popupRoot.parentNode.removeChild(popupRoot);
+        }
+        popupRoot = null;
+      }, 920);
+    }
+
+    function buildPopup() {
+      var imgSrc = getPopupImagePath();
+      var copy = getPopupCopy();
+      var wrapper = document.createElement("div");
+      wrapper.className = "coupon-popup";
+      wrapper.setAttribute("aria-hidden", "true");
+      wrapper.innerHTML =
+        '<div class="coupon-popup__backdrop" data-popup-close="true"></div>' +
+        '<section class="coupon-popup__panel" role="dialog" aria-modal="true" aria-labelledby="coupon-popup-title">' +
+        '<button class="coupon-popup__close" type="button" aria-label="' +
+        copy.closeLabel +
+        '" data-popup-close="true">&times;</button>' +
+        '<img class="coupon-popup__image" src="' +
+        imgSrc +
+        '" alt="' +
+        copy.imageAlt +
+        '" loading="eager" decoding="async" />' +
+        '<div class="coupon-popup__content">' +
+        '<h2 class="coupon-popup__title" id="coupon-popup-title">' +
+        copy.title +
+        "</h2>" +
+        '<p class="coupon-popup__text">' +
+        copy.text +
+        "</p>" +
+        '<form class="coupon-popup__form" action="#" method="post" novalidate>' +
+        '<input class="coupon-popup__input" type="text" name="name" autocomplete="name" placeholder="' +
+        copy.namePlaceholder +
+        '" />' +
+        '<input class="coupon-popup__input" type="email" name="email" autocomplete="email" placeholder="' +
+        copy.emailPlaceholder +
+        '" />' +
+        '<label class="coupon-popup__check">' +
+        '<input class="coupon-popup__check-input" type="checkbox" name="privacy" />' +
+        "<span>" +
+        copy.privacyText +
+        ' <a href="' +
+        copy.privacyHref +
+        '">' +
+        copy.privacyLinkText +
+        "</a></span>" +
+        "</label>" +
+        '<button class="coupon-popup__submit" type="submit">' +
+        copy.submitLabel +
+        "</button>" +
+        "</form>" +
+        "</div>" +
+        "</section>";
+
+      wrapper.addEventListener("click", function (e) {
+        var closeTarget = e.target.closest("[data-popup-close='true']");
+        if (closeTarget) closePopup();
+      });
+
+      onEsc = function (e) {
+        if (e.key === "Escape") closePopup();
+      };
+      document.addEventListener("keydown", onEsc);
+
+      popupRoot = wrapper;
+      document.body.appendChild(popupRoot);
+
+      /* Force one full paint cycle before toggling visible state,
+         otherwise some browsers skip the enter transition. */
+      void popupRoot.offsetWidth;
+      window.requestAnimationFrame(function () {
+        if (!popupRoot) return;
+        window.requestAnimationFrame(function () {
+          if (!popupRoot) return;
+          popupRoot.classList.add("coupon-popup--visible");
+          popupRoot.setAttribute("aria-hidden", "false");
+        });
+      });
+    }
+
+    function initPopup() {
+      window.setTimeout(buildPopup, delayMs);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPopup, { once: true });
+    } else {
+      initPopup();
+    }
+  })();
+
 })();
+
+
