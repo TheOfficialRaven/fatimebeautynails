@@ -494,6 +494,8 @@
     var scrollAnimGen = 0;
     var SCROLL_MS = 700;
     var layoutDebounceTimer = null;
+    var currentPage = 0;
+    var isAnimating = false;
 
     function trackGap() {
       if (!track) return 0;
@@ -512,19 +514,27 @@
       return Math.max(0, viewport.scrollWidth - viewport.clientWidth);
     }
 
-    /** Hány dia fér el nagyjából egyszerre a nézetben */
-    function visibleSlideCount() {
-      var sw = stepWidth();
-      if (!sw) return 1;
-      var n = Math.floor(viewport.clientWidth / sw);
-      return Math.max(1, Math.min(n, slides.length));
-    }
-
-    /** Lapozási pozíciók száma: első dia indexe 0 … utolsó, hogy a végén ne maradjon „üres” pont */
+    /**
+     * Lapok száma: a max görgetés / lépésköz alapján.
+     * (A floor(clientWidth/step) alulbecsülhet → eggyel több pont + ugrás a végén.)
+     */
     function getPageCount() {
       if (!slides.length) return 0;
-      var v = visibleSlideCount();
-      return Math.max(1, slides.length - v + 1);
+      var sw = stepWidth();
+      if (!sw) return 1;
+      var maxS = maxScrollLeft();
+      if (maxS < 8) return 1;
+      return Math.max(1, Math.round(maxS / sw) + 1);
+    }
+
+    function pageTargetLeft(pageIndex) {
+      var sw = stepWidth();
+      var pages = getPageCount();
+      var maxS = maxScrollLeft();
+      if (!sw || pages <= 1) return 0;
+      var p = Math.max(0, Math.min(pageIndex, pages - 1));
+      if (p >= pages - 1) return maxS;
+      return Math.min(p * sw, maxS);
     }
 
     function easeInOutCubic(t) {
@@ -536,6 +546,7 @@
     }
 
     function finishScrollAnim() {
+      isAnimating = false;
       viewport.classList.remove("page-gallery__viewport--animating");
       syncDots();
       syncNav();
@@ -555,17 +566,16 @@
       var start = viewport.scrollLeft;
       var delta = targetLeft - start;
       if (Math.abs(delta) < 0.5) {
+        viewport.scrollLeft = targetLeft;
         finishScrollAnim();
         return;
       }
+      isAnimating = true;
       viewport.classList.add("page-gallery__viewport--animating");
       var t0 = null;
 
       function tick(now) {
-        if (myGen !== scrollAnimGen) {
-          viewport.classList.remove("page-gallery__viewport--animating");
-          return;
-        }
+        if (myGen !== scrollAnimGen) return;
         if (t0 === null) t0 = now;
         var elapsed = now - t0;
         var t = Math.min(1, elapsed / duration);
@@ -576,30 +586,21 @@
       requestAnimationFrame(tick);
     }
 
-    function step(dir) {
-      var sw = stepWidth();
-      if (!sw) return;
-      var maxS = maxScrollLeft();
-      if (maxS < 8) return;
-      var x = viewport.scrollLeft;
-      var target;
-      if (dir > 0) {
-        target = x >= maxS - 4 ? 0 : Math.min(x + sw, maxS);
-      } else {
-        target = x <= 4 ? maxS : Math.max(x - sw, 0);
-      }
-      smoothScrollTo(target);
-    }
-
     function goToPage(pageIndex) {
-      var sw = stepWidth();
-      if (!sw) return;
       var pages = getPageCount();
-      var p = Math.max(0, Math.min(pageIndex, pages - 1));
-      smoothScrollTo(p * sw);
+      if (pages < 1) return;
+      currentPage = ((pageIndex % pages) + pages) % pages;
+      smoothScrollTo(pageTargetLeft(currentPage));
     }
 
-    function activePageIndex() {
+    function step(dir) {
+      var pages = getPageCount();
+      if (pages <= 1) return;
+      /* Oldal-index alapján lépünk — gyors klikknél is 1 lap, animáció újracéloz */
+      goToPage(currentPage + dir);
+    }
+
+    function activePageIndexFromScroll() {
       var sw = stepWidth();
       var pages = getPageCount();
       if (!sw || pages <= 1) return 0;
@@ -614,7 +615,7 @@
       if (!dotsNav) return;
       var dots = dotsNav.querySelectorAll(".page-gallery__dot");
       if (!dots.length) return;
-      var ai = activePageIndex();
+      var ai = currentPage;
       dots.forEach(function (d, i) {
         var on = i === ai;
         d.classList.toggle("is-active", on);
@@ -636,7 +637,6 @@
         next.setAttribute("aria-disabled", "true");
         return;
       }
-      /* Körkörös lapozás: a nyilak mindig aktívak, ha több oldal van */
       prev.disabled = false;
       next.disabled = false;
       prev.removeAttribute("aria-disabled");
@@ -660,6 +660,7 @@
         })(p);
       }
       dotsBuiltForPageCount = pages;
+      if (currentPage > pages - 1) currentPage = Math.max(0, pages - 1);
     }
 
     function ensureDots() {
@@ -673,6 +674,9 @@
     function scheduleGallerySync() {
       window.requestAnimationFrame(function () {
         ensureDots();
+        if (!isAnimating) {
+          currentPage = activePageIndexFromScroll();
+        }
         syncDots();
         syncNav();
       });
@@ -684,8 +688,16 @@
         layoutDebounceTimer = null;
         window.requestAnimationFrame(function () {
           var pc = getPageCount();
-          if (pc !== dotsBuiltForPageCount || dotsNav.children.length !== pc) {
+          if (pc !== dotsBuiltForPageCount || (dotsNav && dotsNav.children.length !== pc)) {
             buildDots();
+          }
+          if (!isAnimating) {
+            currentPage = activePageIndexFromScroll();
+            /* Layout változás után igazítsuk a scrollt az aktuális laphoz */
+            var target = pageTargetLeft(currentPage);
+            if (Math.abs(viewport.scrollLeft - target) > 2) {
+              viewport.scrollLeft = target;
+            }
           }
           syncDots();
           syncNav();
@@ -698,6 +710,10 @@
       if (scrollTick) return;
       scrollTick = window.requestAnimationFrame(function () {
         scrollTick = null;
+        /* Natív gesztus / trackpad: szinkronizáljuk az indexet, ha nem JS animál */
+        if (!isAnimating) {
+          currentPage = activePageIndexFromScroll();
+        }
         syncDots();
         syncNav();
       });

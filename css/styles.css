@@ -2205,11 +2205,11 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   text-align: center;
 }
 
-/* Aloldal hero: egységes fix magasság + egységes szöveg-padding (nem nő a tartalommal) */
+/* Aloldal hero: egységes magasság + szöveg kicsit lejjebb a tetejétől */
 .page-hero {
-  --page-hero-pad-y: clamp(2.25rem, 3.5vw, 3.25rem);
-  /* Rövid sáv (~negyed), de legyen elég hely a cím + lead + CTA + paddingnek */
-  --page-hero-h: max(calc(var(--screen-fill) * 0.25), calc(var(--page-hero-pad-y) * 2 + 11.5rem));
+  --page-hero-pad-y: clamp(2.75rem, 4vw, 3.75rem);
+  /* ~30% viewport, elég hely a cím + lead + CTA-nak, szöveg ne legyen a tetején */
+  --page-hero-h: max(calc(var(--screen-fill) * 0.3), calc(var(--page-hero-pad-y) * 2 + 13.25rem));
   position: relative;
   padding: 0;
   overflow: hidden;
@@ -2233,6 +2233,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   height: 100%;
   min-height: 0;
   width: 100%;
+  /* Enyhe lefelé tolás — egységes minden aloldalon */
+  padding-top: clamp(0.85rem, 2.2vh, 1.75rem);
+  box-sizing: border-box;
 }
 
 .page-hero__content {
@@ -2276,15 +2279,28 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   letter-spacing: 0.06em;
 }
 
+/*
+ * Árlista / házirend: nincs átmenetes hero-overlay (se desktop, se mobil).
+ * A többi aloldalhoz hasonlóan tiszta fehér + jobb oldali kép.
+ */
+.page-hazirend .page-hero__grid::before,
+.page-arlista .page-hero__grid::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+.page-hazirend .page-hero.page-hero--hazirend,
+.page-arlista .page-hero.page-hero--hazirend {
+  background-color: var(--color-white);
+  background-image: none;
+}
+
 @media (min-width: 1025px) {
-  .page-hazirend .page-hero__grid,
-  .page-arlista .page-hero__grid,
   .page-kapcsolat .page-hero__grid {
     isolation: isolate;
   }
 
-  .page-hazirend .page-hero__grid::before,
-  .page-arlista .page-hero__grid::before,
   .page-kapcsolat .page-hero__grid::before {
     content: "";
     position: absolute;
@@ -2323,51 +2339,66 @@ a.service-card:focus-visible {
   outline-offset: 3px;
 }
 
-/* Házirend: egyetlen panel (.container = szokásos szélesség); fele a hero alján, fele átlóg a fehér szabályszekcióba */
+/* Házirend / árlista / kapcsolat:
+ * - a panel felülről fix helyen marad
+ * - a képáv fix magas (nem nő a panellel)
+ * - a következő szekció a panel UTÁN jön a flow-ban → mindig van rés */
 .page-hazirend,
 .page-kapcsolat,
 .page-arlista {
-  /* ~ a panel magasságának fele: tartalék + negatív margin kiegyenlítése */
-  --hazirend-panel-overlap: clamp(5.5rem, 14vmin, 9.5rem);
+  --hazirend-panel-gap: clamp(2rem, 4.5vw, 3rem);
   background: var(--color-white);
 }
 
 .page-hero--hazirend {
+  height: auto;
+  min-height: var(--page-hero-h);
+  max-height: none;
   overflow: visible;
   position: relative;
   z-index: 2;
-  /* Bal oldal fehér (main), kép jobb fél; a panel a lenti fehér szekció fölé rajzolódik */
-  background: transparent;
+  background-color: var(--color-white);
+}
+
+/* Kép csak a fix hero-ávon — ne nyúljon a panel alá, ne tolja a vizuális pozíciót */
+.page-hero--hazirend > .page-hero__image-bg {
+  bottom: auto;
+  height: var(--page-hero-h);
 }
 
 .page-hero--hazirend .page-hero__grid {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  height: 100%;
-  min-height: 0;
+  height: auto;
+  min-height: var(--page-hero-h);
+  /* Felülről azonos távolság — a többi aloldal hero szövegével egy vonalban, kicsit lejjebb */
+  padding-top: clamp(4.25rem, 8.5vh, 5.75rem);
   padding-bottom: 0;
   box-sizing: border-box;
 }
 
-/* Ne legyen width: 100% — felülírná a .container szélességét (min(var(--container), …)) */
+/* Ne legyen width: 100% — felülírná a .container szélességét */
 .hazirend-hero__panel-row {
   position: relative;
   z-index: 2;
   max-width: 100%;
+  /* A rés a panel alatt: a következő szekció ettől lejjebb kezdődik */
+  margin-bottom: var(--hazirend-panel-gap);
 }
 
 .hazirend-hero-panel {
   width: 100%;
   margin-inline: 0;
+  margin-bottom: 0;
   padding: clamp(1.85rem, 3.8vw, 2.85rem) clamp(1.35rem, 3.5vw, 2.25rem);
   border-radius: 12px;
   background: var(--color-green);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
   text-align: center;
   box-sizing: border-box;
-  transform: translateY(50%);
+  transform: none;
 }
 
 .hazirend-hero-panel__title {
@@ -2573,24 +2604,28 @@ a.service-card:focus-visible {
 
 }
 
-/* Kapcsolat: űrlap szekció a házirend-panel átfedése alatt (ugyanaz a margin/padding logika) */
+/* Kapcsolat / házirend / árlista: következő szekció — nincs negatív margin, nem takarja a panel */
 .contact.contact--after-overlap-hero {
-  margin-top: calc(-1 * var(--hazirend-panel-overlap));
-  padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)));
+  margin-top: 0;
+  padding-top: var(--section-space);
   min-height: auto;
 }
 
 @media (max-width: 768px) {
-  .hazirend-hero-panel {
-    transform: translateY(38%);
+  .page-hero--hazirend .page-hero__grid {
+    padding-top: clamp(3.25rem, 7vh, 4.25rem);
+    padding-bottom: 0;
   }
 
-  /* Végső mobil override: nagyobb távolság a hero panel alatt */
+  .hazirend-hero__panel-row {
+    margin-bottom: clamp(2.25rem, 5vw, 3rem);
+  }
+
   .hazirend-rules-section,
   .contact.contact--after-overlap-hero,
   .arlista-content {
-    margin-top: calc((-1 * var(--hazirend-panel-overlap)) + clamp(3rem, 12vw, 4.5rem));
-    padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)) + clamp(3rem, 12vw, 4.6rem));
+    margin-top: 0;
+    padding-top: var(--section-space);
   }
 }
 
@@ -2613,12 +2648,12 @@ a.service-card:focus-visible {
   padding-bottom: var(--section-space);
 }
 
-/* Házirend: fehér szabályszekció — negatív margin + padding, hogy a tartalom a panel alá kerüljön */
+/* Házirend: fehér szabályszekció a panel alatt, tiszta réssel */
 .hazirend-rules-section {
   position: relative;
   z-index: 1;
-  margin-top: calc(-1 * var(--hazirend-panel-overlap));
-  padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)));
+  margin-top: 0;
+  padding-top: var(--section-space);
   padding-bottom: var(--section-space);
   background: var(--color-white);
 }
@@ -2689,7 +2724,6 @@ a.service-card:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .hazirend-hero-panel {
     transform: none;
-    margin-bottom: var(--section-space-half);
   }
 
   .hazirend-rules-section,
@@ -2704,8 +2738,8 @@ a.service-card:focus-visible {
 .arlista-content {
   position: relative;
   z-index: 1;
-  margin-top: calc(-1 * var(--hazirend-panel-overlap));
-  padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)));
+  margin-top: 0;
+  padding-top: var(--section-space);
   padding-bottom: var(--section-space);
   background: var(--color-white);
   /* 100vw-s full-bleed vonal ne okozzon vízszintes görgetősávot (scrollbar vs. vw) */
@@ -2817,7 +2851,7 @@ a.service-card:focus-visible {
 
 .price-block {
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-  scroll-margin-top: calc(var(--hazirend-panel-overlap) + 1.25rem);
+  scroll-margin-top: calc(var(--header-h, 80px) + 1.25rem);
 }
 
 .arlista-content .price-block + .price-block {
@@ -3957,8 +3991,8 @@ a.service-card:focus-visible {
   }
 
   .page-hero {
-    --page-hero-pad-y: clamp(1.75rem, 4vw, 2.75rem);
-    --page-hero-h: max(min(30vh, 320px), calc(var(--page-hero-pad-y) * 2 + 11rem));
+    --page-hero-pad-y: clamp(2.25rem, 5vw, 3.25rem);
+    --page-hero-h: max(min(34vh, 380px), calc(var(--page-hero-pad-y) * 2 + 12.5rem));
   }
 
   .page-hero__grid {
@@ -3966,6 +4000,7 @@ a.service-card:focus-visible {
     isolation: isolate;
     height: 100%;
     min-height: 0;
+    padding-top: clamp(0.65rem, 2vh, 1.25rem);
   }
 
   .page-hero__grid::before {
@@ -4003,11 +4038,6 @@ a.service-card:focus-visible {
 
   .page-hero__content .subpage-kicker {
     color: var(--color-gold);
-  }
-
-  .page-hero--hazirend .page-hero__grid {
-    height: 100%;
-    min-height: 0;
   }
 
   .why-me {
@@ -4054,13 +4084,14 @@ a.service-card:focus-visible {
   .page-hazirend,
   .page-kapcsolat,
   .page-arlista {
-    --hazirend-panel-overlap: clamp(4.75rem, 16vmin, 8rem);
+    --hazirend-panel-gap: clamp(2.25rem, 5vw, 3rem);
   }
 
   .hazirend-rules-section,
   .contact.contact--after-overlap-hero,
   .arlista-content {
-    padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)) + clamp(1rem, 4vw, 1.85rem));
+    margin-top: 0;
+    padding-top: var(--section-space);
   }
 
   .split-info__grid {
