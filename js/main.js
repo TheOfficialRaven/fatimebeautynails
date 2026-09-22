@@ -779,6 +779,10 @@
   })();
 
   (function welcomeCouponPopup() {
+    /* Ideiglenesen kikapcsolva — a kód megmarad, csak nem jelenik meg. */
+    var POPUP_ENABLED = false;
+    if (!POPUP_ENABLED) return;
+
     var delayMs = 5000;
     var shownSessionKey = "welcomeCouponPopupShown";
     var popupRoot = null;
