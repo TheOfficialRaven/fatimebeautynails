@@ -84,6 +84,8 @@ html {
   --page-gutter: var(--layout-gutter);
   /* Anchor linkek + scrollIntoView: sticky fejléc magassága */
   scroll-padding-top: var(--header-outer-h);
+  /* Nyelvváltáskor ne mozduljon az elrendezés a scrollbar megjelenése/eltűnése miatt */
+  scrollbar-gutter: stable;
 }
 
 @media (max-width: 480px) {
@@ -174,6 +176,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: var(--header-h);
   min-height: var(--header-h);
   gap: 1.5rem;
 }
@@ -208,13 +211,13 @@ p {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: clamp(1.15rem, 2.2vw, 1.75rem);
 }
 
 .nav__list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: clamp(1rem, 2vw, 1.65rem);
   list-style: none;
@@ -229,6 +232,7 @@ p {
 .nav__link {
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   gap: 0.35rem;
   position: relative;
   font-family: var(--font-sans);
@@ -371,7 +375,7 @@ p {
 
 .lang-switch__link {
   color: var(--header-lang);
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
   transition:
     color 0.28s ease,
@@ -389,7 +393,6 @@ p {
 }
 
 .lang-switch__link--current {
-  font-weight: 700;
   color: var(--color-gold);
   cursor: default;
 }
@@ -398,84 +401,69 @@ p {
   color: var(--color-gold);
 }
 
+/* A Kapcsolat/Kontakt ne legyen az Info/Infó almenüben (a fő navbar CTA marad). */
+#nav-sub-info a[href*="kontakt"],
+#nav-sub-info a[href*="kapcsolat"] {
+  display: none;
+}
+
 /*
- * Nyelvváltás utáni első festés: csak a szöveg rejtve (képek / szekcióhátterek látszanak — nincs nagy „fehér lyuk”).
- * A szelektorokat a js/lang-transition-init.js textTargets() listájával szinkronban tartani.
+ * Nyelvváltás — csak szöveg fade (képek/layout nem villannak).
+ * A szöveg-elrejtés az INLINE head CSS-ben is megvan (első festés előtt).
  */
-html.lang-enter-pending main {
+html.lang-enter-pending,
+html.lang-scroll-pending,
+html.lang-exit {
+  overflow-anchor: none;
+  scroll-behavior: auto !important;
+}
+
+html.lang-exit,
+html.lang-exit body {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+html.lang-exit main {
   pointer-events: none;
 }
 
+/* Szöveg rejtve belépéskor — NEM a body/képek */
 html.lang-enter-pending main :where(
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  li,
-  label,
-  th,
-  td,
-  blockquote,
-  cite,
-  .hero__tagline,
-  .hero__title,
-  .hero__lead,
-  .section-title,
-  .section-subtitle,
-  .subpage-kicker,
-  .page-hero__title,
-  .page-hero__lead,
-  .stats__label,
-  .stats__value,
-  .stats__suffix,
-  .service-card__title,
-  .service-card__text,
-  .testimonial-card__quote,
-  .testimonial-card__name,
-  .faq-item__question,
-  .faq-item__answer,
-  .process-card__title,
-  .process-card__text,
-  .split-info__title,
-  .checklist__item span,
-  .service-panel__title,
-  .service-panel__panel-inner p,
-  .service-panel__panel-inner li,
-  .cta-banner__title,
-  .contact__title,
-  .contact__text,
-  .hazirend-rules__title,
-  .hazirend-rules__text,
-  .kapcsolat-hero-panel__line,
-  .price-table__service,
-  .price-table__price,
-  .form__status,
-  .btn
+  h1, h2, h3, h4, h5, h6, p, li, label, th, td, blockquote, cite,
+  .hero__tagline, .hero__title, .hero__lead,
+  .section-title, .section-subtitle, .subpage-kicker,
+  .page-hero__title, .page-hero__lead,
+  .stats__label, .stats__value, .stats__suffix,
+  .service-card__title, .service-card__text,
+  .testimonial-card__quote, .testimonial-card__name,
+  .faq-item__question, .faq-item__answer,
+  .process-card__title, .process-card__text,
+  .split-info__title, .checklist__item span,
+  .service-panel__title, .service-panel__panel-inner p, .service-panel__panel-inner li,
+  .cta-banner__title, .contact__title, .contact__text,
+  .hazirend-rules__title, .hazirend-rules__text,
+  .hazirend-hero-panel__title, .hazirend-hero-panel__subtitle, .hazirend-hero-panel__lead,
+  .kapcsolat-hero-panel__title, .kapcsolat-hero-panel__lead, .kapcsolat-hero-panel__line,
+  .price-table__service, .price-table__price, .form__status, .btn
 ) {
   opacity: 0;
 }
 
-/* Nyelvváltás: csak szövegek a <main>-ben — csak opacity + minimális elmozdulás (blur nélkül, kevesebb jank) */
+/* Kilépő szöveg-fade */
 main.lang-text-motion--exit .lang-text-motion__el {
-  transition:
-    opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
   opacity: 0;
-  transform: translate3d(0, -0.15rem, 0);
 }
 
-/* .btn saját transform átmenete ne ütközzön */
 main.lang-text-motion--exit .lang-text-motion__el.btn {
   transform: none;
-  transition: opacity 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* Belépő szöveg-fade */
 main.lang-text-motion--enter .lang-text-motion__el {
   opacity: 0;
-  transform: translate3d(0, 0.2rem, 0);
   transition: none;
 }
 
@@ -485,72 +473,39 @@ main.lang-text-motion--enter .lang-text-motion__el.btn {
 
 main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__el {
   opacity: 1;
-  transform: translate3d(0, 0, 0);
-  transition:
-    opacity 0.62s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__el.btn {
   transform: none;
-  transition: opacity 0.62s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.lang-enter-pending main {
-    pointer-events: auto;
-  }
-
   html.lang-enter-pending main :where(
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    li,
-    label,
-    th,
-    td,
-    blockquote,
-    cite,
-    .hero__tagline,
-    .hero__title,
-    .hero__lead,
-    .section-title,
-    .section-subtitle,
-    .subpage-kicker,
-    .page-hero__title,
-    .page-hero__lead,
-    .stats__label,
-    .stats__value,
-    .stats__suffix,
-    .service-card__title,
-    .service-card__text,
-    .testimonial-card__quote,
-    .testimonial-card__name,
-    .faq-item__question,
-    .faq-item__answer,
-    .process-card__title,
-    .process-card__text,
-    .split-info__title,
-    .checklist__item span,
-    .service-panel__title,
-    .service-panel__panel-inner p,
-    .service-panel__panel-inner li,
-    .cta-banner__title,
-    .contact__title,
-    .contact__text,
-    .hazirend-rules__title,
-    .hazirend-rules__text,
-    .kapcsolat-hero-panel__line,
-    .price-table__service,
-    .price-table__price,
-    .form__status,
-    .btn
+    h1, h2, h3, h4, h5, h6, p, li, label, th, td, blockquote, cite,
+    .hero__tagline, .hero__title, .hero__lead,
+    .section-title, .section-subtitle, .subpage-kicker,
+    .page-hero__title, .page-hero__lead,
+    .stats__label, .stats__value, .stats__suffix,
+    .service-card__title, .service-card__text,
+    .testimonial-card__quote, .testimonial-card__name,
+    .faq-item__question, .faq-item__answer,
+    .process-card__title, .process-card__text,
+    .split-info__title, .checklist__item span,
+    .service-panel__title, .service-panel__panel-inner p, .service-panel__panel-inner li,
+    .cta-banner__title, .contact__title, .contact__text,
+    .hazirend-rules__title, .hazirend-rules__text,
+    .hazirend-hero-panel__title, .hazirend-hero-panel__subtitle, .hazirend-hero-panel__lead,
+    .kapcsolat-hero-panel__title, .kapcsolat-hero-panel__lead, .kapcsolat-hero-panel__line,
+    .price-table__service, .price-table__price, .form__status, .btn
   ) {
     opacity: 1 !important;
+  }
+
+  html.lang-exit,
+  html.lang-exit body {
+    overflow: visible !important;
   }
 
   main.lang-text-motion--exit .lang-text-motion__el,
@@ -1401,13 +1356,13 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   justify-content: center;
   width: auto;
   height: auto;
-  margin: 0 auto 0.65rem;
+  margin: 0 auto 1.05rem;
 }
 
 .service-card__icon img {
-  height: clamp(42px, 5vw, 54px);
+  height: clamp(56px, 7vw, 72px);
   width: auto;
-  max-width: min(100%, 120px);
+  max-width: min(100%, 140px);
   object-fit: contain;
   display: block;
 }
@@ -1415,9 +1370,10 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .service-card__title {
   font-family: var(--font-serif);
   font-weight: 600;
+  font-size: clamp(1.15rem, 2.4vw, 1.35rem);
   color: var(--color-green-dark);
   margin-top: 0;
-  margin-bottom: 0.45rem;
+  margin-bottom: 1.25rem;
   overflow-wrap: anywhere;
 }
 
@@ -1450,16 +1406,16 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   }
 
   .services .service-card__icon {
-    margin-bottom: clamp(0.35rem, 0.65vw, 0.5rem);
+    margin-bottom: clamp(0.75rem, 1.15vw, 1.05rem);
   }
 
   .services .service-card__icon img {
-    height: clamp(34px, 3.8vw, 44px);
+    height: clamp(48px, 5.2vw, 68px);
   }
 
   .services .service-card__title {
-    font-size: clamp(0.95rem, 1.15vw, 1.08rem);
-    margin-bottom: clamp(0.2rem, 0.45vw, 0.35rem);
+    font-size: clamp(1.12rem, 1.45vw, 1.4rem);
+    margin-bottom: clamp(0.9rem, 1.25vw, 1.2rem);
   }
 }
 
@@ -2230,12 +2186,17 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   text-align: center;
 }
 
-/* Aloldal hero: ~fél viewport magasság, Hero_background_img (ugyanaz a réteg mint a főoldalon, előtér nélkül) */
+/* Aloldal hero: egységes fix magasság + egységes szöveg-padding (nem nő a tartalommal) */
 .page-hero {
+  --page-hero-pad-y: clamp(2.25rem, 3.5vw, 3.25rem);
+  /* Rövid sáv (~negyed), de legyen elég hely a cím + lead + CTA + paddingnek */
+  --page-hero-h: max(calc(var(--screen-fill) * 0.25), calc(var(--page-hero-pad-y) * 2 + 11.5rem));
   position: relative;
   padding: 0;
   overflow: hidden;
-  min-height: calc(var(--screen-fill) * 0.5);
+  height: var(--page-hero-h);
+  min-height: var(--page-hero-h);
+  max-height: var(--page-hero-h);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -2247,9 +2208,11 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .page-hero__grid {
   position: relative;
   z-index: 1;
-  flex: 1;
-  display: block;
-  min-height: calc(var(--screen-fill) * 0.5);
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-height: 0;
   width: 100%;
 }
 
@@ -2262,7 +2225,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     (100cqw - min(var(--container), calc(100cqw - 2 * var(--layout-gutter)))) / 2
   );
   margin-right: 0;
-  padding-block: var(--section-space);
+  padding-block: var(--page-hero-pad-y);
   padding-inline: 0;
   width: min(var(--hero-content-max), 100%);
   min-width: 0;
@@ -2363,7 +2326,8 @@ a.service-card:focus-visible {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  min-height: calc(var(--screen-fill) * 0.5);
+  height: 100%;
+  min-height: 0;
   padding-bottom: 0;
   box-sizing: border-box;
 }
@@ -2407,12 +2371,12 @@ a.service-card:focus-visible {
 }
 
 .hazirend-hero-panel__lead {
-  margin: 0;
+  margin: 10px auto;
   font-family: var(--font-sans);
   font-size: clamp(0.98rem, 1.6vw, 1.08rem);
   line-height: 1.68;
   color: rgba(255, 255, 255, 0.94);
-  max-width: none;
+  max-width: 1100px;
 }
 
 /* Kapcsolat aloldal: ugyanaz a lebegő panel, balra szöveg, jobbra két oszlop elérhetőség */
@@ -2810,6 +2774,13 @@ a.service-card:focus-visible {
   height: 100%;
 }
 
+.price-nav-card__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .price-nav-card__label {
   flex: 1;
   display: flex;
@@ -2893,8 +2864,10 @@ a.service-card:focus-visible {
   overflow-x: auto;
   margin-bottom: 1.35rem;
   -webkit-overflow-scrolling: touch;
-  border-radius: 6px;
-  border: 1px solid rgba(43, 74, 66, 0.12);
+  border-radius: 10px;
+  border: 1px solid rgba(43, 74, 66, 0.08);
+  background: #fcfcfb;
+  box-shadow: 0 3px 14px rgba(43, 74, 66, 0.05);
 }
 
 .price-table-wrap:last-child {
@@ -2918,7 +2891,7 @@ a.service-card:focus-visible {
   font-family: var(--font-sans);
   text-align: center;
   padding: 0.7rem 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: none;
 }
 
 .price-table thead th.price-table__th--category {
@@ -2940,16 +2913,8 @@ a.service-card:focus-visible {
 
 .price-table tbody td {
   padding: 0.65rem 0.8rem;
-  border: 1px solid rgba(43, 74, 66, 0.12);
+  border: none;
   vertical-align: middle;
-}
-
-.price-table tbody tr:nth-child(odd) td {
-  background: var(--color-white);
-}
-
-.price-table tbody tr:nth-child(even) td {
-  background: #f3f4f2;
 }
 
 .arlista-content .price-table tbody tr td {
@@ -3071,10 +3036,10 @@ a.service-card:focus-visible {
     display: block;
     margin-bottom: 0.7rem;
     padding: 0.65rem 0.8rem;
-    border: 1px solid rgba(43, 74, 66, 0.14);
+    border: 1px solid rgba(43, 74, 66, 0.08);
     border-radius: 8px;
-    background: var(--color-white);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    background: #fcfcfb;
+    box-shadow: 0 2px 10px rgba(43, 74, 66, 0.04);
     overflow: hidden;
   }
 
@@ -3138,7 +3103,7 @@ a.service-card:focus-visible {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2rem, 5vw, 3.75rem);
-  align-items: center;
+  align-items: start;
 }
 
 .split-info__media {
@@ -3277,30 +3242,52 @@ a.service-card:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  width: auto;
+  height: auto;
+  margin: 0 auto 1.05rem;
 }
 
 .process-card__icon img {
   display: block;
-  width: clamp(44px, 7vw, 52px);
-  height: auto;
+  height: clamp(56px, 7vw, 72px);
+  width: auto;
+  max-width: min(100%, 140px);
+  object-fit: contain;
 }
 
 .process-card__title {
   font-family: var(--font-serif);
-  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
-  font-weight: 500;
+  font-size: clamp(1.15rem, 2.4vw, 1.35rem);
+  font-weight: 600;
   line-height: 1.28;
-  color: var(--color-text);
-  margin: 0 0 0.7rem;
+  color: var(--color-green-dark);
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  overflow-wrap: anywhere;
 }
 
 .process-card__text {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  font-size: var(--fs-p);
   line-height: 1.6;
-  color: rgba(43, 74, 66, 0.82);
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 769px) {
+  .process-section .process-card__icon {
+    margin-bottom: clamp(0.75rem, 1.15vw, 1.05rem);
+  }
+
+  .process-section .process-card__icon img {
+    height: clamp(48px, 5.2vw, 68px);
+  }
+
+  .process-section .process-card__title {
+    font-size: clamp(1.12rem, 1.45vw, 1.4rem);
+    margin-bottom: clamp(0.9rem, 1.25vw, 1.2rem);
+  }
 }
 
 .service-showcase {
@@ -3949,10 +3936,16 @@ a.service-card:focus-visible {
     object-position: center center;
   }
 
+  .page-hero {
+    --page-hero-pad-y: clamp(1.75rem, 4vw, 2.75rem);
+    --page-hero-h: max(min(30vh, 320px), calc(var(--page-hero-pad-y) * 2 + 11rem));
+  }
+
   .page-hero__grid {
     position: relative;
     isolation: isolate;
-    min-height: min(30vh, 320px);
+    height: 100%;
+    min-height: 0;
   }
 
   .page-hero__grid::before {
@@ -3977,7 +3970,7 @@ a.service-card:focus-visible {
     width: min(var(--container), calc(100cqw - 2 * var(--layout-gutter)));
     max-width: 100%;
     justify-self: stretch;
-    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    padding-block: var(--page-hero-pad-y);
   }
 
   .page-hero__title {
@@ -3993,7 +3986,8 @@ a.service-card:focus-visible {
   }
 
   .page-hero--hazirend .page-hero__grid {
-    min-height: min(28vh, 300px);
+    height: 100%;
+    min-height: 0;
   }
 
   .why-me {

@@ -763,9 +763,25 @@
   })();
 
   (function welcomeCouponPopup() {
-    var delayMs = 10000;
+    var delayMs = 5000;
+    var shownSessionKey = "welcomeCouponPopupShown";
     var popupRoot = null;
     var onEsc = null;
+
+    function isReloadNavigation() {
+      try {
+        if (window.performance && typeof window.performance.getEntriesByType === "function") {
+          var navEntries = window.performance.getEntriesByType("navigation");
+          if (navEntries && navEntries.length > 0) {
+            return navEntries[0].type === "reload";
+          }
+        }
+        if (window.performance && window.performance.navigation) {
+          return window.performance.navigation.type === 1;
+        }
+      } catch (e) {}
+      return false;
+    }
 
     function isHuLanguage() {
       var lang = ((document.documentElement && document.documentElement.lang) || "").toLowerCase();
@@ -900,6 +916,19 @@
     }
 
     function initPopup() {
+      var alreadyShown = false;
+      try {
+        alreadyShown = sessionStorage.getItem(shownSessionKey) === "1";
+      } catch (e) {}
+
+      if (alreadyShown && !isReloadNavigation()) {
+        return;
+      }
+
+      try {
+        sessionStorage.setItem(shownSessionKey, "1");
+      } catch (e) {}
+
       window.setTimeout(buildPopup, delayMs);
     }
 
