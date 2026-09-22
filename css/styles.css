@@ -408,27 +408,52 @@ p {
 }
 
 /*
- * Nyelvváltás — csak szöveg fade (képek/layout nem villannak).
- * A szöveg-elrejtés az INLINE head CSS-ben is megvan (első festés előtt).
+ * Nyelvváltás — szöveg fade + mid-scroll villanásmentes restore.
+ *
+ * Mid-scroll: body visibility:hidden, .site-header visibility:visible
+ * (CSS: a gyerek visibility:visible kilép a hidden szülőből).
  */
 html.lang-enter-pending,
 html.lang-scroll-pending,
+html.lang-content-pending,
 html.lang-exit {
   overflow-anchor: none;
   scroll-behavior: auto !important;
 }
 
-html.lang-exit,
-html.lang-exit body {
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
+html.lang-exit {
+  overscroll-behavior: none;
 }
 
 html.lang-exit main {
   pointer-events: none;
 }
 
-/* Szöveg rejtve belépéskor — NEM a body/képek */
+html.lang-scroll-pending .site-header,
+html.lang-enter-pending .site-header,
+html.lang-content-pending .site-header,
+html.lang-exit .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10001;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: var(--color-white, #fff);
+}
+
+html.lang-scroll-pending body {
+  visibility: hidden !important;
+}
+
+html.lang-scroll-pending .site-header {
+  visibility: visible !important;
+}
+
+html.lang-content-pending main,
+html.lang-content-pending .site-footer {
+  opacity: 0 !important;
+}
+
 html.lang-enter-pending main :where(
   h1, h2, h3, h4, h5, h6, p, li, label, th, td, blockquote, cite,
   .hero__tagline, .hero__title, .hero__lead,
@@ -450,34 +475,18 @@ html.lang-enter-pending main :where(
   opacity: 0;
 }
 
-/* Kilépő szöveg-fade */
 main.lang-text-motion--exit .lang-text-motion__el {
   transition: opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
   opacity: 0;
 }
 
-main.lang-text-motion--exit .lang-text-motion__el.btn {
-  transform: none;
-  transition: opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-/* Belépő szöveg-fade */
 main.lang-text-motion--enter .lang-text-motion__el {
   opacity: 0;
   transition: none;
 }
 
-main.lang-text-motion--enter .lang-text-motion__el.btn {
-  transform: none;
-}
-
 main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__el {
   opacity: 1;
-  transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__el.btn {
-  transform: none;
   transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -503,20 +512,22 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     opacity: 1 !important;
   }
 
-  html.lang-exit,
-  html.lang-exit body {
-    overflow: visible !important;
+  html.lang-scroll-pending body {
+    visibility: visible !important;
+  }
+
+  html.lang-content-pending main,
+  html.lang-content-pending .site-footer {
+    opacity: 1 !important;
   }
 
   main.lang-text-motion--exit .lang-text-motion__el,
   main.lang-text-motion--enter .lang-text-motion__el,
   main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__el {
     transition: none !important;
-    transform: none !important;
     opacity: 1 !important;
   }
 }
-
 /* ——— Buttons ——— */
 .btn {
   display: inline-flex;
@@ -1751,7 +1762,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .faq-item__question {
   font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.55;
   color: var(--color-text);
@@ -2122,6 +2133,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   align-items: center;
   justify-content: center;
   color: var(--color-white);
+  line-height: 0;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
@@ -2133,7 +2145,14 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .footer__social-btn:focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
-  border-radius: 50%;
+  color: var(--color-gold);
+}
+
+.footer__social-btn .social-icon,
+.kapcsolat-hero-panel__social-btn .social-icon {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
 }
 
 .footer__bar {
@@ -2493,7 +2512,8 @@ a.service-card:focus-visible {
   transform: translateY(-1px);
 }
 
-.kapcsolat-hero-panel__social-btn svg {
+.kapcsolat-hero-panel__social-btn svg,
+.kapcsolat-hero-panel__social-btn .social-icon {
   width: 1.35rem;
   height: 1.35rem;
 }

@@ -1,18 +1,24 @@
 /**
- * Nyelvváltás — csak szöveg-fade, villanás nélkül.
+ * Nyelvváltás — fade-out/fade-in + mid-scroll villanás javítás.
  *
- * A „teljes oldalas” villanást a body opacity fade okozta (képek is megjelentek).
- * Most: képek/layout végig látszanak; csak a szöveg van elrejtve az első festéstől
- * (inline head CSS), majd egyetlen szöveg fade-in.
+ * Mid-scroll villanás oka: a tartalom y=0-n megjelent, vagy a maszk/opacity
+ * hirtelen levált. Megoldás:
+ *  - Kilépés (y>0): a teljes main fade-out (nem csak szöveg)
+ *  - Belépés (y>0): body visibility:hidden + header visibility:visible
+ *    (a visibility-t a gyerek felülírhatja — ellentétben az opacity-vel)
+ *  - Scroll beáll → main együtt fade-in a szövegekkel
+ *  - y=0: csak szöveg-fade (ez eddig is jó volt)
  */
 (function () {
   var STORAGE_KEY = "langTextTransition";
   var SCROLL_KEY = "langScrollY";
   var EXIT_MS = 300;
-  var ENTER_MS = 600;
+  var ENTER_MS = 550;
   var navigating = false;
   var inputBlocked = false;
   var enterDone = false;
+  var enterTimer = null;
+  var safetyTimer = null;
 
   function prefersReducedMotion() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -26,14 +32,22 @@
     var h = root();
     h.classList.remove("lang-enter-pending");
     h.classList.remove("lang-scroll-pending");
-    h.classList.remove("lang-enter-ready");
+    h.classList.remove("lang-content-pending");
     h.classList.remove("lang-exit");
     try {
       h.style.removeProperty("background-color");
       h.style.removeProperty("scroll-behavior");
-      h.style.removeProperty("overflow");
-      if (document.body) document.body.style.removeProperty("overflow");
     } catch (e) {}
+    var main = document.querySelector("main");
+    var footer = document.querySelector(".site-footer");
+    if (main) {
+      main.style.removeProperty("opacity");
+      main.style.removeProperty("transition");
+    }
+    if (footer) {
+      footer.style.removeProperty("opacity");
+      footer.style.removeProperty("transition");
+    }
   }
 
   function currentScrollY() {
@@ -41,14 +55,37 @@
   }
 
   function instantScrollTo(y) {
+    var h = root();
     try {
-      root().style.scrollBehavior = "auto";
+      h.style.scrollBehavior = "auto";
     } catch (e) {}
     try {
-      window.scrollTo(0, y);
-      root().scrollTop = y;
+      if (typeof window.scrollTo === "function") {
+        try {
+          window.scrollTo({ top: y, left: 0, behavior: "instant" });
+        } catch (e1) {
+          try {
+            window.scrollTo({ top: y, left: 0, behavior: "auto" });
+          } catch (e2) {
+            window.scrollTo(0, y);
+          }
+        }
+      }
+      h.scrollTop = y;
       if (document.body) document.body.scrollTop = y;
-    } catch (e2) {}
+    } catch (e3) {}
+  }
+
+  function docScrollHeight() {
+    var b = document.body;
+    var h = root();
+    return Math.max(
+      b ? b.scrollHeight : 0,
+      b ? b.offsetHeight : 0,
+      h.scrollHeight,
+      h.offsetHeight,
+      h.clientHeight
+    );
   }
 
   function saveScroll() {
@@ -92,58 +129,23 @@
   document.addEventListener("touchmove", blockInput, { capture: true, passive: false });
 
   var TEXT_SEL = [
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "p",
-    "li",
-    "label",
-    "th",
-    "td",
-    "blockquote",
-    "cite",
-    ".hero__tagline",
-    ".hero__title",
-    ".hero__lead",
-    ".section-title",
-    ".section-subtitle",
-    ".subpage-kicker",
-    ".page-hero__title",
-    ".page-hero__lead",
-    ".stats__label",
-    ".stats__value",
-    ".stats__suffix",
-    ".service-card__title",
-    ".service-card__text",
-    ".testimonial-card__quote",
-    ".testimonial-card__name",
-    ".faq-item__question",
-    ".faq-item__answer",
-    ".process-card__title",
-    ".process-card__text",
-    ".split-info__title",
-    ".checklist__item span",
-    ".service-panel__title",
-    ".service-panel__panel-inner p",
-    ".service-panel__panel-inner li",
-    ".cta-banner__title",
-    ".contact__title",
-    ".contact__text",
-    ".hazirend-rules__title",
-    ".hazirend-rules__text",
-    ".hazirend-hero-panel__title",
-    ".hazirend-hero-panel__subtitle",
-    ".hazirend-hero-panel__lead",
-    ".kapcsolat-hero-panel__title",
-    ".kapcsolat-hero-panel__lead",
-    ".kapcsolat-hero-panel__line",
-    ".price-table__service",
-    ".price-table__price",
-    ".form__status",
-    ".btn",
+    "h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "label", "th", "td",
+    "blockquote", "cite",
+    ".hero__tagline", ".hero__title", ".hero__lead",
+    ".section-title", ".section-subtitle", ".subpage-kicker",
+    ".page-hero__title", ".page-hero__lead",
+    ".stats__label", ".stats__value", ".stats__suffix",
+    ".service-card__title", ".service-card__text",
+    ".testimonial-card__quote", ".testimonial-card__name",
+    ".faq-item__question", ".faq-item__answer",
+    ".process-card__title", ".process-card__text",
+    ".split-info__title", ".checklist__item span",
+    ".service-panel__title", ".service-panel__panel-inner p", ".service-panel__panel-inner li",
+    ".cta-banner__title", ".contact__title", ".contact__text",
+    ".hazirend-rules__title", ".hazirend-rules__text",
+    ".hazirend-hero-panel__title", ".hazirend-hero-panel__subtitle", ".hazirend-hero-panel__lead",
+    ".kapcsolat-hero-panel__title", ".kapcsolat-hero-panel__lead", ".kapcsolat-hero-panel__line",
+    ".price-table__service", ".price-table__price", ".form__status", ".btn",
   ].join(",");
 
   function textTargets(main) {
@@ -168,6 +170,14 @@
   function finishEnter(main, nodes) {
     if (enterDone) return;
     enterDone = true;
+    if (enterTimer) {
+      clearTimeout(enterTimer);
+      enterTimer = null;
+    }
+    if (safetyTimer) {
+      clearTimeout(safetyTimer);
+      safetyTimer = null;
+    }
     if (main) {
       main.classList.remove(
         "lang-text-motion",
@@ -181,12 +191,94 @@
     inputBlocked = false;
   }
 
+  function restoreScrollThen(y, done) {
+    if (y <= 0) {
+      done();
+      return;
+    }
+
+    root().classList.add("lang-scroll-pending");
+    root().classList.add("lang-content-pending");
+    try {
+      root().style.scrollBehavior = "auto";
+    } catch (e) {}
+
+    var attempts = 0;
+    var maxAttempts = 60;
+
+    function tick() {
+      attempts += 1;
+      instantScrollTo(y);
+
+      var maxY = Math.max(0, docScrollHeight() - window.innerHeight);
+      var target = Math.min(y, maxY);
+      var pos = currentScrollY();
+      var closeEnough = Math.abs(pos - target) <= 2;
+      var tallEnough = docScrollHeight() >= Math.min(y + window.innerHeight * 0.4, y + 160);
+
+      if ((closeEnough && tallEnough) || attempts >= maxAttempts) {
+        instantScrollTo(y);
+        requestAnimationFrame(function () {
+          instantScrollTo(y);
+          requestAnimationFrame(function () {
+            instantScrollTo(y);
+            done();
+          });
+        });
+        return;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function startTextEnter(main, nodes, y) {
+    if (y > 0) instantScrollTo(y);
+
+    main.classList.add("lang-text-motion--enter-active");
+    try {
+      void main.offsetHeight;
+    } catch (e) {}
+
+    var footer = document.querySelector(".site-footer");
+
+    /*
+     * 1) visibility maszk le (body látszik), de main még opacity 0
+     * 2) scroll újra
+     * 3) main + footer + szöveg együtt fade-in
+     */
+    root().classList.remove("lang-scroll-pending");
+    if (y > 0) instantScrollTo(y);
+
+    requestAnimationFrame(function () {
+      if (y > 0) instantScrollTo(y);
+
+      root().classList.remove("lang-enter-pending");
+      root().classList.remove("lang-content-pending");
+      try {
+        root().style.removeProperty("background-color");
+      } catch (e2) {}
+
+      if (y > 0) {
+        main.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
+        main.style.opacity = "1";
+        if (footer) {
+          footer.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
+          footer.style.opacity = "1";
+        }
+        instantScrollTo(y);
+      }
+
+      inputBlocked = false;
+      enterTimer = window.setTimeout(function () {
+        finishEnter(main, nodes);
+      }, ENTER_MS);
+    });
+  }
+
   function runEnter() {
     var y = readScroll();
-    if (y >= 0) {
-      root().classList.add("lang-scroll-pending");
-      instantScrollTo(y);
-    }
 
     var flag = false;
     try {
@@ -194,6 +286,7 @@
     } catch (e) {}
 
     if (prefersReducedMotion() || !flag) {
+      if (y > 0) instantScrollTo(y);
       clearPending();
       clearScrollStorage();
       try {
@@ -212,45 +305,38 @@
       return;
     }
 
-    /* Szöveg maradjon 0-n (pending + enter), képek látszanak — nincs body-flash */
     inputBlocked = true;
+    try {
+      root().style.scrollBehavior = "auto";
+    } catch (e) {}
+
+    /* Mid-scroll: main/footer tartsuk opacity 0-n a CSS mellett is */
+    if (y > 0) {
+      root().classList.add("lang-content-pending");
+      main.style.opacity = "0";
+      var footer = document.querySelector(".site-footer");
+      if (footer) footer.style.opacity = "0";
+    }
+
     main.classList.add("lang-text-motion", "lang-text-motion--enter");
     var nodes = mark(main);
-    if (y >= 0) instantScrollTo(y);
 
     try {
       sessionStorage.removeItem(STORAGE_KEY);
     } catch (e) {}
-    clearScrollStorage();
 
-    requestAnimationFrame(function () {
-      if (y >= 0) instantScrollTo(y);
-      requestAnimationFrame(function () {
-        if (y >= 0) instantScrollTo(y);
-
-        /* Előbb enter-active (szöveg 0→1 transition), pending csak utána le — nincs snap */
+    safetyTimer = window.setTimeout(function () {
+      if (y > 0) instantScrollTo(y);
+      if (!main.classList.contains("lang-text-motion--enter-active")) {
         main.classList.add("lang-text-motion--enter-active");
-        try {
-          void main.offsetHeight;
-        } catch (e) {}
+      }
+      finishEnter(main, nodes);
+    }, 3000);
 
-        root().classList.remove("lang-enter-pending");
-        root().classList.remove("lang-scroll-pending");
-        try {
-          root().style.removeProperty("background-color");
-          root().style.removeProperty("scroll-behavior");
-        } catch (e2) {}
-        inputBlocked = false;
-      });
+    restoreScrollThen(y, function () {
+      clearScrollStorage();
+      startTextEnter(main, nodes, y);
     });
-
-    window.setTimeout(function () {
-      finishEnter(main, nodes);
-    }, ENTER_MS);
-
-    window.setTimeout(function () {
-      finishEnter(main, nodes);
-    }, 1600);
   }
 
   function navigateTo(href) {
@@ -294,13 +380,23 @@
         root().classList.add("lang-exit");
         try {
           root().style.scrollBehavior = "auto";
-          root().style.overflow = "hidden";
-          if (document.body) document.body.style.overflow = "hidden";
         } catch (err2) {}
         inputBlocked = true;
 
+        var y = currentScrollY();
         mark(main);
         main.classList.add("lang-text-motion", "lang-text-motion--exit");
+
+        /* Mid-scroll: a képek se villanhassanak — main is fade-out */
+        if (y > 40) {
+          main.style.transition = "opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1)";
+          main.style.opacity = "0";
+          var footer = document.querySelector(".site-footer");
+          if (footer) {
+            footer.style.transition = "opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1)";
+            footer.style.opacity = "0";
+          }
+        }
 
         var target = a.href;
         window.setTimeout(function () {
@@ -321,7 +417,7 @@
     }
   } catch (e) {}
 
-  if (typeof window.__langScrollY === "number") {
+  if (typeof window.__langScrollY === "number" && window.__langScrollY > 0) {
     instantScrollTo(window.__langScrollY);
   }
 
@@ -341,19 +437,4 @@
     runEnter();
     bindExit();
   }
-
-  window.setTimeout(function () {
-    if (root().classList.contains("lang-enter-pending")) {
-      var main = document.querySelector("main");
-      var nodes = main ? mark(main) : null;
-      if (main) {
-        main.classList.add("lang-text-motion", "lang-text-motion--enter", "lang-text-motion--enter-active");
-      }
-      clearPending();
-      inputBlocked = false;
-      window.setTimeout(function () {
-        finishEnter(main, nodes);
-      }, 50);
-    }
-  }, 2000);
 })();
