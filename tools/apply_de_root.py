@@ -54,7 +54,7 @@ REPLACEMENTS = [
     ('scope="col">Ár</th>', 'scope="col">Preis</th>'),
     ("Szolgáltatás", "Leistung"),
     ("Arc &amp; nyak", "Gesicht &amp; Hals"),
-    ("+Dekolletés", "+Dekolleté"),
+    ("+Dekoltázs", "+Dekolleté"),
     ("Nyelvválasztó", "Sprachauswahl"),
     ("Árak", "Preise"),
 ]
