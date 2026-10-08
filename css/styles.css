@@ -30,7 +30,8 @@
   /* Arany színű szekció-alcímek (script / kiemelő sor) */
   --fs-section-gold-accent: 1.7rem;
   --hero-content-max: 42rem;
-  --container: 1400px;
+  /* rem: 125% OS/böngésző méretezésnél a gyökér font-size arányosan kompenzál */
+  --container: 87.5rem; /* 1400px @ 16px */
   /* 180px oldalsó margó a tartalomnak (rem @ 16px gyökér) */
   --section-inline: 11.25rem;
   /* Egységes szekció-függőleges tér (nem a teljes magasságú képoszlopokra) */
@@ -38,7 +39,7 @@
   --section-space-half: calc(var(--section-space) * 0.5);
   /* Partnerek sáv: 90px oldalt (5.625rem @ 16px) */
   --partners-gutter: 5.625rem;
-  --header-h: 80px;
+  --header-h: 5rem; /* 80px @ 16px */
   --header-outer-h: calc(var(--header-h) + 1px);
   /* 1 képernyő: header + szekció; a legnagyobb viewport-magasság, hogy ne maradjon rés alul */
   --screen-fill: calc(100vh - var(--header-outer-h));
@@ -88,6 +89,23 @@ html {
   scrollbar-gutter: stable;
 }
 
+/*
+ * Desktop 125% / 150% kijelző- vagy böngésző-méretezés: gyökér font-size
+ * visszaállítja a vizuális méretet a 100%-os kinézetre (rem tipográfia + gutter).
+ * Csak 1025px+ — mobil/tablet nagy DPR és Retina (2dppx+) nem érintett.
+ */
+@media (min-width: 1025px) and (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
+  html {
+    font-size: 12.8px; /* 16 / 1.25 */
+  }
+}
+
+@media (min-width: 1025px) and (min-resolution: 1.45dppx) and (max-resolution: 1.55dppx) {
+  html {
+    font-size: calc(16px / 1.5);
+  }
+}
+
 @media (max-width: 480px) {
   html {
     --layout-gutter: max(0.75rem, 4vw);
@@ -98,6 +116,16 @@ html {
 @media (max-width: 1024px) and (min-width: 481px) {
   html {
     --layout-gutter: clamp(1.35rem, 4.2vw, 3.75rem);
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    --layout-gutter: var(--section-inline);
+  }
+
+  .partners {
+    --partners-gutter: calc(var(--layout-gutter) / 2);
   }
 }
 
@@ -429,6 +457,7 @@ p {
 .lang-switch__link--current {
   color: var(--color-gold);
   cursor: default;
+  pointer-events: none;
 }
 
 .lang-switch__link--current:hover {
@@ -459,7 +488,8 @@ html.lang-exit {
   overscroll-behavior: none;
 }
 
-html.lang-exit main {
+html.lang-exit main,
+html.lang-exit .site-footer {
   pointer-events: none;
 }
 
@@ -473,6 +503,8 @@ html.lang-exit .site-header {
   opacity: 1 !important;
   visibility: visible !important;
   background: var(--color-white, #fff);
+  /* Nyelvváltáskor a navbar soha ne fade-eljen / ne villanjon */
+  transition: none !important;
 }
 
 html.lang-scroll-pending body {
@@ -486,6 +518,8 @@ html.lang-scroll-pending .site-header {
 html.lang-content-pending main,
 html.lang-content-pending .site-footer {
   opacity: 0 !important;
+  /* Ne legyen „üres” flash a tartalom megjelenése előtt */
+  pointer-events: none;
 }
 
 html.lang-enter-pending main :where(

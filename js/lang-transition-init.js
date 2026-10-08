@@ -1,24 +1,26 @@
 /**
- * Nyelvváltás — fade-out/fade-in + mid-scroll villanás javítás.
+ * Nyelvváltás — fade-out/fade-in + mid-scroll villanásmentes restore.
  *
- * Mid-scroll villanás oka: a tartalom y=0-n megjelent, vagy a maszk/opacity
- * hirtelen levált. Megoldás:
- *  - Kilépés (y>0): a teljes main fade-out (nem csak szöveg)
- *  - Belépés (y>0): body visibility:hidden + header visibility:visible
- *    (a visibility-t a gyerek felülírhatja — ellentétben az opacity-vel)
- *  - Scroll beáll → main együtt fade-in a szövegekkel
- *  - y=0: csak szöveg-fade (ez eddig is jó volt)
+ * Folyamat:
+ *  1) Kilépés: scroll mentése, main/szöveg fade-out, navigáció
+ *  2) Belépés (inline head + ez a fájl): scroll vissza, majd fade-in
+ *  3) Mid-scroll: body visibility:hidden + header látható, amíg a scroll helyreáll
  */
 (function () {
+  if (window.__langTransitionBound) return;
+  window.__langTransitionBound = true;
+
   var STORAGE_KEY = "langTextTransition";
   var SCROLL_KEY = "langScrollY";
-  var EXIT_MS = 300;
-  var ENTER_MS = 550;
+  var EXIT_MS = 280;
+  var ENTER_MS = 520;
   var navigating = false;
   var inputBlocked = false;
   var enterDone = false;
   var enterTimer = null;
   var safetyTimer = null;
+  var navTimer = null;
+  var navFallbackTimer = null;
 
   function prefersReducedMotion() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -28,26 +30,28 @@
     return document.documentElement;
   }
 
+  function clearInlineFade(el) {
+    if (!el) return;
+    try {
+      el.style.removeProperty("opacity");
+      el.style.removeProperty("transition");
+    } catch (e) {}
+  }
+
   function clearPending() {
     var h = root();
-    h.classList.remove("lang-enter-pending");
-    h.classList.remove("lang-scroll-pending");
-    h.classList.remove("lang-content-pending");
-    h.classList.remove("lang-exit");
+    h.classList.remove(
+      "lang-enter-pending",
+      "lang-scroll-pending",
+      "lang-content-pending",
+      "lang-exit"
+    );
     try {
       h.style.removeProperty("background-color");
       h.style.removeProperty("scroll-behavior");
     } catch (e) {}
-    var main = document.querySelector("main");
-    var footer = document.querySelector(".site-footer");
-    if (main) {
-      main.style.removeProperty("opacity");
-      main.style.removeProperty("transition");
-    }
-    if (footer) {
-      footer.style.removeProperty("opacity");
-      footer.style.removeProperty("transition");
-    }
+    clearInlineFade(document.querySelector("main"));
+    clearInlineFade(document.querySelector(".site-footer"));
   }
 
   function currentScrollY() {
@@ -127,6 +131,17 @@
 
   document.addEventListener("wheel", blockInput, { capture: true, passive: false });
   document.addEventListener("touchmove", blockInput, { capture: true, passive: false });
+  document.addEventListener(
+    "keydown",
+    function (e) {
+      if (!inputBlocked) return;
+      var k = e.key;
+      if (k === "ArrowUp" || k === "ArrowDown" || k === "PageUp" || k === "PageDown" || k === " " || k === "Home" || k === "End") {
+        e.preventDefault();
+      }
+    },
+    { capture: true }
+  );
 
   var TEXT_SEL = [
     "h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "label", "th", "td",
@@ -189,10 +204,12 @@
     unmark(nodes);
     clearPending();
     inputBlocked = false;
+    navigating = false;
   }
 
   function restoreScrollThen(y, done) {
     if (y <= 0) {
+      instantScrollTo(0);
       done();
       return;
     }
@@ -214,14 +231,14 @@
       var target = Math.min(y, maxY);
       var pos = currentScrollY();
       var closeEnough = Math.abs(pos - target) <= 2;
-      var tallEnough = docScrollHeight() >= Math.min(y + window.innerHeight * 0.4, y + 160);
+      var tallEnough = docScrollHeight() >= Math.min(y + window.innerHeight * 0.35, y + 120);
 
       if ((closeEnough && tallEnough) || attempts >= maxAttempts) {
-        instantScrollTo(y);
+        instantScrollTo(target);
         requestAnimationFrame(function () {
-          instantScrollTo(y);
+          instantScrollTo(target);
           requestAnimationFrame(function () {
-            instantScrollTo(y);
+            instantScrollTo(target);
             done();
           });
         });
@@ -277,6 +294,16 @@
     });
   }
 
+  function abandonEnter() {
+    clearPending();
+    clearScrollStorage();
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch (e) {}
+    inputBlocked = false;
+    navigating = false;
+  }
+
   function runEnter() {
     var y = readScroll();
 
@@ -297,14 +324,11 @@
 
     var main = document.querySelector("main");
     if (!main) {
-      clearPending();
-      clearScrollStorage();
-      try {
-        sessionStorage.removeItem(STORAGE_KEY);
-      } catch (e) {}
+      abandonEnter();
       return;
     }
 
+    enterDone = false;
     inputBlocked = true;
     try {
       root().style.scrollBehavior = "auto";
@@ -312,6 +336,7 @@
 
     /* Mid-scroll: main/footer tartsuk opacity 0-n a CSS mellett is */
     if (y > 0) {
+      root().classList.add("lang-scroll-pending");
       root().classList.add("lang-content-pending");
       main.style.opacity = "0";
       var footer = document.querySelector(".site-footer");
@@ -331,15 +356,23 @@
         main.classList.add("lang-text-motion--enter-active");
       }
       finishEnter(main, nodes);
-    }, 3000);
+    }, 2800);
 
-    restoreScrollThen(y, function () {
+    restoreScrollThen(Math.max(0, y), function () {
       clearScrollStorage();
-      startTextEnter(main, nodes, y);
+      startTextEnter(main, nodes, Math.max(0, y));
     });
   }
 
   function navigateTo(href) {
+    if (navTimer) {
+      clearTimeout(navTimer);
+      navTimer = null;
+    }
+    if (navFallbackTimer) {
+      clearTimeout(navFallbackTimer);
+      navFallbackTimer = null;
+    }
     try {
       window.location.assign(href);
     } catch (e) {
@@ -352,7 +385,14 @@
       "click",
       function (e) {
         var a = e.target.closest && e.target.closest("a.lang-switch__link");
-        if (!a || a.classList.contains("lang-switch__link--current")) return;
+        if (!a) return;
+
+        /* Aktuális nyelv: soha ne töltse újra az oldalt */
+        if (a.classList.contains("lang-switch__link--current") || a.getAttribute("aria-current") === "true") {
+          e.preventDefault();
+          return;
+        }
+
         if (e.defaultPrevented || e.button !== 0) return;
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
@@ -365,7 +405,11 @@
         }
 
         saveScroll();
-        if (prefersReducedMotion()) return;
+
+        if (prefersReducedMotion()) {
+          /* Scroll mentve — a böngésző követheti a linket */
+          return;
+        }
 
         var main = document.querySelector("main");
         if (!main) return;
@@ -387,28 +431,50 @@
         mark(main);
         main.classList.add("lang-text-motion", "lang-text-motion--exit");
 
-        /* Mid-scroll: a képek se villanhassanak — main is fade-out */
-        if (y > 40) {
-          main.style.transition = "opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1)";
+        /* Mid-scroll: képek se villanhassanak — main is fade-out */
+        if (y > 0) {
+          main.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
           main.style.opacity = "0";
           var footer = document.querySelector(".site-footer");
           if (footer) {
-            footer.style.transition = "opacity 0.28s cubic-bezier(0.22, 0.61, 0.36, 1)";
+            footer.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
             footer.style.opacity = "0";
           }
         }
 
         var target = a.href;
-        window.setTimeout(function () {
+        navTimer = window.setTimeout(function () {
           navigateTo(target);
         }, EXIT_MS);
 
-        window.setTimeout(function () {
+        navFallbackTimer = window.setTimeout(function () {
           if (document.visibilityState !== "hidden") navigateTo(target);
-        }, EXIT_MS + 700);
+        }, EXIT_MS + 900);
       },
       true
     );
+  }
+
+  function hardResetFromCache() {
+    clearPending();
+    inputBlocked = false;
+    navigating = false;
+    enterDone = true;
+    if (enterTimer) clearTimeout(enterTimer);
+    if (safetyTimer) clearTimeout(safetyTimer);
+    if (navTimer) clearTimeout(navTimer);
+    if (navFallbackTimer) clearTimeout(navFallbackTimer);
+    enterTimer = safetyTimer = navTimer = navFallbackTimer = null;
+    var main = document.querySelector("main");
+    if (main) {
+      main.classList.remove(
+        "lang-text-motion",
+        "lang-text-motion--enter",
+        "lang-text-motion--enter-active",
+        "lang-text-motion--exit"
+      );
+    }
+    unmark(document.querySelectorAll(".lang-text-motion__el"));
   }
 
   try {
@@ -423,8 +489,14 @@
 
   window.addEventListener("pageshow", function (ev) {
     if (ev.persisted) {
-      clearPending();
-      inputBlocked = false;
+      hardResetFromCache();
+    }
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible" && navigating && !document.querySelector("html.lang-exit")) {
+      /* Navigáció megszakadt / bfcache-szerű visszatérés */
+      hardResetFromCache();
     }
   });
 
