@@ -3390,10 +3390,54 @@ a.service-card:focus-visible {
   width: 100%;
   min-width: min(100%, 520px);
   border-collapse: collapse;
+  table-layout: fixed;
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.45;
   color: var(--color-text);
+}
+
+/* Beljebb húzott szélek: 2 oszlopos + többoszlopos bal oszlop egy vonalban */
+.arlista-content .price-table {
+  --price-inset-x: 2.75rem;
+}
+
+.arlista-content .price-table thead tr.price-table__head-row--cols th:first-child,
+.arlista-content .price-table tbody td.price-table__service {
+  padding-left: var(--price-inset-x);
+  padding-right: 0.85rem;
+}
+
+/* 2–3 oszlopos kártyákon az árak mindig ugyanott legyenek */
+.arlista-content .price-table thead tr.price-table__head-row--cols th:not(:first-child),
+.arlista-content .price-table tbody td.price-table__price,
+.arlista-content .price-table tbody td.price-table__dash {
+  width: 6.75rem;
+  text-align: right;
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.arlista-content .price-table--sizes thead tr.price-table__head-row--cols th:not(:first-child),
+.arlista-content .price-table--sizes tbody td.price-table__price,
+.arlista-content .price-table--sizes tbody td.price-table__dash {
+  width: auto;
+  min-width: 4.25rem;
+  text-align: center;
+  padding-left: 0.45rem;
+  padding-right: 0.45rem;
+}
+
+.arlista-content .price-table--sizes {
+  min-width: min(100%, 640px);
+}
+
+/* Külső szélek beljebb — 2 oszlopos ár + többoszlopos utolsó oszlop */
+.arlista-content .price-table thead tr.price-table__head-row--cols th:last-child,
+.arlista-content .price-table tbody td:last-child {
+  padding-right: var(--price-inset-x);
 }
 
 .price-table thead th {
@@ -3433,6 +3477,15 @@ a.service-card:focus-visible {
   background: var(--color-white);
 }
 
+.price-table__desc {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.92em;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
 .price-table td.price-table__service {
   text-align: left;
 }
@@ -3445,14 +3498,17 @@ a.service-card:focus-visible {
 
 .arlista-content .price-table td.price-table__price,
 .arlista-content .price-table td.price-table__dash {
-  text-align: center;
+  text-align: right;
 }
 
 .arlista-content .price-table td.price-table__price {
   white-space: nowrap;
 }
 
-.price-table td.price-table__price--center {
+.price-table td.price-table__price--center,
+.arlista-content .price-table--sizes td.price-table__price,
+.arlista-content .price-table--sizes td.price-table__dash,
+.arlista-content .price-table--sizes thead tr.price-table__head-row--cols th:not(:first-child) {
   text-align: center;
 }
 
@@ -3484,6 +3540,10 @@ a.service-card:focus-visible {
 
 /* Árlista: mobil / keskeny képernyő — nincs vízszintes görgetés, sorok kártyaként */
 @media (max-width: 900px) {
+  .arlista-content .price-table {
+    --price-inset-x: 1.1rem;
+  }
+
   .arlista-content .price-table-wrap {
     overflow-x: visible;
     margin-bottom: 2rem;
@@ -3582,6 +3642,11 @@ a.service-card:focus-visible {
     border-radius: var(--radius-card) var(--radius-card) 0 0;
   }
 
+  /* Leírás zöld háttéren: ne maradjon zöld szöveg */
+  .arlista-content .price-table tbody td.price-table__service .price-table__desc {
+    color: rgba(255, 255, 255, 0.88);
+  }
+
   .arlista-content .price-table tbody td:not(.price-table__service) {
     display: block;
     text-align: left;
@@ -3602,6 +3667,121 @@ a.service-card:focus-visible {
   .arlista-content .price-table tbody td.price-table__dash {
     text-align: left;
     white-space: normal;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Méretes mátrixok: kártyán belül méret→ár rács (nem összenyomott tábla) */
+  .arlista-content .price-table-wrap:has(.price-table--sizes) {
+    overflow-x: visible;
+  }
+
+  .arlista-content .price-table--sizes {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    table-layout: auto;
+  }
+
+  .arlista-content .price-table--sizes thead {
+    display: block;
+  }
+
+  .arlista-content .price-table--sizes thead tr.price-table__head-row--group {
+    display: block;
+  }
+
+  .arlista-content .price-table--sizes thead tr.price-table__head-row--group th {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--radius-card);
+    font-family: var(--font-serif);
+    font-size: clamp(1.12rem, 4.2vw, 1.35rem);
+    font-weight: 400;
+    padding: 0.75rem 0.9rem;
+    line-height: 1.35;
+  }
+
+  .arlista-content .price-table--sizes thead tr.price-table__head-row--cols {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .arlista-content .price-table--sizes tbody {
+    display: block;
+  }
+
+  .arlista-content .price-table--sizes tbody tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5.25rem, 1fr));
+    gap: 0.55rem 0.45rem;
+    align-items: stretch;
+    margin-bottom: 0.7rem;
+    padding: 0.65rem 0.8rem 0.85rem;
+    border: 1px solid rgba(43, 74, 66, 0.08);
+    border-radius: var(--radius-card);
+    background: #fcfcfb;
+    box-shadow: 0 2px 10px rgba(43, 74, 66, 0.04);
+    overflow: hidden;
+  }
+
+  .arlista-content .price-table--sizes tbody td {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 0;
+    padding: 0.55rem 0.35rem;
+    border: 1px solid rgba(43, 74, 66, 0.1);
+    border-radius: var(--radius-card);
+    background: var(--color-white) !important;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .arlista-content .price-table--sizes tbody tr td:last-child {
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(43, 74, 66, 0.1);
+  }
+
+  .arlista-content .price-table--sizes tbody td.price-table__service {
+    grid-column: 1 / -1;
+    display: block;
+    font-weight: 600;
+    margin: -0.65rem -0.8rem 0.15rem;
+    padding: 0.65rem 0.8rem;
+    width: auto;
+    border: none;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    text-align: left;
+    color: var(--color-white);
+    background: var(--color-green) !important;
+  }
+
+  .arlista-content .price-table--sizes tbody td:not(.price-table__service)::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+
+  .arlista-content .price-table--sizes tbody td.price-table__price,
+  .arlista-content .price-table--sizes tbody td.price-table__dash {
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
   }
 }
