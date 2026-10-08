@@ -6,13 +6,13 @@
   --color-gold-hover: #b0a47c;
   --header-gold: #c3b78e;
   --header-gold-hover: #b0a47c;
-  --header-nav-text: #2b4a42;
-  --header-lang: #2b4a42;
+  --header-nav-text: #2b523a;
+  --header-lang: #2b523a;
   --color-white: #ffffff;
   --color-off-white: #faf9f7;
-  --color-text: #2b4a42;
-  --color-text-muted: rgba(43, 74, 66, 0.72);
-  --color-border: rgba(43, 74, 66, 0.18);
+  --color-text: #2b523a;
+  --color-text-muted: rgba(43, 82, 58, 0.72);
+  --color-border: rgba(43, 82, 58, 0.18);
   /* Lábléc: ugyanaz a zöld, mint a szekciók (pl. process) háttere */
   --color-footer-bg: var(--color-green);
   --font-serif: "Gilda Display", Georgia, serif;
@@ -21,10 +21,10 @@
   /* 16px gyökér: 60px → 3.75rem, 40px → 2.5rem, 16px → 1rem */
   --fs-h1: 3.75rem;
   --fs-h2: clamp(2rem, 2.8vw, 2.35rem);
-  --fs-p: clamp(0.95rem, 1.05vw, 1.05rem);
-  --fs-btn: 0.875rem;
-  /* Navbar CTA: 16px @ 16px gyökér */
-  --fs-btn-header: 0.9rem;
+  --fs-p: clamp(1rem, 1.05vw, 1.05rem);
+  --fs-btn: 1rem;
+  /* Navbar CTA: min. 16px @ 16px gyökér */
+  --fs-btn-header: 1rem;
   /* Navbar linkek, nyelvváltó, logo szöveg */
   --fs-nav-bar: 1.1rem;
   /* Arany színű szekció-alcímek (script / kiemelő sor) */
@@ -43,9 +43,13 @@
   --header-outer-h: calc(var(--header-h) + 1px);
   /* 1 képernyő: header + szekció; a legnagyobb viewport-magasság, hogy ne maradjon rés alul */
   --screen-fill: calc(100vh - var(--header-outer-h));
-  --radius-sm: 6px;
-  --radius-card: 6px;
-  --radius-gallery: 10px;
+  /* Egységes lekerekítés: kártyák/gombok 6px; nagy tartalmi képek ugyanaz */
+  --radius: 6px;
+  --radius-sm: var(--radius);
+  --radius-card: var(--radius);
+  --radius-gallery: var(--radius);
+  /* Nagy tartalmi képek (split-info / showcase / galéria) — 6px, figure overflow:hidden-nel */
+  --radius-media: 6px;
   /* Referenciák + szolgáltatások: azonos cellaméret (rács + arány) */
   --gallery-grid-gap: 0.9rem;
   --gallery-cell-aspect: 3 / 2;
@@ -145,6 +149,11 @@ body {
   --layout-margin-x: calc((100% - var(--layout-content-width)) / 2);
 }
 
+button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -185,8 +194,12 @@ p {
   margin: 0 0 1em;
 }
 
+/* Bootstrap grid .container felülírása — saját gutter/width rendszer marad */
 .container {
   box-sizing: border-box;
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
   width: min(var(--container), calc(100% - (2 * var(--page-gutter))));
   margin-inline: auto;
 }
@@ -304,7 +317,7 @@ p {
   list-style: none;
   background: linear-gradient(180deg, #ffffff 0%, #faf9f7 100%);
   border: 1px solid rgba(195, 183, 142, 0.42);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   box-shadow:
     0 16px 34px rgba(43, 74, 66, 0.12),
     0 3px 12px rgba(0, 0, 0, 0.06);
@@ -324,9 +337,9 @@ p {
 .nav__sub a {
   display: block;
   padding: 0.6rem 0.85rem;
-  font-size: calc(var(--fs-nav-bar) * 0.92);
+  font-size: max(1rem, calc(var(--fs-nav-bar) * 0.92));
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   color: var(--header-nav-text);
   transition:
     background-color 0.2s ease,
@@ -451,7 +464,7 @@ p {
 .lang-switch__link:focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius);
 }
 
 .lang-switch__link--current {
@@ -767,7 +780,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .eyebrow {
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -842,6 +855,16 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   pointer-events: none;
 }
 
+.hero__image-bg::after,
+.page-hero__image-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.19);
+  pointer-events: none;
+}
+
 .hero__image-bg img {
   position: absolute;
   top: 0;
@@ -855,8 +878,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .page-hero__image-bg img {
   position: absolute;
   top: auto;
-  right: -3rem;
-  bottom: 0;
+  /* Jobb oldalon marad, picit balra + lejjebb */
+  right: -0.75rem;
+  bottom: -2.25rem;
   left: auto;
   /* Nagyobb látszó méret (arányos szélesség); alul záródik, felfelé/jobbra levágva */
   height: 175%;
@@ -878,62 +902,121 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   pointer-events: none;
 }
 
-/* ——— Partners (teljes szélesség a 90px margóig) ——— */
+/* ——— Partners — seamless infinite logo marquee ——— */
 .partners {
+  --partners-logo-gap: clamp(2.75rem, 5.5vw, 4.75rem);
+  --partners-logo-h: clamp(2.85rem, 4.4vw, 4rem);
   padding: var(--section-space-half) 0;
   background: var(--color-white);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-@media (max-width: 480px) {
-  .partners {
-    --partners-gutter: max(0.75rem, 4vw);
-  }
+.partners__viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
 }
 
-.partners__row {
-  box-sizing: border-box;
+.partners__track {
   display: flex;
-  flex-wrap: wrap;
+  width: max-content;
+  will-change: transform;
+  animation: partners-marquee 48s linear infinite;
+}
+
+.partners__sequence {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(1rem, 2.5vw, 2rem);
-  width: calc(100% - 2 * var(--partners-gutter));
-  max-width: none;
-  margin-left: var(--partners-gutter);
-  margin-right: var(--partners-gutter);
+  flex-shrink: 0;
+  gap: var(--partners-logo-gap);
+  margin: 0;
+  padding: 0;
+  /* Ugyanakkora távolság a szekvenciák között, mint a logók között */
+  padding-inline-end: var(--partners-logo-gap);
+  list-style: none;
+}
+
+.partners__item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .partners__logo {
-  flex: 1 1 0;
-  min-width: 0;
-  text-align: center;
-  font-size: clamp(0.65rem, 1.35vw, 0.95rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  opacity: 1;
+  display: block;
+  height: var(--partners-logo-h);
+  width: auto;
+  max-width: min(13rem, 46vw);
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
 }
 
-.partners__logo--script {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: none;
-  font-size: clamp(0.85rem, 1.65vw, 1.2rem);
+@keyframes partners-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    /* Pont a duplikált szekvencia fele → varrásmentes loop */
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @media (max-width: 640px) {
-  .partners__row {
-    justify-content: center;
-    gap: 1.25rem 1.5rem;
+  .partners {
+    --partners-logo-gap: clamp(2rem, 8vw, 3rem);
+    --partners-logo-h: clamp(2.4rem, 8vw, 3rem);
   }
 
-  .partners__logo {
-    flex: 1 1 40%;
-    min-width: 7rem;
+  .partners__track {
+    animation-duration: 36s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners__viewport {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: none;
+  }
+
+  .partners__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .partners__track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .partners__sequence[aria-hidden="true"] {
+    display: none;
+  }
+
+  .partners__sequence {
+    padding-inline: var(--partners-gutter);
+    padding-inline-end: var(--partners-gutter);
   }
 }
 
@@ -1047,7 +1130,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .stats__label {
-  font-size: 0.78rem;
+  font-size: 1rem;
   line-height: 1.4;
   color: var(--color-white);
   text-transform: lowercase;
@@ -1069,7 +1152,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .stats.stats--why .stats__label {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.45;
   color: var(--color-white);
@@ -1123,6 +1206,42 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   isolation: isolate;
   cursor: pointer;
   box-shadow: var(--shadow-gallery-ref);
+  transition:
+    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(43, 74, 66, 0) 45%,
+    rgba(43, 74, 66, 0.28) 100%
+  );
+  box-shadow: inset 0 0 0 0 transparent;
+  opacity: 0;
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gallery-item:hover,
+.gallery-item:focus-visible {
+  box-shadow:
+    0 14px 36px rgba(43, 74, 66, 0.2),
+    0 4px 14px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.gallery-item:hover::after,
+.gallery-item:focus-visible::after {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px var(--color-gold);
 }
 
 /*
@@ -1146,11 +1265,30 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .gallery-item img {
-  transition: transform 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.gallery-item:hover img {
-  transform: translate(-50%, -50%) scale(1.03);
+.gallery-item:hover img,
+.gallery-item:focus-visible img {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item,
+  .gallery-item img,
+  .gallery-item::after {
+    transition: none;
+  }
+
+  .gallery-item:hover,
+  .gallery-item:focus-visible {
+    transform: none;
+  }
+
+  .gallery-item:hover img,
+  .gallery-item:focus-visible img {
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* ——— Rólam: drótváz szerinti „masonry” (2×3 rács, szimmetrikus fordított T-rövid / rövid-T) ——— */
@@ -1374,7 +1512,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin: 0;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: rgba(43, 74, 66, 0.55);
   color: var(--color-white);
   cursor: pointer;
@@ -1428,6 +1566,12 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   aspect-ratio: var(--gallery-cell-aspect);
   box-sizing: border-box;
   min-width: 0;
+  border: 1px solid transparent;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background-color 0.35s ease;
 }
 
 .service-card__icon {
@@ -1681,7 +1825,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   width: 1.35rem;
   height: 1.35rem;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--color-green-dark);
   display: inline-flex;
@@ -1710,6 +1854,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   border-radius: 50%;
   background: var(--color-green-dark);
   cursor: pointer;
+  font-size: 1rem;
   opacity: 0.55;
   transition:
     transform 0.55s cubic-bezier(0.38, 0.02, 0.12, 0.99),
@@ -1779,17 +1924,59 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .faq__columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(2rem, 4vw, 3.5rem);
+  /* Közös sormagasság: a bal/jobb pár mindig egy vonalban indul */
+  grid-template-rows: repeat(3, auto);
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+  row-gap: 0;
+  align-items: start;
 }
 
 .faq__col {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 1 / span 3;
+  min-width: 0;
+}
+
+/* Régebbi böngészők: marad a két független oszlop */
+@supports not (grid-template-rows: subgrid) {
+  .faq__col {
+    display: flex;
+    flex-direction: column;
+    grid-row: auto;
+  }
+
+  .faq__columns {
+    grid-template-rows: none;
+  }
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(81, 115, 94, 0.14);
+  position: relative;
+  border-bottom: 2px solid rgba(81, 115, 94, 0.16);
   overflow-anchor: none;
+}
+
+/* Alávonal: balról jobbra színeződik hover / nyitott állapotban */
+.faq-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.faq-item:hover::after,
+.faq-item:focus-within::after,
+.faq-item.is-open::after {
+  transform: scaleX(1);
 }
 
 .faq-item__trigger {
@@ -1803,6 +1990,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   cursor: pointer;
   text-align: left;
   font-family: inherit;
+  font-size: 1rem;
   color: var(--color-text);
 }
 
@@ -1815,7 +2003,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.65s cubic-bezier(0.32, 0.72, 0, 1);
+  transition:
+    transform 0.65s cubic-bezier(0.32, 0.72, 0, 1),
+    color 0.35s ease;
   will-change: transform;
 }
 
@@ -1838,12 +2028,19 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   transition: color 0.35s ease;
 }
 
-.faq-item__trigger:hover .faq-item__question {
-  color: var(--color-green);
+/* Alap (#2b523a) és zöld hover túl hasonló volt — arany feltűnőbb */
+.faq-item__trigger:hover .faq-item__question,
+.faq-item__trigger:focus-visible .faq-item__question {
+  color: var(--color-gold);
+}
+
+.faq-item__trigger:hover .faq-item__chevron,
+.faq-item__trigger:focus-visible .faq-item__chevron {
+  color: var(--color-gold-hover);
 }
 
 .faq-item.is-open .faq-item__question {
-  color: var(--color-green-dark);
+  color: var(--color-gold);
 }
 
 .faq-item__overflow {
@@ -1894,6 +2091,10 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     transition: none;
   }
 
+  .faq-item::after {
+    transition: none;
+  }
+
   .faq-item:not(.is-open) .faq-item__panel {
     display: none;
   }
@@ -1927,6 +2128,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   align-self: flex-start;
   height: var(--screen-fill);
   max-height: var(--screen-fill);
+  border-top-right-radius: var(--radius-media);
 }
 
 .contact__media img {
@@ -1937,6 +2139,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   object-fit: cover;
   object-position: center;
   display: block;
+  border-top-right-radius: var(--radius-media);
 }
 
 .contact__form-wrap {
@@ -1970,7 +2173,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   font-family: var(--font-sans);
   font-size: var(--fs-p);
   line-height: 1.65;
-  color: rgba(43, 74, 66, 0.55);
+  color: rgba(43, 82, 58, 0.55);
   margin: 0 0 2rem;
 }
 
@@ -1996,16 +2199,16 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   clip: auto;
   border: 0;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: rgba(43, 74, 66, 0.55);
+  color: rgba(43, 82, 58, 0.55);
   letter-spacing: 0.02em;
 }
 
 .contact-form .field input,
 .contact-form .field textarea {
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 0.9rem 1rem;
   border: 1px solid rgba(195, 183, 142, 0.55);
   border-radius: var(--radius-sm);
@@ -2021,7 +2224,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .contact-form .field input::placeholder,
 .contact-form .field textarea::placeholder {
-  color: rgba(43, 74, 66, 0.32);
+  color: rgba(43, 82, 58, 0.32);
 }
 
 .contact-form .field input:focus,
@@ -2039,7 +2242,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   cursor: pointer;
   font-family: var(--font-sans);
   line-height: 1.55;
-  color: rgba(43, 74, 66, 0.62);
+  color: rgba(43, 82, 58, 0.62);
 }
 
 .contact-form__consent input[type="checkbox"] {
@@ -2108,7 +2311,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   color: var(--color-white);
   border: 0;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2310,8 +2513,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 /* Aloldal hero: egységes magasság + szöveg kicsit lejjebb a tetejétől */
 .page-hero {
   --page-hero-pad-y: clamp(2.75rem, 4vw, 3.75rem);
-  /* ~30% viewport, elég hely a cím + lead + CTA-nak, szöveg ne legyen a tetején */
-  --page-hero-h: max(calc(var(--screen-fill) * 0.3), calc(var(--page-hero-pad-y) * 2 + 13.25rem));
+  /* ~36% viewport — kicsit magasabb hero */
+  --page-hero-h: max(calc(var(--screen-fill) * 0.36), calc(var(--page-hero-pad-y) * 2 + 15rem));
   position: relative;
   padding: 0;
   overflow: hidden;
@@ -2413,9 +2616,49 @@ a.service-card {
   cursor: pointer;
 }
 
+a.service-card:hover,
+a.service-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  background-color: color-mix(in srgb, var(--color-gold) 8%, var(--color-white));
+  box-shadow:
+    0 14px 34px rgba(43, 74, 66, 0.14),
+    0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+a.service-card:hover .service-card__title,
+a.service-card:focus-visible .service-card__title {
+  color: var(--color-gold);
+}
+
+a.service-card:hover .service-card__icon img,
+a.service-card:focus-visible .service-card__icon img {
+  transform: scale(1.06);
+}
+
+a.service-card .service-card__title,
+a.service-card .service-card__icon img {
+  transition:
+    color 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
 a.service-card:focus-visible {
   outline: 2px solid var(--color-gold, #b8a06e);
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  a.service-card .service-card__title,
+  a.service-card .service-card__icon img {
+    transition: none;
+  }
+
+  a.service-card:hover,
+  a.service-card:focus-visible {
+    transform: none;
+  }
 }
 
 /* Házirend / árlista / kapcsolat:
@@ -2478,7 +2721,7 @@ a.service-card:focus-visible {
   margin-inline: 0;
   margin-bottom: 0;
   padding: clamp(1.85rem, 3.8vw, 2.85rem) clamp(1.35rem, 3.5vw, 2.25rem);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   background: var(--color-green);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
   text-align: center;
@@ -2508,7 +2751,7 @@ a.service-card:focus-visible {
 .hazirend-hero-panel__lead {
   margin: 10px auto;
   font-family: var(--font-sans);
-  font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+  font-size: clamp(1rem, 1.6vw, 1.08rem);
   line-height: 1.68;
   color: rgba(255, 255, 255, 0.94);
   max-width: 1100px;
@@ -2541,7 +2784,7 @@ a.service-card:focus-visible {
 .kapcsolat-hero-panel__lead {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(0.92rem, 1.45vw, 1.02rem);
+  font-size: clamp(1rem, 1.45vw, 1.02rem);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.92);
   text-align: left;
@@ -2562,7 +2805,7 @@ a.service-card:focus-visible {
   align-items: flex-start;
   gap: 0.6rem;
   font-family: var(--font-sans);
-  font-size: clamp(0.86rem, 1.2vw, 0.95rem);
+  font-size: 1rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.95);
 }
@@ -2806,7 +3049,7 @@ a.service-card:focus-visible {
 .hazirend-rules__back {
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   padding: 0.85rem 1.65rem;
 }
@@ -2864,7 +3107,7 @@ a.service-card:focus-visible {
   padding: 1rem 0.5rem 0.85rem;
   box-sizing: border-box;
   border: 1px solid rgba(43, 74, 66, 0.15);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   background: var(--color-white);
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
   text-decoration: none;
@@ -2932,7 +3175,7 @@ a.service-card:focus-visible {
   justify-content: center;
   text-align: center;
   font-family: var(--font-serif);
-  font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+  font-size: 1rem;
   line-height: 1.28;
   font-weight: 400;
   padding: 0 0.15rem;
@@ -2983,7 +3226,7 @@ a.service-card:focus-visible {
 
 .price-block__group-title {
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--color-text);
   margin: 1.5rem 0 0.65rem;
@@ -3008,7 +3251,7 @@ a.service-card:focus-visible {
   overflow-x: auto;
   margin-bottom: 1.35rem;
   -webkit-overflow-scrolling: touch;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   border: 1px solid rgba(43, 74, 66, 0.08);
   background: #fcfcfb;
   box-shadow: 0 3px 14px rgba(43, 74, 66, 0.05);
@@ -3023,7 +3266,7 @@ a.service-card:focus-visible {
   min-width: min(100%, 520px);
   border-collapse: collapse;
   font-family: var(--font-sans);
-  font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  font-size: 1rem;
   line-height: 1.45;
   color: var(--color-text);
 }
@@ -3041,7 +3284,7 @@ a.service-card:focus-visible {
 .price-table thead th.price-table__th--category {
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  font-size: clamp(1rem, 1.2vw, 1.05rem);
   letter-spacing: 0.02em;
   padding-top: 0.78rem;
   padding-bottom: 0.78rem;
@@ -3164,7 +3407,7 @@ a.service-card:focus-visible {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: var(--radius-card);
     font-family: var(--font-serif);
     font-size: clamp(1.12rem, 4.2vw, 1.35rem);
     font-weight: 400;
@@ -3181,7 +3424,7 @@ a.service-card:focus-visible {
     margin-bottom: 0.7rem;
     padding: 0.65rem 0.8rem;
     border: 1px solid rgba(43, 74, 66, 0.08);
-    border-radius: 8px;
+    border-radius: var(--radius-card);
     background: #fcfcfb;
     box-shadow: 0 2px 10px rgba(43, 74, 66, 0.04);
     overflow: hidden;
@@ -3211,7 +3454,7 @@ a.service-card:focus-visible {
     text-align: left;
     color: var(--color-white);
     background: var(--color-green) !important;
-    border-radius: 8px 8px 0 0;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
   }
 
   .arlista-content .price-table tbody td:not(.price-table__service) {
@@ -3223,7 +3466,7 @@ a.service-card:focus-visible {
     content: attr(data-label);
     display: block;
     font-weight: 600;
-    font-size: 0.72rem;
+    font-size: 1rem;
     line-height: 1.35;
     color: var(--color-text-muted);
     margin-bottom: 0.2rem;
@@ -3251,19 +3494,36 @@ a.service-card:focus-visible {
 }
 
 .split-info__media {
+  position: relative;
   margin: 0;
+  padding: 0;
   border: 0;
+  width: 100%;
+  /* 1:1 — ne legyen túl magas; szélességben végigér, object-fit: cover */
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  line-height: 0;
+  background: transparent;
   box-shadow: none;
 }
 
 .split-info__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  max-width: none;
   object-fit: cover;
-  object-position: center;
-  border-radius: var(--radius-card);
+  object-position: center center;
+  /* PNG beégetett keret + árnyék levágása */
+  transform: scale(1.18);
+  transform-origin: center center;
   border: 0;
+  border-radius: 0;
   box-shadow: none;
   filter: none;
 }
@@ -3360,7 +3620,7 @@ a.service-card:focus-visible {
 
 .process-section__intro.section-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
   line-height: 1.55;
   max-width: 36rem;
   margin-inline: auto;
@@ -3455,29 +3715,46 @@ a.service-card:focus-visible {
 }
 
 .service-showcase__media {
+  position: relative;
   margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  line-height: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .service-showcase__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  aspect-ratio: 1;
+  height: 100%;
+  max-width: none;
   object-fit: cover;
-  border-radius: 0;
+  object-position: center center;
+  /* PNG beégetett keret + árnyék levágása */
+  transform: scale(1.18);
+  transform-origin: center center;
+  /* Lekerekítés az img-en is — sticky overflow:visible esetén is megmarad */
+  border-radius: var(--radius-media);
+  box-shadow: none;
 }
 
-/* Kozmetikai oldal: magasabb, hangsúlyosabb kép */
-.page-kozmetikai .service-showcase__img {
+/* Kozmetikai oldal: négyzetes kép */
+.page-kozmetikai .service-showcase__media {
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-card);
-  box-shadow: none;
 }
 
-/* Manikűr oldal: alacsonyabb kép + középre igazított szövegoszlop */
-.page-manikur .service-showcase__img {
+/* Manikűr oldal: szélesebb kép + középre igazított szövegoszlop */
+.page-manikur .service-showcase__media {
   aspect-ratio: 3 / 2;
-  border-radius: var(--radius-card);
-  box-shadow: none;
 }
 
 .page-kozmetikai .service-showcase__grid {
@@ -3527,6 +3804,8 @@ a.service-card:focus-visible {
 .service-panels--accordion {
   gap: 0;
   border: 1px solid var(--service-acc-border);
+  border-radius: var(--radius);
+  overflow: hidden;
   background: var(--color-white);
 }
 
@@ -3663,7 +3942,7 @@ a.service-card:focus-visible {
 .service-panel__panel-inner p {
   margin: 0 0 0.65rem;
   font-family: var(--font-sans);
-  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  font-size: 1rem;
   line-height: 1.68;
   letter-spacing: 0.01em;
   color: var(--color-text-muted);
@@ -3677,7 +3956,7 @@ a.service-card:focus-visible {
   margin: 0.35rem 0 0;
   padding: 0 0 0 1.15rem;
   font-family: var(--font-sans);
-  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text-muted);
 }
@@ -3772,12 +4051,13 @@ a.service-card:focus-visible {
   height: 2.75rem;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: var(--color-white);
   color: var(--color-gold);
   cursor: pointer;
   box-shadow: 0 2px 16px rgba(43, 74, 66, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   transition:
+    background-color 0.25s ease,
     color 0.25s ease,
     box-shadow 0.25s ease,
     transform 0.2s ease;
@@ -3794,7 +4074,8 @@ a.service-card:focus-visible {
 }
 
 .page-gallery__nav:hover:not(:disabled) {
-  color: var(--color-gold-hover);
+  background: var(--color-green);
+  color: var(--color-gold);
   box-shadow: 0 4px 22px rgba(43, 74, 66, 0.14), 0 2px 8px rgba(0, 0, 0, 0.07);
 }
 
@@ -3847,9 +4128,18 @@ a.service-card:focus-visible {
 }
 
 .page-gallery__slide {
+  position: relative;
   scroll-snap-align: start;
   flex-shrink: 0;
   box-sizing: border-box;
+  border: 0;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  line-height: 0;
+  background: transparent;
 }
 
 /* Böngészők container query nélkül: keskeny cellák, görgetés */
@@ -3901,12 +4191,16 @@ a.service-card:focus-visible {
 }
 
 .page-gallery__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
+  height: 100%;
+  max-width: none;
   object-fit: cover;
-  border-radius: var(--radius-gallery);
-  box-shadow: 0 2px 12px rgba(43, 74, 66, 0.06);
+  object-position: center center;
+  border-radius: var(--radius-media);
+  box-shadow: none;
 }
 
 .page-gallery__dots {
@@ -4004,12 +4298,12 @@ a.service-card:focus-visible {
 @media (min-width: 769px) and (max-width: 1024px) {
   :root {
     --section-space: clamp(3.25rem, 4.5vw, 4.75rem);
-    --fs-nav-bar: 0.95rem;
-    --fs-btn-header: 0.8rem;
+    --fs-nav-bar: 1rem;
+    --fs-btn-header: 1rem;
     --header-h: 72px;
     --fs-h2: clamp(1.85rem, 2.6vw, 2.15rem);
     --fs-section-gold-accent: 1.5rem;
-    --fs-p: clamp(0.92rem, 1.15vw, 1.02rem);
+    --fs-p: clamp(1rem, 1.15vw, 1.02rem);
   }
 
   .nav {
@@ -4040,7 +4334,7 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__lead {
-    font-size: calc(var(--fs-p) * 0.98);
+    font-size: max(1rem, calc(var(--fs-p) * 0.98));
     line-height: 1.65;
     max-width: 32rem;
   }
@@ -4048,7 +4342,7 @@ a.service-card:focus-visible {
   /* Aloldal hero: split layout, arányos magasság */
   .page-hero {
     --page-hero-pad-y: clamp(1.85rem, 3.2vw, 2.65rem);
-    --page-hero-h: max(min(30vh, 340px), calc(var(--page-hero-pad-y) * 2 + 10.5rem));
+    --page-hero-h: max(min(36vh, 400px), calc(var(--page-hero-pad-y) * 2 + 12rem));
   }
 
   .page-hero__title {
@@ -4108,7 +4402,7 @@ a.service-card:focus-visible {
   }
 
   .kapcsolat-hero-panel__lead {
-    font-size: clamp(0.88rem, 1.3vw, 0.98rem);
+    font-size: 1rem;
   }
 
   .kapcsolat-hero-panel__details {
@@ -4180,7 +4474,7 @@ a.service-card:focus-visible {
   .price-table th,
   .price-table td {
     padding: 0.75rem 0.65rem;
-    font-size: 0.92rem;
+    font-size: 1rem;
   }
 }
 
@@ -4277,7 +4571,7 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__tagline {
-    font-size: calc(var(--fs-section-gold-accent) * 0.92);
+    font-size: max(1rem, calc(var(--fs-section-gold-accent) * 0.92));
   }
 
   .hero__title {
@@ -4294,7 +4588,7 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__lead {
-    font-size: calc(var(--fs-p) * 0.96);
+    font-size: max(1rem, calc(var(--fs-p) * 0.96));
     line-height: 1.68;
   }
 
@@ -4318,7 +4612,7 @@ a.service-card:focus-visible {
 
   .page-hero {
     --page-hero-pad-y: clamp(2.25rem, 5vw, 3.25rem);
-    --page-hero-h: max(min(34vh, 380px), calc(var(--page-hero-pad-y) * 2 + 12.5rem));
+    --page-hero-h: max(min(38vh, 420px), calc(var(--page-hero-pad-y) * 2 + 13.5rem));
   }
 
   .page-hero__grid {
@@ -4625,6 +4919,13 @@ a.service-card:focus-visible {
 
   .faq__columns {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+
+  .faq__col {
+    display: flex;
+    flex-direction: column;
+    grid-row: auto;
   }
 
   .contact-form {
@@ -4689,7 +4990,7 @@ a.service-card:focus-visible {
 .coupon-popup__panel {
   position: relative;
   width: min(92vw, 360px);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background: #f0efec;
   box-shadow: 0 20px 60px rgba(19, 28, 25, 0.35);
@@ -4748,7 +5049,7 @@ a.service-card:focus-visible {
   width: 1.5rem;
   height: 1.5rem;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: transparent;
   color: #223f36;
   font-size: 1.35rem;
@@ -4786,9 +5087,9 @@ a.service-card:focus-visible {
   margin: 0.85rem 0 1rem;
   text-align: center;
   font-family: var(--font-sans);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.4;
-  color: rgba(43, 74, 66, 0.85);
+  color: rgba(43, 82, 58, 0.85);
 }
 
 .coupon-popup__form {
@@ -4800,16 +5101,16 @@ a.service-card:focus-visible {
   width: 100%;
   height: 2rem;
   border: 1px solid rgba(195, 183, 142, 0.95);
-  border-radius: 7px;
+  border-radius: var(--radius-card);
   background: #f3f3f3;
   padding: 0 0.62rem;
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-text);
 }
 
 .coupon-popup__input::placeholder {
-  color: rgba(43, 74, 66, 0.56);
+  color: rgba(43, 82, 58, 0.56);
 }
 
 .coupon-popup__check {
@@ -4817,9 +5118,9 @@ a.service-card:focus-visible {
   display: flex;
   align-items: flex-start;
   gap: 0.45rem;
-  font-size: 0.84rem;
+  font-size: 1rem;
   line-height: 1.3;
-  color: rgba(43, 74, 66, 0.8);
+  color: rgba(43, 82, 58, 0.8);
 }
 
 .coupon-popup__check-input {
@@ -4855,11 +5156,11 @@ a.service-card:focus-visible {
   margin-top: 0.25rem;
   height: 2.05rem;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-card);
   background: var(--color-gold);
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: 1rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 700;
