@@ -56,7 +56,8 @@
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".nav-toggle");
   var yearEl = document.getElementById("year");
-  var mqMobileNav = window.matchMedia("(max-width: 768px)");
+  var mqMobileNav = window.matchMedia("(max-width: 900px)");
+  var navCloseTimer = null;
 
   function isMobileNavLayout() {
     return mqMobileNav.matches;
@@ -72,11 +73,44 @@
     });
   }
 
-  function closeMobileNav() {
+  function closeMobileNav(options) {
     if (!header || !toggle) return;
-    header.classList.remove("is-open");
+    var animate = options && options.animate;
+    if (navCloseTimer) {
+      clearTimeout(navCloseTimer);
+      navCloseTimer = null;
+    }
+    if (animate && header.classList.contains("is-open") && isMobileNavLayout()) {
+      header.classList.add("is-nav-closing");
+      header.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      resetNavDropdowns();
+      navCloseTimer = setTimeout(function () {
+        header.classList.remove("is-nav-closing");
+        navCloseTimer = null;
+      }, 520);
+      return;
+    }
+    header.classList.remove("is-open", "is-nav-closing");
     toggle.setAttribute("aria-expanded", "false");
     resetNavDropdowns();
+  }
+
+  function onMobileNavMqChange() {
+    closeMobileNav();
+    if (!header) return;
+    header.classList.add("nav-mq-lock");
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        header.classList.remove("nav-mq-lock");
+      });
+    });
+  }
+
+  if (typeof mqMobileNav.addEventListener === "function") {
+    mqMobileNav.addEventListener("change", onMobileNavMqChange);
+  } else if (typeof mqMobileNav.addListener === "function") {
+    mqMobileNav.addListener(onMobileNavMqChange);
   }
 
   if (yearEl) {
@@ -85,10 +119,20 @@
 
   if (toggle && header) {
     toggle.addEventListener("click", function () {
+      if (navCloseTimer) {
+        clearTimeout(navCloseTimer);
+        navCloseTimer = null;
+      }
+      header.classList.remove("is-nav-closing");
       var open = header.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       if (!open) {
+        header.classList.add("is-nav-closing");
         resetNavDropdowns();
+        navCloseTimer = setTimeout(function () {
+          header.classList.remove("is-nav-closing");
+          navCloseTimer = null;
+        }, 520);
       }
     });
 
@@ -97,7 +141,7 @@
         if (isMobileNavLayout() && link.classList.contains("nav__link--has-sub")) {
           return;
         }
-        closeMobileNav();
+        closeMobileNav({ animate: true });
       });
     });
   }
@@ -110,7 +154,7 @@
       try {
         history.replaceState(null, "", window.location.pathname + window.location.search);
       } catch (err) {}
-      closeMobileNav();
+      closeMobileNav({ animate: true });
     });
   });
 

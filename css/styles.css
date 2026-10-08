@@ -353,7 +353,7 @@ p {
   transform: translateX(2px);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 901px) {
   .nav__link {
     padding-block: 0.2rem;
   }
@@ -734,8 +734,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   z-index: 1;
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 0;
   align-items: stretch;
   align-content: stretch;
   min-height: 0;
@@ -763,9 +763,24 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin-right: 0;
   padding-block: var(--section-space);
   padding-inline: 0;
+  padding-right: clamp(1.25rem, 3.5vw, 2.75rem);
   width: min(var(--hero-content-max), 100%);
   justify-self: start;
   min-width: 0;
+  position: relative;
+  z-index: 2;
+  /* Olvashatóság, amíg a képek a szöveg alá csúsznak */
+  background: linear-gradient(
+    90deg,
+    var(--color-white) 0%,
+    var(--color-white) 58%,
+    rgba(255, 255, 255, 0.9) 82%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition:
+    color 0.5s ease,
+    background 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.45s ease;
 }
 
 .hero__tagline {
@@ -777,6 +792,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin: 0 0 1rem;
   letter-spacing: 0.02em;
   line-height: 1.35;
+  transition: color 0.5s ease;
 }
 
 .eyebrow {
@@ -801,6 +817,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   color: var(--color-text);
   margin-bottom: 1.25rem;
   letter-spacing: -0.02em;
+  transition: color 0.5s ease;
 }
 
 .hero__lead {
@@ -808,6 +825,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin-bottom: 2rem;
   max-width: min(38rem, 100%);
   line-height: 1.75;
+  transition: color 0.5s ease;
 }
 
 .btn--hero-cta {
@@ -816,12 +834,27 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .hero__media {
+  position: relative;
+  z-index: 0;
   min-height: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 0;
+  /* Szűküléskor a szöveg alá csúszik */
+  margin-left: clamp(-5.5rem, -9vw, -1.25rem);
   margin-right: 0;
+  transition: margin 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--hero-mobile-overlay, #12110dc9);
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__image-wrap {
@@ -832,27 +865,33 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   overflow: hidden;
   border-radius: var(--radius-card) 0 0 var(--radius-card);
   background: transparent;
+  transition: border-radius 0.45s ease;
 }
 
-/* Háttér: főoldal — teljes szélesség; aloldal — csak jobb fél, kilógás levágva */
+/* Háttér: jobb oldalról a szöveg alá tolódik szűküléskor */
 .hero__image-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: clamp(24%, 36vw, 42%);
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Aloldal: max. szekció szélesség fele; a kép magassága a szekció magassága, szükség esetén felfelé/jobbra kilóghat (rejtve) */
+/* Aloldal: jobb oldalról a szöveg alá tolódik szűküléskor (mint a főoldal hero) */
 .page-hero__image-bg {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 50%;
+  left: clamp(24%, 36vw, 42%);
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__image-bg::after,
@@ -872,7 +911,11 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   left: auto;
   height: 100%;
   width: auto;
+  max-width: none;
+  object-fit: cover;
+  object-position: right center;
   display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-hero__image-bg img {
@@ -887,6 +930,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   width: auto;
   max-width: none;
   display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Előtér: transzparens PNG, ahol üres, átlátszik a háttér */
@@ -900,6 +944,38 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   object-position: center center;
   display: block;
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__content,
+  .hero__tagline,
+  .hero__title,
+  .hero__lead,
+  .hero__media,
+  .hero__media::after,
+  .hero__image-wrap,
+  .hero__image-bg,
+  .hero__image-bg img,
+  .page-hero__content,
+  .page-hero__title,
+  .page-hero__lead,
+  .page-hero__image-bg,
+  .page-hero__image-bg img,
+  .page-hero__grid::before {
+    transition: none;
+  }
+}
+
+/* Közepes desktop: még jobban a szöveg alá */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .hero__media {
+    margin-left: clamp(-7.5rem, -14vw, -2.75rem);
+  }
+
+  .hero__image-bg,
+  .page-hero__image-bg {
+    left: clamp(14%, 26vw, 34%);
+  }
 }
 
 /* ——— Partners — seamless infinite logo marquee ——— */
@@ -1206,21 +1282,16 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   isolation: isolate;
   cursor: pointer;
   box-shadow: var(--shadow-gallery-ref);
-  transition:
-    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.gallery-item::after {
+.gallery-item::after,
+.rolam-masonry__cell::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(43, 74, 66, 0) 45%,
-    rgba(43, 74, 66, 0.28) 100%
-  );
+  background: transparent;
   box-shadow: inset 0 0 0 0 transparent;
   opacity: 0;
   transition:
@@ -1231,15 +1302,17 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .gallery-item:hover,
-.gallery-item:focus-visible {
-  box-shadow:
-    0 14px 36px rgba(43, 74, 66, 0.2),
-    0 4px 14px rgba(0, 0, 0, 0.1);
+.gallery-item:focus-visible,
+.rolam-masonry__cell:hover,
+.rolam-masonry__cell:focus-visible {
+  /* Nincs erős hover árnyék — csak emelés + arany keret */
   transform: translateY(-3px);
 }
 
 .gallery-item:hover::after,
-.gallery-item:focus-visible::after {
+.gallery-item:focus-visible::after,
+.rolam-masonry__cell:hover::after,
+.rolam-masonry__cell:focus-visible::after {
   opacity: 1;
   box-shadow: inset 0 0 0 2px var(--color-gold);
 }
@@ -1276,17 +1349,27 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 @media (prefers-reduced-motion: reduce) {
   .gallery-item,
   .gallery-item img,
-  .gallery-item::after {
+  .gallery-item::after,
+  .rolam-masonry__cell,
+  .rolam-masonry__cell img,
+  .rolam-masonry__cell::after {
     transition: none;
   }
 
   .gallery-item:hover,
-  .gallery-item:focus-visible {
+  .gallery-item:focus-visible,
+  .rolam-masonry__cell:hover,
+  .rolam-masonry__cell:focus-visible {
     transform: none;
   }
 
   .gallery-item:hover img,
   .gallery-item:focus-visible img {
+    transform: translate(-50%, -50%);
+  }
+
+  .rolam-masonry__cell:hover img,
+  .rolam-masonry__cell:focus-visible img {
     transform: translate(-50%, -50%);
   }
 }
@@ -1321,8 +1404,10 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   border-radius: var(--radius-gallery);
   overflow: hidden;
   background: #e3eef5;
+  isolation: isolate;
   box-shadow: var(--shadow-gallery-ref);
   cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .rolam-masonry__cell--tl {
@@ -1347,17 +1432,24 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .rolam-masonry__cell img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  top: 50%;
+  width: 118%;
+  height: 118%;
+  max-width: none;
+  max-height: none;
+  transform: translate(-50%, -50%);
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.26s cubic-bezier(0.22, 0.61, 0.36, 1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.rolam-masonry__cell:hover img {
-  transform: scale(1.03);
+.rolam-masonry__cell:hover img,
+.rolam-masonry__cell:focus-visible img {
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 @media (max-width: 700px) {
@@ -1608,8 +1700,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   overflow-wrap: anywhere;
 }
 
-/* Szolgáltatás-kártyák: kompakt megjelenés tablet fölött (769–1024: 2 oszlop, ugyanaz a belső arány mint desktopon) */
-@media (min-width: 769px) {
+/* Szolgáltatás-kártyák: kompakt megjelenés tablet fölött (901–1024: 2 oszlop, ugyanaz a belső arány mint desktopon) */
+@media (min-width: 901px) {
   .services .section-head {
     margin-bottom: clamp(0.85rem, 1.5vw, 1.35rem);
   }
@@ -2543,6 +2635,18 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   box-sizing: border-box;
 }
 
+/* Mobil overlay: desktopon átlátszó, váltáskor lágyan erősödik */
+.page-hero__grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--hero-mobile-overlay, #12110dc9);
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .page-hero__content {
   display: flex;
   flex-direction: column;
@@ -2554,8 +2658,21 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin-right: 0;
   padding-block: var(--page-hero-pad-y);
   padding-inline: 0;
+  padding-right: clamp(1.25rem, 3.5vw, 2.75rem);
   width: min(var(--hero-content-max), 100%);
   min-width: 0;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    var(--color-white) 0%,
+    var(--color-white) 58%,
+    rgba(255, 255, 255, 0.9) 82%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition:
+    background 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.45s ease;
 }
 
 .page-hero__title {
@@ -2566,6 +2683,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   color: var(--color-text);
   margin: 0 0 1.35rem;
   letter-spacing: -0.02em;
+  transition: color 0.5s ease;
 }
 
 .page-hero__lead {
@@ -2573,6 +2691,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin: 0 0 1.85rem;
   line-height: 1.7;
   max-width: min(36rem, 100%);
+  transition: color 0.5s ease;
 }
 
 .page-hero__cta {
@@ -2877,7 +2996,7 @@ a.service-card:focus-visible {
   height: 1.35rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .kapcsolat-hero-panel__inner {
     grid-template-columns: 1fr;
     align-items: center;
@@ -2939,7 +3058,7 @@ a.service-card:focus-visible {
   min-height: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .page-hero--hazirend .page-hero__grid {
     padding-top: clamp(3.25rem, 7vh, 4.25rem);
     padding-bottom: 0;
@@ -3198,10 +3317,16 @@ a.service-card:focus-visible {
   content: "";
   position: absolute;
   top: 0;
-  left: calc(50% - 50vw);
-  width: 100vw;
-  height: 7px;
-  background: var(--color-gold);
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-gold) 42%, transparent) 18%,
+    color-mix(in srgb, var(--color-gold) 42%, transparent) 82%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -3358,7 +3483,7 @@ a.service-card:focus-visible {
 }
 
 /* Árlista: mobil / keskeny képernyő — nincs vízszintes görgetés, sorok kártyaként */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .arlista-content .price-table-wrap {
     overflow-x: visible;
     margin-bottom: 2rem;
@@ -3558,21 +3683,9 @@ a.service-card:focus-visible {
 }
 
 .split-info .checklist__item {
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-text);
   line-height: 1.55;
-}
-
-.split-info .checklist__mark {
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1.45;
-  color: var(--color-gold);
-  margin-top: 0.06em;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  min-width: 1.15em;
 }
 
 .checklist {
@@ -3590,15 +3703,30 @@ a.service-card:focus-visible {
   gap: 0.65rem;
   font-family: var(--font-sans);
   font-size: var(--fs-p);
+  font-weight: 500;
   line-height: 1.55;
   color: var(--color-text);
 }
 
+/* Pipa helyett arany pont — közép a szöveg első sorának középvonalán */
 .checklist__mark {
+  --checklist-dot: 0.42em;
   flex-shrink: 0;
-  color: var(--color-gold);
-  margin-top: 0.12em;
-  display: flex;
+  align-self: flex-start;
+  box-sizing: border-box;
+  width: var(--checklist-dot);
+  height: var(--checklist-dot);
+  min-width: var(--checklist-dot);
+  /* em a checklist__item fontjához igazodik */
+  font-size: 1em;
+  line-height: 1;
+  /* Első sor line-box közepe − pont sugara */
+  margin-top: calc((1.55em - var(--checklist-dot)) / 2);
+  color: transparent;
+  overflow: hidden;
+  display: block;
+  background: var(--color-gold);
+  border-radius: 50%;
 }
 
 .process-section {
@@ -3679,7 +3807,7 @@ a.service-card:focus-visible {
   overflow-wrap: anywhere;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 901px) {
   .process-section .process-card__icon {
     margin-bottom: clamp(0.75rem, 1.15vw, 1.05rem);
   }
@@ -4245,7 +4373,7 @@ a.service-card:focus-visible {
 
 /*
  * ≤1024: tablet + mobil közös rácsok (2 oszlop), nem stackelünk —
- * a teljes mobilos overlay / 1 oszlopos layout a 768-as blokkban van.
+ * a teljes mobilos overlay / 1 oszlopos layout a 900-as blokkban van.
  */
 @media (max-width: 1024px) {
   .page-hazirend,
@@ -4292,10 +4420,10 @@ a.service-card:focus-visible {
 }
 
 /*
- * Tablet / iPad (769–1024): desktop layout lényege megmarad,
+ * Tablet / iPad (901–1024): desktop layout lényege megmarad,
  * szűkebb tipográfia, gutter és panelek — professzionális mid-range.
  */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 901px) and (max-width: 1024px) {
   :root {
     --section-space: clamp(3.25rem, 4.5vw, 4.75rem);
     --fs-nav-bar: 1rem;
@@ -4318,14 +4446,24 @@ a.service-card:focus-visible {
     padding: 0.55rem 1rem;
   }
 
-  /* Főoldal hero: 50/50 split megmarad */
+  /* Főoldal hero: képek erősebben a szöveg alá csúsznak */
   .hero__grid {
-    gap: clamp(1.15rem, 2.4vw, 1.85rem);
+    gap: 0;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   }
 
   .hero__content {
     width: min(34rem, 100%);
     padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+  }
+
+  .hero__media {
+    margin-left: clamp(-8rem, -16vw, -3.5rem);
+  }
+
+  .hero__image-bg,
+  .page-hero__image-bg {
+    left: clamp(10%, 18vw, 26%);
   }
 
   .hero .hero__title {
@@ -4445,8 +4583,8 @@ a.service-card:focus-visible {
   }
 }
 
-/* Keskenyebb tablet (iPad portrait ~769–900): kapcsolat panel 2×2 */
-@media (min-width: 769px) and (max-width: 900px) {
+/* Tablet (901–1024) kapcsolat panel: kapcsolat panel 2×2 */
+@media (min-width: 901px) and (max-width: 1024px) /* was 769-900 */ {
   .kapcsolat-hero-panel__inner {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
     grid-template-areas:
@@ -4478,10 +4616,10 @@ a.service-card:focus-visible {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   /*
    * Mobil: hero kép a tartalom mögött, teljes felületű overlay.
-   * (Korábban ≤1024 — tablet most a desktop splitet tartja.)
+   * Breakpoint: 900px — korábbi váltás + lágy opacity/szín átmenet.
    */
   .hero,
   .page-hero {
@@ -4492,11 +4630,18 @@ a.service-card:focus-visible {
     min-height: var(--screen-fill);
   }
 
+  .hero__image-bg {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
   .hero__image-bg img {
     left: 0;
     right: 0;
     width: 100%;
     height: 100%;
+    max-width: none;
     object-fit: cover;
     object-position: center center;
   }
@@ -4516,19 +4661,14 @@ a.service-card:focus-visible {
     order: 0;
     position: absolute;
     inset: 0;
+    margin-left: 0;
     min-height: 100%;
     height: 100%;
     z-index: 0;
   }
 
   .hero__media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: rgba(18, 17, 13, 0.79);
-    background: var(--hero-mobile-overlay);
+    opacity: 1;
   }
 
   .hero__image-wrap {
@@ -4568,6 +4708,8 @@ a.service-card:focus-visible {
     position: relative;
     z-index: 2;
     padding-block: clamp(2rem, 6vw, 3rem);
+    padding-right: 0;
+    background: transparent;
   }
 
   .hero .hero__tagline {
@@ -4624,13 +4766,7 @@ a.service-card:focus-visible {
   }
 
   .page-hero__grid::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: rgba(18, 17, 13, 0.79);
-    background: var(--hero-mobile-overlay);
+    opacity: 1;
   }
 
   .page-hero__content {
@@ -4646,6 +4782,8 @@ a.service-card:focus-visible {
     max-width: 100%;
     justify-self: stretch;
     padding-block: var(--page-hero-pad-y);
+    padding-right: 0;
+    background: transparent;
   }
 
   .page-hero__title {
@@ -4777,10 +4915,8 @@ a.service-card:focus-visible {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition:
-      transform 0.52s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.42s ease,
-      visibility 0s linear 0.52s;
+    /* Zárt állapot: nincs transition — breakpoint váltáskor ne villanjon fel */
+    transition: none;
   }
 
   .site-header.is-open .nav {
@@ -4792,6 +4928,21 @@ a.service-card:focus-visible {
       transform 0.58s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.5s ease,
       visibility 0s;
+  }
+
+  /* Bezárás animáció csak manuális záráskor */
+  .site-header.is-nav-closing .nav {
+    transition:
+      transform 0.52s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.42s ease,
+      visibility 0s linear 0.52s;
+  }
+
+  .site-header.nav-mq-lock .nav,
+  .site-header.nav-mq-lock .nav__list > .nav__item,
+  .site-header.nav-mq-lock .nav .btn--header-cta,
+  .site-header.nav-mq-lock .lang-switch {
+    transition: none !important;
   }
 
   .nav__list {
