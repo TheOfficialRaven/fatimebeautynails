@@ -223,12 +223,18 @@ p {
 }
 
 .logo {
-  font-family: var(--font-sans);
-  font-size: var(--fs-nav-bar);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--header-gold);
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo img {
+  display: block;
+  height: clamp(3.1rem, 5.4vw, 3.85rem);
+  width: auto;
 }
 
 .nav-toggle {
@@ -2437,12 +2443,14 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .footer__logo {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   margin: 0 0 1.15rem;
-  color: var(--color-gold);
+  line-height: 0;
+}
+
+.footer__logo img {
+  display: block;
+  height: clamp(3.35rem, 6vw, 4.25rem);
+  width: auto;
 }
 
 .footer__about {
