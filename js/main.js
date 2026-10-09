@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   /**
    * 125%/150% böngésző-zoom: ha a CSS resolution media query nem fogja,
    * a gyökér font-size-szal a 100%-os vizuális méretre állunk vissza (csak desktop).

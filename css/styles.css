@@ -944,6 +944,19 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   object-position: center center;
   display: block;
   pointer-events: none;
+  will-change: transform, opacity;
+  animation: hero-figure-enter 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@keyframes hero-figure-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(-10%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -963,6 +976,19 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   .page-hero__image-bg img,
   .page-hero__grid::before {
     transition: none;
+  }
+
+  .hero__image-figure {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Mobil hero layout: belépő animáció kikapcsolva */
+@media (max-width: 900px) {
+  .hero__image-figure {
+    animation: none;
+    will-change: auto;
   }
 }
 
@@ -4047,22 +4073,22 @@ a.service-card:focus-visible {
   max-width: none;
   object-fit: cover;
   object-position: center center;
-  /* PNG beégetett keret + árnyék levágása */
-  transform: scale(1.18);
-  transform-origin: center center;
+  /* Valódi fotóknál ne zoomoljon rá — a keret mérete (aspect-ratio) megmarad */
+  transform: none;
   /* Lekerekítés az img-en is — sticky overflow:visible esetén is megmarad */
   border-radius: var(--radius-media);
   box-shadow: none;
 }
+
 
 /* Kozmetikai oldal: négyzetes kép */
 .page-kozmetikai .service-showcase__media {
   aspect-ratio: 1 / 1;
 }
 
-/* Manikűr oldal: szélesebb kép + középre igazított szövegoszlop */
+/* Manikűr oldal: enyhén álló kép (magasság kicsit > szélesség) + középre igazított szöveg */
 .page-manikur .service-showcase__media {
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 14 / 15;
 }
 
 .page-kozmetikai .service-showcase__grid {
