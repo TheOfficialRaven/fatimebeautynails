@@ -944,19 +944,6 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   object-position: center center;
   display: block;
   pointer-events: none;
-  will-change: transform, opacity;
-  animation: hero-figure-enter 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
-}
-
-@keyframes hero-figure-enter {
-  from {
-    opacity: 0;
-    transform: translate3d(-10%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -976,19 +963,6 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   .page-hero__image-bg img,
   .page-hero__grid::before {
     transition: none;
-  }
-
-  .hero__image-figure {
-    animation: none;
-    will-change: auto;
-  }
-}
-
-/* Mobil hero layout: belépő animáció kikapcsolva */
-@media (max-width: 900px) {
-  .hero__image-figure {
-    animation: none;
-    will-change: auto;
   }
 }
 
@@ -3830,8 +3804,8 @@ a.service-card:focus-visible {
   padding: 0;
   border: 0;
   width: 100%;
-  /* 1:1 — ne legyen túl magas; szélességben végigér, object-fit: cover */
-  aspect-ratio: 1 / 1;
+  /* Álló képkeret — magasság > szélesség */
+  aspect-ratio: 4 / 5;
   border-radius: var(--radius-media);
   overflow: hidden;
   isolation: isolate;
@@ -3857,6 +3831,11 @@ a.service-card:focus-visible {
   border-radius: 0;
   box-shadow: none;
   filter: none;
+}
+
+/* Kereten belül felfelé igazítva: a kép teteje látszik, alul vágódik */
+.split-info__img--focus-top {
+  object-position: center 18%;
 }
 
 .split-info__body .subpage-kicker {
