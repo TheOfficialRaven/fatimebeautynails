@@ -22,9 +22,11 @@
   --fs-h1: 3.75rem;
   --fs-h2: clamp(2rem, 2.8vw, 2.35rem);
   --fs-p: clamp(1rem, 1.05vw, 1.05rem);
-  --fs-btn: 1rem;
-  /* Navbar CTA: min. 16px @ 16px gyökér */
-  --fs-btn-header: 1rem;
+  --fs-btn: 0.95rem;
+  --btn-pad-y: 0.62rem;
+  --btn-pad-x: 1.3rem;
+  /* Navbar CTA */
+  --fs-btn-header: 0.9rem;
   /* Navbar linkek, nyelvváltó, logo szöveg */
   --fs-nav-bar: 1.1rem;
   /* Arany színű szekció-alcímek (script / kiemelő sor) */
@@ -620,11 +622,12 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.85rem 1.6rem;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
   font-family: var(--font-sans);
   font-size: var(--fs-btn);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.11em;
+  line-height: 1.2;
   text-transform: uppercase;
   border: none;
   border-radius: var(--radius-sm);
@@ -653,7 +656,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   font-size: var(--fs-btn-header);
   background: var(--header-gold);
   color: var(--color-white);
-  padding: 0.65rem 1.35rem;
+  padding: 0.5rem 1.15rem;
   border-radius: var(--radius-sm);
   box-shadow: none;
   white-space: nowrap;
@@ -2431,14 +2434,15 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .btn--contact-send {
   margin-top: 0.35rem;
-  padding: 1rem 1.25rem;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
   background: #5a735e;
   color: var(--color-white);
   border: 0;
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: var(--fs-btn);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.11em;
+  line-height: 1.2;
   text-transform: uppercase;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -4674,7 +4678,7 @@ a.service-card:focus-visible {
   :root {
     --section-space: clamp(3.25rem, 4.5vw, 4.75rem);
     --fs-nav-bar: 1rem;
-    --fs-btn-header: 1rem;
+    --fs-btn-header: 0.9rem;
     --header-h: 72px;
     --fs-h2: clamp(1.85rem, 2.6vw, 2.15rem);
     --fs-section-gold-accent: 1.5rem;
@@ -4690,7 +4694,7 @@ a.service-card:focus-visible {
   }
 
   .btn--header-cta {
-    padding: 0.55rem 1rem;
+    padding: 0.45rem 0.95rem;
   }
 
   /* Főoldal hero: képek erősebben a szöveg alá csúsznak */
