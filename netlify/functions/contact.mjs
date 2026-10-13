@@ -37,16 +37,63 @@ function escapeHtml(value) {
 }
 
 function buildOwnerHtml({ name, email, message, lang }) {
-  return `
-    <div style="font-family:Georgia,serif;line-height:1.6;color:#2b523a">
-      <h2 style="margin:0 0 1rem;font-weight:400">Új üzenet a weboldalról</h2>
-      <p><strong>Név:</strong> ${escapeHtml(name)}</p>
-      <p><strong>E-mail:</strong> ${escapeHtml(email)}</p>
-      <p><strong>Nyelv:</strong> ${escapeHtml(lang)}</p>
-      <p><strong>Üzenet:</strong></p>
-      <p style="white-space:pre-wrap">${escapeHtml(message)}</p>
-    </div>
-  `;
+  const langLabel = lang === "de" ? "Német" : "Magyar";
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message);
+
+  return `<!DOCTYPE html>
+<html lang="hu">
+<body style="margin:0;padding:0;background:#faf9f7">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#faf9f7;margin:0;padding:0">
+    <tr>
+      <td align="center" style="padding:32px 16px">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:560px;background:#ffffff;border-radius:6px;overflow:hidden;border:1px solid rgba(43,82,58,0.12)">
+          <tr>
+            <td style="background:#51735e;padding:28px 32px;text-align:center">
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.3;color:#ffffff;letter-spacing:0.02em">Fatime Beauty Nails</p>
+              <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#c3b78e">Új üzenet a weboldalról</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="height:3px;background:#c3b78e;font-size:0;line-height:0">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding:28px 32px 8px;font-family:Arial,Helvetica,sans-serif;color:#2b523a">
+              <p style="margin:0 0 20px;font-size:15px;line-height:1.65;color:rgba(43,82,58,0.78)">Új kapcsolatfelvételi üzenet érkezett a weboldalon keresztül.</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 22px">
+                <tr>
+                  <td style="padding:14px 16px;background:#faf9f7;border-radius:6px;border:1px solid rgba(43,82,58,0.10)">
+                    <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">Név</p>
+                    <p style="margin:0 0 16px;font-size:16px;line-height:1.4;color:#2b523a;font-family:Georgia,'Times New Roman',serif">${safeName}</p>
+                    <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">E-mail</p>
+                    <p style="margin:0 0 16px;font-size:15px;line-height:1.4;color:#2b523a;font-family:Arial,Helvetica,sans-serif"><a href="mailto:${safeEmail}" style="color:#2b523a;text-decoration:underline">${safeEmail}</a></p>
+                    <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">Nyelv</p>
+                    <p style="margin:0;font-size:15px;line-height:1.4;color:#2b523a;font-family:Arial,Helvetica,sans-serif">${langLabel}</p>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">Üzenet</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="padding:16px 18px;background:#faf9f7;border-left:3px solid #c3b78e;border-radius:0 6px 6px 0">
+                    <p style="margin:0;font-size:15px;line-height:1.7;color:#2b523a;font-family:Arial,Helvetica,sans-serif;white-space:pre-wrap">${safeMessage}</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 28px;font-family:Arial,Helvetica,sans-serif;text-align:center">
+              <p style="margin:0;font-size:12px;line-height:1.6;color:rgba(43,82,58,0.55)">Fatime Beauty Nails · Frasnacht (TG)<br />Ez az üzenet a weboldal kapcsolatfelvételi űrlapjáról érkezett.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 }
 
 function buildReply({ name, lang }) {
