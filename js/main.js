@@ -202,12 +202,59 @@
 
   /* Referenciák + Rólam masonry: lightbox, lapozás, átlátszó háttér */
   (function refLightbox() {
-    var modal = document.getElementById("ref-lightbox");
-    if (!modal) return;
-
     var grids = document.querySelectorAll(".ref-grid, .rolam-masonry");
-    if (!grids.length) return;
+    var pageGalleries = document.querySelectorAll("[data-page-gallery]");
+    if (!grids.length && !pageGalleries.length) return;
 
+    var isDe = (document.documentElement.lang || "").toLowerCase().indexOf("de") === 0;
+    var L = {
+      label: isDe ? "Bild gross anzeigen" : "Kép nagyítva",
+      close: isDe ? "Schliessen" : "Bezárás",
+      prev: isDe ? "Vorheriges Bild" : "Előző kép",
+      next: isDe ? "Nächstes Bild" : "Következő kép",
+      fallbackAlt: isDe ? "Referenzbild" : "Referenciakép",
+    };
+
+    function ensureModal() {
+      var existing = document.getElementById("ref-lightbox");
+      if (existing) return existing;
+
+      var wrap = document.createElement("div");
+      wrap.id = "ref-lightbox";
+      wrap.className = "ref-lightbox";
+      wrap.hidden = true;
+      wrap.setAttribute("role", "dialog");
+      wrap.setAttribute("aria-modal", "true");
+      wrap.setAttribute("aria-label", L.label);
+      wrap.innerHTML =
+        '<button type="button" class="ref-lightbox__backdrop" tabindex="-1" aria-label="' +
+        L.close +
+        '"></button>' +
+        '<div class="ref-lightbox__stage">' +
+        '<div class="ref-lightbox__figure">' +
+        '<div class="ref-lightbox__media">' +
+        '<img class="ref-lightbox__img" alt="" width="1200" height="1200" decoding="async" />' +
+        '<button type="button" class="ref-lightbox__close" aria-label="' +
+        L.close +
+        '">' +
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+        '<path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" /></svg></button>' +
+        '<button type="button" class="ref-lightbox__nav ref-lightbox__prev" aria-label="' +
+        L.prev +
+        '">' +
+        '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+        '<path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" /></svg></button>' +
+        '<button type="button" class="ref-lightbox__nav ref-lightbox__next" aria-label="' +
+        L.next +
+        '">' +
+        '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+        '<path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" /></svg></button>' +
+        "</div></div></div>";
+      document.body.appendChild(wrap);
+      return wrap;
+    }
+
+    var modal = ensureModal();
     var backdrop = modal.querySelector(".ref-lightbox__backdrop");
     var figure = modal.querySelector(".ref-lightbox__figure");
     var media = modal.querySelector(".ref-lightbox__media");
@@ -221,22 +268,30 @@
     var lastFocus = null;
     var touchStartX = 0;
     var onDocKey = null;
+    var navEnabled = true;
 
-    function collectItemsFrom(grid) {
+    function setNavVisible(on) {
+      navEnabled = !!on;
+      if (btnPrev) btnPrev.hidden = !navEnabled;
+      if (btnNext) btnNext.hidden = !navEnabled;
+      modal.classList.toggle("ref-lightbox--single", !navEnabled);
+    }
+
+    function collectFromCells(cells) {
       items = [];
-      Array.prototype.forEach.call(grid.querySelectorAll(".ref-grid__cell, .rolam-masonry__cell"), function (cell) {
+      Array.prototype.forEach.call(cells, function (cell) {
         var el = cell.querySelector("img");
         if (el) {
           items.push({
             src: el.currentSrc || el.src,
-            alt: el.getAttribute("alt") || "Referenciakép",
+            alt: el.getAttribute("alt") || L.fallbackAlt,
           });
         }
       });
     }
 
     function go(delta) {
-      if (!items.length) return;
+      if (!navEnabled || !items.length) return;
       index = (index + delta + items.length) % items.length;
       img.src = items[index].src;
       img.alt = items[index].alt;
@@ -251,14 +306,15 @@
       modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
       img.removeAttribute("src");
+      setNavVisible(true);
       if (lastFocus && typeof lastFocus.focus === "function") {
         lastFocus.focus();
       }
     }
 
-    function open(grid, at) {
-      collectItemsFrom(grid);
+    function openAt(at, withNav) {
       if (!items.length) return;
+      setNavVisible(withNav !== false);
       index = at;
       if (index < 0) index = 0;
       if (index >= items.length) index = items.length - 1;
@@ -273,10 +329,10 @@
         if (e.key === "Escape") {
           e.preventDefault();
           close();
-        } else if (e.key === "ArrowLeft") {
+        } else if (navEnabled && e.key === "ArrowLeft") {
           e.preventDefault();
           go(-1);
-        } else if (e.key === "ArrowRight") {
+        } else if (navEnabled && e.key === "ArrowRight") {
           e.preventDefault();
           go(1);
         }
@@ -286,13 +342,57 @@
       btnClose.focus();
     }
 
+    function openSingleFromImg(el) {
+      if (!el) return;
+      items = [
+        {
+          src: el.currentSrc || el.src,
+          alt: el.getAttribute("alt") || L.fallbackAlt,
+        },
+      ];
+      openAt(0, false);
+    }
+
     Array.prototype.forEach.call(grids, function (grid) {
       grid.addEventListener("click", function (e) {
         var cell = e.target.closest(".ref-grid__cell") || e.target.closest(".rolam-masonry__cell");
         if (!cell || !grid.contains(cell)) return;
         var cells = grid.querySelectorAll(".ref-grid__cell, .rolam-masonry__cell");
         var i = Array.prototype.indexOf.call(cells, cell);
-        if (i >= 0) open(grid, i);
+        if (i < 0) return;
+        collectFromCells(cells);
+        openAt(i, true);
+      });
+    });
+
+    Array.prototype.forEach.call(pageGalleries, function (gallery) {
+      var slides = gallery.querySelectorAll(".page-gallery__slide");
+      Array.prototype.forEach.call(slides, function (slide) {
+        slide.setAttribute("role", "button");
+        slide.setAttribute("tabindex", "0");
+        if (!slide.getAttribute("aria-label")) {
+          var slideImg = slide.querySelector("img");
+          var alt = slideImg ? slideImg.getAttribute("alt") : "";
+          slide.setAttribute(
+            "aria-label",
+            alt ? alt + (isDe ? " — vergrössern" : " — nagyítás") : L.label
+          );
+        }
+      });
+
+      gallery.addEventListener("click", function (e) {
+        if (e.target.closest(".page-gallery__nav") || e.target.closest(".page-gallery__dot")) return;
+        var slide = e.target.closest(".page-gallery__slide");
+        if (!slide || !gallery.contains(slide)) return;
+        openSingleFromImg(slide.querySelector("img"));
+      });
+
+      gallery.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var slide = e.target.closest(".page-gallery__slide");
+        if (!slide || !gallery.contains(slide)) return;
+        e.preventDefault();
+        openSingleFromImg(slide.querySelector("img"));
       });
     });
 
@@ -317,6 +417,7 @@
       swipeTarget.addEventListener(
         "touchend",
         function (e) {
+          if (!navEnabled) return;
           var x = e.changedTouches[0].screenX;
           var dx = x - touchStartX;
           if (Math.abs(dx) < 48) return;

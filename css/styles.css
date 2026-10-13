@@ -1278,6 +1278,12 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   box-sizing: border-box;
 }
 
+/* Főoldali referenciák: enyhén tájolt cellák; sorok azonos magasságúak */
+.ref-grid .ref-grid__cell,
+.ref-grid .gallery-item {
+  aspect-ratio: 5 / 4;
+}
+
 .ref-grid__cell,
 .gallery-item {
   position: relative;
@@ -1391,17 +1397,18 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 /*
- * Három egyenlő magasságú sor. Bal: felül 2 soron át a legmagasabb cella, alul széles rövid.
- * Jobb: felül széles rövid, alul 2 soron át közepesen magas. A két oszlop összmagassága egyezik.
+ * 5 sor: magas cellák 3, rövid cellák 2 sort spanelnek.
+ * A rövid sorok kicsit nagyobb fr-t kapnak → alacsonyabb keretek magasabbak,
+ * a magasabb keretek kissé rövidebbek.
  */
 .rolam-masonry {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 1.2fr 1.2fr 0.85fr 1.2fr 1.2fr;
   gap: var(--gallery-grid-gap);
   width: 100%;
   box-sizing: border-box;
-  min-height: clamp(22rem, 58vw, 40rem);
+  min-height: clamp(26rem, 64vw, 46rem);
 }
 
 .rolam-masonry__cell {
@@ -1418,22 +1425,22 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .rolam-masonry__cell--tl {
   grid-column: 1;
-  grid-row: 1 / 3;
+  grid-row: 1 / 4;
 }
 
 .rolam-masonry__cell--tr {
   grid-column: 2;
-  grid-row: 1 / 2;
+  grid-row: 1 / 3;
 }
 
 .rolam-masonry__cell--bl {
   grid-column: 1;
-  grid-row: 3 / 4;
+  grid-row: 4 / 6;
 }
 
 .rolam-masonry__cell--br {
   grid-column: 2;
-  grid-row: 2 / 4;
+  grid-row: 3 / 6;
 }
 
 .rolam-masonry__cell img {
@@ -1458,6 +1465,22 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   transform: translate(-50%, -50%) scale(1.08);
 }
 
+/*
+ * Bal alsó: a kép lejjebb a keretben (kevésbé -50% Y), így a fotó felső része látszik.
+ * Az általános .rolam-masonry__cell img után kell állnia.
+ */
+.rolam-masonry__cell--bl img {
+  width: 130%;
+  height: 130%;
+  object-position: center top;
+  transform: translate(-56%, -52%);
+}
+
+.rolam-masonry__cell--bl:hover img,
+.rolam-masonry__cell--bl:focus-visible img {
+  transform: translate(-56%, -52%) scale(1.08);
+}
+
 @media (max-width: 700px) {
   .rolam-masonry {
     grid-template-columns: 1fr;
@@ -1480,8 +1503,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
   .rolam-masonry__cell--tr,
   .rolam-masonry__cell--bl {
-    aspect-ratio: 16 / 9;
-    min-height: 0;
+    aspect-ratio: 5 / 4;
+    min-height: min(42vw, 14rem);
   }
 
   .rolam-masonry__cell--br {
@@ -1505,6 +1528,10 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .ref-lightbox[hidden] {
+  display: none !important;
+}
+
+.ref-lightbox--single .ref-lightbox__nav {
   display: none !important;
 }
 
@@ -3812,8 +3839,8 @@ a.service-card:focus-visible {
   padding: 0;
   border: 0;
   width: 100%;
-  /* Álló képkeret — magasság > szélesség */
-  aspect-ratio: 4 / 5;
+  /* Álló képkeret — enyhén alacsonyabb, mint 4/5 */
+  aspect-ratio: 5 / 6;
   border-radius: var(--radius-media);
   overflow: hidden;
   isolation: isolate;
@@ -4454,13 +4481,39 @@ a.service-card:focus-visible {
   flex-shrink: 0;
   box-sizing: border-box;
   border: 0;
-  aspect-ratio: 2 / 3;
+  /* 3:4 — közelebb a tipikus fotókhoz, kevesebb cover-kropp / „zoom” */
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius-media);
   overflow: hidden;
   isolation: isolate;
   transform: translateZ(0);
   line-height: 0;
   background: transparent;
+  cursor: pointer;
+}
+
+.page-gallery__slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0 transparent;
+  opacity: 0;
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-gallery__slide:hover::after,
+.page-gallery__slide:focus-visible::after {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px var(--color-gold);
+}
+
+.page-gallery__slide:focus-visible {
+  outline: none;
 }
 
 /* Böngészők container query nélkül: keskeny cellák, görgetés */
@@ -4520,6 +4573,7 @@ a.service-card:focus-visible {
   max-width: none;
   object-fit: cover;
   object-position: center center;
+  transform: none;
   border-radius: var(--radius-media);
   box-shadow: none;
 }
