@@ -1195,6 +1195,62 @@
       if (type === "error") el.classList.add("form__status--error");
     }
 
+    var successModalTimer = null;
+
+    function hideSuccessModal(root) {
+      if (!root) return;
+      root.classList.remove("is-visible");
+      root.setAttribute("aria-hidden", "true");
+      window.setTimeout(function () {
+        if (root.parentNode) root.parentNode.removeChild(root);
+      }, 400);
+    }
+
+    function showSuccessModal(message) {
+      var existing = document.querySelector(".contact-success-modal");
+      if (existing) {
+        if (successModalTimer) window.clearTimeout(successModalTimer);
+        hideSuccessModal(existing);
+      }
+
+      var root = document.createElement("div");
+      root.className = "contact-success-modal";
+      root.setAttribute("role", "dialog");
+      root.setAttribute("aria-modal", "true");
+      root.setAttribute("aria-hidden", "true");
+      root.setAttribute("aria-labelledby", "contact-success-title");
+
+      var isHu = isHuPage();
+      root.innerHTML =
+        '<div class="contact-success-modal__backdrop" data-contact-success-close="true"></div>' +
+        '<div class="contact-success-modal__panel">' +
+        '<h2 class="contact-success-modal__title" id="contact-success-title">' +
+        (isHu ? "Köszönjük!" : "Vielen Dank!") +
+        "</h2>" +
+        '<p class="contact-success-modal__text">' +
+        message +
+        "</p>" +
+        "</div>";
+
+      document.body.appendChild(root);
+      window.requestAnimationFrame(function () {
+        root.classList.add("is-visible");
+        root.setAttribute("aria-hidden", "false");
+      });
+
+      root.addEventListener("click", function (e) {
+        if (e.target && e.target.getAttribute("data-contact-success-close") === "true") {
+          if (successModalTimer) window.clearTimeout(successModalTimer);
+          hideSuccessModal(root);
+        }
+      });
+
+      successModalTimer = window.setTimeout(function () {
+        hideSuccessModal(root);
+        successModalTimer = null;
+      }, 3000);
+    }
+
     function bindForm(form) {
       if (!form || form.getAttribute("data-contact-bound") === "1") return;
       form.setAttribute("data-contact-bound", "1");
@@ -1256,8 +1312,9 @@
               setStatus(statusEl, "error", t.error);
               return;
             }
-            setStatus(statusEl, "ok", t.success);
+            setStatus(statusEl, "", "");
             form.reset();
+            showSuccessModal(t.success);
           })
           .catch(function () {
             setStatus(statusEl, "error", t.error);
