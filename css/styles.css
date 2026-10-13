@@ -4088,6 +4088,11 @@ a.service-card:focus-visible {
   object-position: center 18%;
 }
 
+/* Piercing: a kép picivel lejjebb a keretben */
+.page-piercing .split-info__img {
+  object-position: center 22%;
+}
+
 .split-info__body .subpage-kicker {
   font-size: clamp(1.35rem, 2.4vw, 1.65rem);
   margin-bottom: 0.5rem;
