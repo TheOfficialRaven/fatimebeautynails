@@ -160,6 +160,7 @@
     ".hazirend-rules__title", ".hazirend-rules__text",
     ".hazirend-hero-panel__title", ".hazirend-hero-panel__subtitle", ".hazirend-hero-panel__lead",
     ".kapcsolat-hero-panel__title", ".kapcsolat-hero-panel__lead", ".kapcsolat-hero-panel__line",
+    ".legal-doc__brand", ".legal-doc__section-title", ".legal-doc__text", ".legal-doc__list",
     ".price-table__service", ".price-table__price", ".form__status", ".btn",
   ].join(",");
 

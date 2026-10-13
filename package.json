@@ -1,0 +1,8 @@
+{
+  "name": "fatimebeautynails",
+  "private": true,
+  "description": "Fatime Beauty Nails static site + Netlify Functions",
+  "engines": {
+    "node": ">=18"
+  }
+}

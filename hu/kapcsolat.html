@@ -176,23 +176,30 @@
             <form class="contact-form" action="#" method="post">
               <label class="field" for="kapcsolat-name">
                 <span class="field__label">Teljes név</span>
-                <input id="kapcsolat-name" type="text" name="name" placeholder="Teljes név" autocomplete="name" />
+                <input id="kapcsolat-name" type="text" name="name" required placeholder="Teljes név" autocomplete="name" />
               </label>
               <label class="field" for="kapcsolat-email">
                 <span class="field__label">Email</span>
-                <input id="kapcsolat-email" type="email" name="email" placeholder="E-mail cím" autocomplete="email" />
+                <input id="kapcsolat-email" type="email" name="email" required placeholder="E-mail cím" autocomplete="email" />
               </label>
               <label class="field" for="kapcsolat-message">
                 <span class="field__label">Üzenet</span>
-                <textarea id="kapcsolat-message" name="message" rows="6" placeholder="Üzenet"></textarea>
+                <textarea id="kapcsolat-message" name="message" rows="6" required placeholder="Üzenet"></textarea>
               </label>
               <label class="contact-form__consent">
                 <input type="checkbox" name="privacy" value="1" required />
                 <span class="contact-form__consent-text">
                   Elolvastam és elfogadom az
-                  <a href="#" class="contact-form__policy-link">adatkezelési tájékoztatót.</a>
+                  <a href="adatkezelesi-tajekoztato.html" class="contact-form__policy-link">adatkezelési tájékoztatót.</a>
                 </span>
               </label>
+
+              <label class="contact-form__honeypot" aria-hidden="true">
+                <span>Website</span>
+                <input type="text" name="website" tabindex="-1" autocomplete="off" />
+              </label>
+
+              <p class="form__status" role="status" aria-live="polite" hidden></p>
               <button type="submit" class="btn btn--block btn--contact-send">KÜLDÉS</button>
             </form>
           </div>
@@ -439,7 +446,7 @@
         <p class="footer__legal">
           © <span id="year"></span> Fatime Beauty Nails – Minden jog fenntartva!
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Adatkezelési tájékoztató</a>
+          <a href="adatkezelesi-tajekoztato.html" class="footer__legal-link">Adatkezelési tájékoztató</a>
         </p>
       </div>
     </div>

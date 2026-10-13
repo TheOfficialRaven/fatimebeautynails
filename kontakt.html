@@ -175,23 +175,30 @@
             <form class="contact-form" action="#" method="post">
               <label class="field" for="kapcsolat-name">
                 <span class="field__label">Vollständiger Name</span>
-                <input id="kapcsolat-name" type="text" name="name" placeholder="Vollständiger Name" autocomplete="name" />
+                <input id="kapcsolat-name" type="text" name="name" required placeholder="Vollständiger Name" autocomplete="name" />
               </label>
               <label class="field" for="kapcsolat-email">
                 <span class="field__label">E-Mail</span>
-                <input id="kapcsolat-email" type="email" name="email" placeholder="E-Mail-Adresse" autocomplete="email" />
+                <input id="kapcsolat-email" type="email" name="email" required placeholder="E-Mail-Adresse" autocomplete="email" />
               </label>
               <label class="field" for="kapcsolat-message">
                 <span class="field__label">Nachricht</span>
-                <textarea id="kapcsolat-message" name="message" rows="6" placeholder="Nachricht"></textarea>
+                <textarea id="kapcsolat-message" name="message" rows="6" required placeholder="Nachricht"></textarea>
               </label>
               <label class="contact-form__consent">
                 <input type="checkbox" name="privacy" value="1" required />
                 <span class="contact-form__consent-text">
                   Ich habe die
-                  <a href="#" class="contact-form__policy-link">Datenschutzerklärung</a> gelesen und akzeptiere sie.
+                  <a href="datenschutzerklaerung.html" class="contact-form__policy-link">Datenschutzerklärung</a> gelesen und akzeptiere sie.
                 </span>
               </label>
+
+              <label class="contact-form__honeypot" aria-hidden="true">
+                <span>Website</span>
+                <input type="text" name="website" tabindex="-1" autocomplete="off" />
+              </label>
+
+              <p class="form__status" role="status" aria-live="polite" hidden></p>
               <button type="submit" class="btn btn--block btn--contact-send">SENDEN</button>
             </form>
           </div>
@@ -434,7 +441,7 @@
         <p class="footer__legal">
           © <span id="year"></span> Fatime Beauty Nails – Alle Rechte vorbehalten.
           <span class="footer__legal-sep" aria-hidden="true">|</span>
-          <a href="#" class="footer__legal-link">Datenschutzerklärung</a>
+          <a href="datenschutzerklaerung.html" class="footer__legal-link">Datenschutzerklärung</a>
         </p>
       </div>
     </div>

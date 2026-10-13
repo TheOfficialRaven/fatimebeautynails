@@ -1025,7 +1025,7 @@
           emailPlaceholder: "E-mail cím",
           privacyText: "Elolvastam és elfogadom az",
           privacyLinkText: "adatkezelési tájékoztatót.",
-          privacyHref: "hazirend.html",
+          privacyHref: "adatkezelesi-tajekoztato.html",
           submitLabel: "Kérem a kupont!",
         };
       }
@@ -1038,8 +1038,8 @@
         namePlaceholder: "Vollstandiger Name",
         emailPlaceholder: "E-Mail-Adresse",
         privacyText: "Ich habe die",
-        privacyLinkText: "Datenschutzerklarung gelesen und akzeptiere sie.",
-        privacyHref: "hausordnung.html",
+        privacyLinkText: "Datenschutzerklärung gelesen und akzeptiere sie.",
+        privacyHref: "datenschutzerklaerung.html",
         submitLabel: "Gutschein anfordern",
       };
     }
@@ -1155,6 +1155,129 @@
       document.addEventListener("DOMContentLoaded", initPopup, { once: true });
     } else {
       initPopup();
+    }
+  })();
+
+  /* ——— Kapcsolat űrlap → Netlify Function + Resend ——— */
+  (function initContactForms() {
+    var ENDPOINT = "/.netlify/functions/contact";
+
+    function isHuPage() {
+      var lang = ((document.documentElement && document.documentElement.lang) || "").toLowerCase();
+      return lang.indexOf("hu") === 0;
+    }
+
+    function copyForLang() {
+      if (isHuPage()) {
+        return {
+          sending: "Küldés...",
+          success: "Köszönjük az üzeneted! Hamarosan felvesszük veled a kapcsolatot.",
+          error: "Az üzenet küldése nem sikerült. Kérlek próbáld újra, vagy írj a fatimegor8@gmail.com címre.",
+          missing: "Kérlek töltsd ki az összes mezőt, és fogadd el az adatkezelési tájékoztatót.",
+          invalidEmail: "Kérlek adj meg egy érvényes e-mail címet.",
+        };
+      }
+      return {
+        sending: "Wird gesendet...",
+        success: "Danke für deine Nachricht! Ich melde mich so bald wie möglich bei dir.",
+        error: "Die Nachricht konnte nicht gesendet werden. Bitte versuche es erneut oder schreib an fatimegor8@gmail.com.",
+        missing: "Bitte fülle alle Felder aus und akzeptiere die Datenschutzerklärung.",
+        invalidEmail: "Bitte gib eine gültige E-Mail-Adresse ein.",
+      };
+    }
+
+    function setStatus(el, type, text) {
+      if (!el) return;
+      el.hidden = !text;
+      el.textContent = text || "";
+      el.classList.remove("form__status--ok", "form__status--error");
+      if (type === "ok") el.classList.add("form__status--ok");
+      if (type === "error") el.classList.add("form__status--error");
+    }
+
+    function bindForm(form) {
+      if (!form || form.getAttribute("data-contact-bound") === "1") return;
+      form.setAttribute("data-contact-bound", "1");
+
+      var statusEl = form.querySelector(".form__status");
+      if (!statusEl) {
+        statusEl = document.createElement("p");
+        statusEl.className = "form__status";
+        statusEl.setAttribute("role", "status");
+        statusEl.setAttribute("aria-live", "polite");
+        form.appendChild(statusEl);
+      }
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var defaultLabel = submitBtn ? submitBtn.textContent : "";
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var t = copyForLang();
+        var fd = new FormData(form);
+        var name = String(fd.get("name") || "").trim();
+        var email = String(fd.get("email") || "").trim();
+        var message = String(fd.get("message") || "").trim();
+        var privacy = fd.get("privacy");
+        var website = String(fd.get("website") || "").trim();
+
+        if (!name || !email || !message || !privacy) {
+          setStatus(statusEl, "error", t.missing);
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setStatus(statusEl, "error", t.invalidEmail);
+          return;
+        }
+
+        form.classList.add("is-sending");
+        if (submitBtn) submitBtn.textContent = t.sending;
+        setStatus(statusEl, "", "");
+
+        fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+            privacy: true,
+            website: website,
+            lang: isHuPage() ? "hu" : "de",
+          }),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { ok: res.ok && data && data.ok, data: data };
+            });
+          })
+          .then(function (result) {
+            if (!result.ok) {
+              setStatus(statusEl, "error", t.error);
+              return;
+            }
+            setStatus(statusEl, "ok", t.success);
+            form.reset();
+          })
+          .catch(function () {
+            setStatus(statusEl, "error", t.error);
+          })
+          .finally(function () {
+            form.classList.remove("is-sending");
+            if (submitBtn) submitBtn.textContent = defaultLabel;
+          });
+      });
+    }
+
+    function init() {
+      var forms = document.querySelectorAll("form.contact-form");
+      for (var i = 0; i < forms.length; i++) bindForm(forms[i]);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+      init();
     }
   })();
 
