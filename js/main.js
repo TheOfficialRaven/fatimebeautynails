@@ -1273,11 +1273,12 @@
         var fd = new FormData(form);
         var name = String(fd.get("name") || "").trim();
         var email = String(fd.get("email") || "").trim();
+        var phone = String(fd.get("phone") || "").trim();
         var message = String(fd.get("message") || "").trim();
         var privacy = fd.get("privacy");
         var website = String(fd.get("website") || "").trim();
 
-        if (!name || !email || !message || !privacy) {
+        if (!name || !email || !phone || !message || !privacy) {
           setStatus(statusEl, "error", t.missing);
           return;
         }
@@ -1296,6 +1297,7 @@
           body: JSON.stringify({
             name: name,
             email: email,
+            phone: phone,
             message: message,
             privacy: true,
             website: website,

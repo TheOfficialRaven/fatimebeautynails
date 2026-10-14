@@ -36,10 +36,12 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
-function buildOwnerHtml({ name, email, message, lang }) {
+function buildOwnerHtml({ name, email, phone, message, lang }) {
   const langLabel = lang === "de" ? "Német" : "Magyar";
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone);
+  const telHref = String(phone).replace(/[^\d+]/g, "");
   const safeMessage = escapeHtml(message);
 
   return `<!DOCTYPE html>
@@ -68,6 +70,8 @@ function buildOwnerHtml({ name, email, message, lang }) {
                     <p style="margin:0 0 16px;font-size:16px;line-height:1.4;color:#2b523a;font-family:Georgia,'Times New Roman',serif">${safeName}</p>
                     <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">E-mail</p>
                     <p style="margin:0 0 16px;font-size:15px;line-height:1.4;color:#2b523a;font-family:Arial,Helvetica,sans-serif"><a href="mailto:${safeEmail}" style="color:#2b523a;text-decoration:underline">${safeEmail}</a></p>
+                    <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">Telefon</p>
+                    <p style="margin:0 0 16px;font-size:15px;line-height:1.4;color:#2b523a;font-family:Arial,Helvetica,sans-serif"><a href="tel:${telHref}" style="color:#2b523a;text-decoration:underline">${safePhone}</a></p>
                     <p style="margin:0 0 10px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#c3b78e;font-family:Arial,Helvetica,sans-serif">Nyelv</p>
                     <p style="margin:0;font-size:15px;line-height:1.4;color:#2b523a;font-family:Arial,Helvetica,sans-serif">${langLabel}</p>
                   </td>
@@ -178,11 +182,12 @@ export async function handler(event) {
 
   const name = String(body.name || "").trim();
   const email = String(body.email || "").trim();
+  const phone = String(body.phone || "").trim();
   const message = String(body.message || "").trim();
   const privacy = body.privacy === true || body.privacy === "1" || body.privacy === "on";
   const lang = String(body.lang || "hu").toLowerCase().indexOf("de") === 0 ? "de" : "hu";
 
-  if (!name || !email || !message || !privacy) {
+  if (!name || !email || !phone || !message || !privacy) {
     return json(400, { ok: false, error: "missing_fields" });
   }
 
@@ -190,7 +195,7 @@ export async function handler(event) {
     return json(400, { ok: false, error: "invalid_email" });
   }
 
-  if (name.length > 200 || email.length > 320 || message.length > 5000) {
+  if (name.length > 200 || email.length > 320 || phone.length > 60 || message.length > 5000) {
     return json(400, { ok: false, error: "too_long" });
   }
 
@@ -200,7 +205,7 @@ export async function handler(event) {
       to: [TO_EMAIL],
       reply_to: email,
       subject: SUBJECT,
-      html: buildOwnerHtml({ name, email, message, lang }),
+      html: buildOwnerHtml({ name, email, phone, message, lang }),
     });
   } catch (err) {
     console.error("contact owner mail error:", err && err.message, err && err.details);
