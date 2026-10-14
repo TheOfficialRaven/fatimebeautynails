@@ -669,6 +669,101 @@
       });
     });
 
+    /* Touch / egér húzással lapozás */
+    (function bindSwipe() {
+      var startX = 0;
+      var startY = 0;
+      var dragging = false;
+      var locked = false;
+      var axis = null;
+      var THRESHOLD = 48;
+
+      function onStart(x, y) {
+        startX = x;
+        startY = y;
+        dragging = true;
+        locked = false;
+        axis = null;
+      }
+
+      function onMove(x, y, e) {
+        if (!dragging) return;
+        var dx = x - startX;
+        var dy = y - startY;
+        if (!axis) {
+          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+          axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+          if (axis === "x") viewport.classList.add("is-dragging");
+        }
+        if (axis === "x") {
+          locked = true;
+          if (e && e.cancelable) e.preventDefault();
+        }
+      }
+
+      function onEnd(x) {
+        if (!dragging) return;
+        var dx = x - startX;
+        viewport.classList.remove("is-dragging");
+        dragging = false;
+        if (axis === "x" && Math.abs(dx) >= THRESHOLD) {
+          if (dx < 0) {
+            if (isMobile()) goSlide(slideIdx + 1);
+            else goPage(pageIdx + 1);
+          } else {
+            if (isMobile()) goSlide(slideIdx - 1);
+            else goPage(pageIdx - 1);
+          }
+          stopAutoplay();
+          startAutoplay();
+        }
+        axis = null;
+        locked = false;
+      }
+
+      viewport.addEventListener(
+        "touchstart",
+        function (e) {
+          if (!e.touches || !e.touches[0]) return;
+          onStart(e.touches[0].clientX, e.touches[0].clientY);
+        },
+        { passive: true }
+      );
+      viewport.addEventListener(
+        "touchmove",
+        function (e) {
+          if (!e.touches || !e.touches[0]) return;
+          onMove(e.touches[0].clientX, e.touches[0].clientY, e);
+        },
+        { passive: false }
+      );
+      viewport.addEventListener(
+        "touchend",
+        function (e) {
+          var x = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : startX;
+          onEnd(x);
+        },
+        { passive: true }
+      );
+      viewport.addEventListener("touchcancel", function () {
+        viewport.classList.remove("is-dragging");
+        dragging = false;
+        axis = null;
+      });
+
+      viewport.addEventListener("mousedown", function (e) {
+        if (e.button !== 0) return;
+        onStart(e.clientX, e.clientY);
+      });
+      window.addEventListener("mousemove", function (e) {
+        onMove(e.clientX, e.clientY, e);
+      });
+      window.addEventListener("mouseup", function (e) {
+        if (!dragging) return;
+        onEnd(e.clientX);
+      });
+    })();
+
     lastMobile = isMobile();
     measure();
     setAria();
