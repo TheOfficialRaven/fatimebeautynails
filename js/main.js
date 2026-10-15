@@ -1,51 +1,34 @@
 (function () {
   /**
-   * 125%/150% böngésző-zoom: ha a CSS resolution media query nem fogja,
-   * a gyökér font-size-szal a 100%-os vizuális méretre állunk vissza (csak desktop).
+   * 125%/150% megjelenítés ≈ 100%-os kinézet (csak desktop).
+   * devicePixelRatio alapján — NEM outerWidth/innerWidth (az ablakcsökkentésnél
+   * tévesen zsugorította a tipográfiát).
    */
-  (function compensatePageZoom() {
+  (function compensateDisplayScale() {
     var mqDesktop = window.matchMedia("(min-width: 1025px)");
     var root = document.documentElement;
     var BASE = 16;
 
-    function browserZoomApprox() {
-      if (!window.outerWidth || !window.innerWidth) return 1;
-      var ratio = window.outerWidth / window.innerWidth;
-      if (ratio < 0.9 || ratio > 2.4) return 1;
-      if (ratio < 1.08) return 1;
-      if (ratio < 1.18) return 1.1;
-      if (ratio < 1.38) return 1.25;
-      if (ratio < 1.63) return 1.5;
-      if (ratio < 1.88) return 1.75;
-      return Math.round(ratio * 100) / 100;
-    }
-
-    function cssResolutionHandles() {
-      try {
-        return (
-          window.matchMedia("(min-width: 1025px) and (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx)").matches ||
-          window.matchMedia("(min-width: 1025px) and (min-resolution: 1.45dppx) and (max-resolution: 1.55dppx)").matches
-        );
-      } catch (e) {
-        return false;
-      }
-    }
-
     function apply() {
-      if (!mqDesktop.matches || cssResolutionHandles()) {
+      if (!mqDesktop.matches) {
         root.style.removeProperty("font-size");
         return;
       }
-      var z = browserZoomApprox();
-      if (z <= 1.05) {
+      var dpr = window.devicePixelRatio || 1;
+      if (dpr >= 1.2 && dpr < 1.35) {
+        root.style.fontSize = BASE / 1.25 + "px";
+      } else if (dpr >= 1.4 && dpr < 1.65) {
+        root.style.fontSize = BASE / 1.5 + "px";
+      } else {
         root.style.removeProperty("font-size");
-        return;
       }
-      root.style.fontSize = BASE / z + "px";
     }
 
     apply();
     window.addEventListener("resize", apply);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", apply);
+    }
     if (typeof mqDesktop.addEventListener === "function") {
       mqDesktop.addEventListener("change", apply);
     } else if (typeof mqDesktop.addListener === "function") {

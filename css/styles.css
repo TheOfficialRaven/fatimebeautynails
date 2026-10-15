@@ -21,7 +21,8 @@
   /* 16px gyökér: 60px → 3.75rem, 40px → 2.5rem, 16px → 1rem */
   --fs-h1: 3.75rem;
   --fs-h2: clamp(2rem, 2.8vw, 2.35rem);
-  --fs-p: clamp(1rem, 1.05vw, 1.05rem);
+  /* Bekezdés: 16px @ 16px gyökér; kisebb breakpointokon enyhén csökkentve */
+  --fs-p: 1.08rem;
   --fs-btn: 0.95rem;
   --btn-pad-y: 0.62rem;
   --btn-pad-x: 1.3rem;
@@ -32,7 +33,6 @@
   /* Arany színű szekció-alcímek (script / kiemelő sor) */
   --fs-section-gold-accent: 1.7rem;
   --hero-content-max: 42rem;
-  /* rem: 125% OS/böngésző méretezésnél a gyökér font-size arányosan kompenzál */
   --container: 87.5rem; /* 1400px @ 16px */
   /* 180px oldalsó margó a tartalomnak (rem @ 16px gyökér) */
   --section-inline: 11.25rem;
@@ -96,9 +96,9 @@ html {
 }
 
 /*
- * Desktop 125% / 150% kijelző- vagy böngésző-méretezés: gyökér font-size
- * visszaállítja a vizuális méretet a 100%-os kinézetre (rem tipográfia + gutter).
- * Csak 1025px+ — mobil/tablet nagy DPR és Retina (2dppx+) nem érintett.
+ * Desktop 125% / 150% kijelző- vagy böngésző-méretezés:
+ * gyökér font-size vissza a 100%-os vizuális méretre (rem tipográfia + gutter).
+ * Csak 1025px+ — Retina 2dppx+ nem érintett. Ablakszélességtől független.
  */
 @media (min-width: 1025px) and (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
   html {
@@ -139,7 +139,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: var(--fs-p);
-  line-height: 1.65;
+  line-height: 1.6; /* Figma 160% */
   color: var(--color-text);
   background: var(--color-off-white);
   -webkit-font-smoothing: antialiased;
@@ -193,6 +193,7 @@ h3 {
 
 p {
   font-size: var(--fs-p);
+  line-height: 1.6; /* Figma 160% */
   margin: 0 0 1em;
 }
 
@@ -866,7 +867,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   color: var(--color-text);
   margin-bottom: 2rem;
   max-width: min(38rem, 100%);
-  line-height: 1.75;
+  line-height: 1.6;
   transition: color 0.5s ease;
 }
 
@@ -3361,7 +3362,7 @@ a.service-card:focus-visible {
 .hazirend-rules-section .hazirend-rules__text {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: var(--fs-p);
   line-height: 1.72;
   color: var(--color-text-muted);
 }
@@ -4962,7 +4963,7 @@ a.service-card:focus-visible {
     --header-h: 72px;
     --fs-h2: clamp(1.85rem, 2.6vw, 2.15rem);
     --fs-section-gold-accent: 1.5rem;
-    --fs-p: clamp(1rem, 1.15vw, 1.02rem);
+    --fs-p: 1rem;
   }
 
   .nav {
@@ -5003,8 +5004,8 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__lead {
-    font-size: max(1rem, calc(var(--fs-p) * 0.98));
-    line-height: 1.65;
+    font-size: var(--fs-p);
+    line-height: 1.6;
     max-width: 32rem;
   }
 
@@ -5261,8 +5262,8 @@ a.service-card:focus-visible {
   }
 
   .hero .hero__lead {
-    font-size: max(1rem, calc(var(--fs-p) * 0.96));
-    line-height: 1.68;
+    font-size: var(--fs-p);
+    line-height: 1.6;
   }
 
   .page-hero__image-bg {
