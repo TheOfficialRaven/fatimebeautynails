@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG link előnézet – Fatime Beauty</title>
+  <style>
+    :root {
+      --bg: #1c1c1e;
+      --card: #2c2c2e;
+      --text: #f5f5f7;
+      --muted: #8e8e93;
+      --accent: #51735e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem 1.25rem 4rem;
+    }
+    h1 { font-size: 1.25rem; font-weight: 600; margin: 0 0 0.35rem; }
+    p.lead { color: var(--muted); margin: 0 0 1.75rem; font-size: 0.95rem; max-width: 36rem; }
+    .layout {
+      display: grid;
+      gap: 2rem;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    @media (min-width: 800px) {
+      .layout { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      max-width: 360px;
+    }
+    .card__img {
+      width: 100%;
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+          object-position: center 17%;
+      display: block;
+      background: #111;
+    }
+    .card__body { padding: 0.85rem 1rem 1rem; }
+    .card__title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin: 0 0 0.35rem;
+    }
+    .card__url { font-size: 0.8rem; color: var(--muted); margin: 0; }
+    .panel {
+      background: #252528;
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .val {
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      font-size: 0.9rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .presets button {
+      border: 1px solid #3a3a3c;
+      background: #1c1c1e;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .presets button:hover { border-color: var(--accent); }
+    .note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 1rem 0 0;
+    }
+    .variants {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .variants figure {
+      margin: 0;
+      background: #1c1c1e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .variants img {
+      width: 100%;
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+      display: block;
+    }
+    .variants figcaption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 0.4rem 0.6rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div>
+      <h1>Link előnézet (WhatsApp / Messenger stílus)</h1>
+      <p class="lead">
+        Forrás: <code>Main_callux.jpg</code> (álló kép). A chat előnézet fekvő keretbe vágja —
+        állítsd a fókuszt, és írd meg nekem a százalékot (pl. 35%), majd abból készítem a végleges OG képet.
+      </p>
+
+      <div class="card" aria-label="Link előnézet mockup">
+        <img
+          id="preview"
+          class="card__img"
+          src="assets/imgs/Main_callux.jpg"
+          alt="Callux előnézet vágás"
+        />
+        <div class="card__body">
+          <p class="card__title">Fatime Beauty Nails | Kosmetik, Nails &amp; Beauty in Arbon / Frasnacht (TG)</p>
+          <p class="card__url">fatimebeautynails.ch</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <label for="focus">Függőleges fókusz (mi látszódjon a keretben)</label>
+      <input id="focus" type="range" min="0" max="100" value="17" />
+      <p class="val">Fókusz: <strong id="focusVal">17%</strong> felülről</p>
+
+      <div class="presets">
+        <button type="button" data-y="17">17% (aktuális)</button>
+        <button type="button" data-y="28">Felül</button>
+        <button type="button" data-y="42">Közép</button>
+        <button type="button" data-y="58">Lejjebb</button>
+      </div>
+
+      <p class="note">
+        Ha megvan a jó vágás, írd chatben pl.: „legyen 35%”. Deploy után a chat appok cache-elhetik a régi képet egy ideig.
+      </p>
+
+      <div class="variants">
+        <figure>
+          <img src="assets/imgs/og-share-top.jpg" alt="Felül vágás" />
+          <figcaption>Előre generált: felül (28%)</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/imgs/og-share.jpg" alt="Közép vágás" />
+          <figcaption>Aktuális OG: 17% felülről</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/imgs/og-share-low.jpg" alt="Alul vágás" />
+          <figcaption>Előre generált: lejjebb (58%)</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const img = document.getElementById("preview");
+    const range = document.getElementById("focus");
+    const val = document.getElementById("focusVal");
+
+    function apply(y) {
+      range.value = String(y);
+      val.textContent = y + "%";
+      img.style.objectPosition = "center " + y + "%";
+    }
+
+    range.addEventListener("input", () => apply(range.value));
+    document.querySelectorAll(".presets button").forEach((btn) => {
+      btn.addEventListener("click", () => apply(btn.dataset.y));
+    });
+  </script>
+</body>
+</html>
