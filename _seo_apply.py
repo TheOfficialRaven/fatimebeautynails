@@ -5,8 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-# Cseréld le az éles domainre, amikor él: pl. https://www.fatimebeautynails.ch
-BASE = "https://fatimebeautynails.netlify.app"
+BASE = "https://www.fatimebeautynails.ch"
 
 # path (relative to repo), lang, title, description, og_image (site-relative), pair_de, pair_hu
 PAGES = [
@@ -16,7 +15,7 @@ PAGES = [
         "lang": "de",
         "title": "Fatime Beauty Nails | Kosmetik, Nails & Beauty in Arbon / Frasnacht (TG)",
         "description": "Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, Kosmetik, Wimpern, Brauen und Piercing. Termine in der Region Arbon, Romanshorn und Umgebung.",
-        "og_image": "/assets/imgs/Hero_img.png",
+        "og_image": "/assets/imgs/og-share.jpg",
         "de": "/index.html",
         "hu": "/hu/index.html",
         "canonical": "/index.html",
@@ -27,7 +26,7 @@ PAGES = [
         "lang": "de",
         "title": "Kosmetische Behandlungen in Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Professionelle Gesichtsbehandlungen und Kosmetik in Frasnacht bei Arbon (TG). Individuelle Pflege mit Premium-Wirkstoffen – für die Region Arbon und Umgebung.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/kosmetische-behandlungen.html",
         "hu": "/hu/kozmetikai-kezelesek.html",
         "canonical": "/kosmetische-behandlungen.html",
@@ -37,7 +36,7 @@ PAGES = [
         "lang": "de",
         "title": "Maniküre & Modellage in Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Maniküre und Nagelmodellage in Frasnacht bei Arbon (Thurgau). Langanhaltende, präzise Nägel – Beauty-Salon in der Region Arbon.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/manikuere-modellage.html",
         "hu": "/hu/manikur-mukorom.html",
         "canonical": "/manikuere-modellage.html",
@@ -47,7 +46,7 @@ PAGES = [
         "lang": "de",
         "title": "Callux Pediküre in Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Sanfte Callux-Pediküre in Frasnacht bei Arbon (TG). Weiche, gepflegte Füsse ohne aggressive Chemie – Salon in der Region Arbon.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/callux-pedikuere.html",
         "hu": "/hu/callux-pedikur.html",
         "canonical": "/callux-pedikuere.html",
@@ -57,7 +56,7 @@ PAGES = [
         "lang": "de",
         "title": "Wimpern & Brauen in Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Wimpernlifting, Wimpernverlängerung und Brauenlaminierung in Frasnacht bei Arbon (Thurgau). Natürlicher Look – Beauty in der Region Arbon.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/wimpernlifting-brauen-laminierung.html",
         "hu": "/hu/szempilla-szemoldok-lifting.html",
         "canonical": "/wimpernlifting-brauen-laminierung.html",
@@ -67,7 +66,7 @@ PAGES = [
         "lang": "de",
         "title": "Piercing in Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Steriles Ohr- und Nasenpiercing mit Premium-Schmuck in Frasnacht bei Arbon (TG). Schnell, hygienisch – Salon in der Region Arbon.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/piercing.html",
         "hu": "/hu/piercing.html",
         "canonical": "/piercing.html",
@@ -77,7 +76,7 @@ PAGES = [
         "lang": "de",
         "title": "Preisliste | Fatime Beauty Nails Arbon / Frasnacht (TG)",
         "description": "Aktuelle Preise für Kosmetik, Maniküre, Pediküre, Wimpern, Brauen und Piercing bei Fatime Beauty Nails in Frasnacht bei Arbon.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/preisliste.html",
         "hu": "/hu/arlista.html",
         "canonical": "/preisliste.html",
@@ -107,7 +106,7 @@ PAGES = [
         "lang": "de",
         "title": "Hausordnung | Fatime Beauty Nails Arbon / Frasnacht",
         "description": "Hausordnung von Fatime Beauty Nails in Frasnacht bei Arbon – damit Behandlungen ruhig und reibungslos ablaufen.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/hausordnung.html",
         "hu": "/hu/hazirend.html",
         "canonical": "/hausordnung.html",
@@ -117,7 +116,7 @@ PAGES = [
         "lang": "de",
         "title": "Datenschutzerklärung | Fatime Beauty Nails",
         "description": "Datenschutzerklärung von Fatime Beauty Nails in Frasnacht bei Arbon – Informationen zum Schutz personenbezogener Daten.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/datenschutzerklaerung.html",
         "hu": "/hu/adatkezelesi-tajekoztato.html",
         "canonical": "/datenschutzerklaerung.html",
@@ -128,7 +127,7 @@ PAGES = [
         "lang": "hu",
         "title": "Fatime Beauty Nails | Kozmetika, köröm & beauty Arbon / Frasnacht (TG)",
         "description": "Szépségszalon Frasnachtban, Arbon mellett (Thurgau): manikűr, pedikűr, kozmetika, szempilla, szemöldök és piercing. Időpont a régióban – Arbon, Romanshorn és környéke.",
-        "og_image": "/assets/imgs/Hero_img.png",
+        "og_image": "/assets/imgs/og-share.jpg",
         "de": "/index.html",
         "hu": "/hu/index.html",
         "canonical": "/hu/index.html",
@@ -139,7 +138,7 @@ PAGES = [
         "lang": "hu",
         "title": "Kozmetikai kezelések Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Professzionális arckezelések és kozmetika Frasnachtban, Arbon mellett (TG). Személyre szabott ápolás prémium hatóanyagokkal a régióban.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/kosmetische-behandlungen.html",
         "hu": "/hu/kozmetikai-kezelesek.html",
         "canonical": "/hu/kozmetikai-kezelesek.html",
@@ -149,7 +148,7 @@ PAGES = [
         "lang": "hu",
         "title": "Manikűr és műköröm Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Manikűr és műköröm Frasnachtban, Arbon mellett (Thurgau). Tartós, precíz körmök – szépségszalon az Arboni régióban.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/manikuere-modellage.html",
         "hu": "/hu/manikur-mukorom.html",
         "canonical": "/hu/manikur-mukorom.html",
@@ -159,7 +158,7 @@ PAGES = [
         "lang": "hu",
         "title": "Callux pedikűr Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Gyengéd Callux pedikűr Frasnachtban, Arbon mellett (TG). Selymes, ápolt lábak – szalon az Arboni régióban.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/callux-pedikuere.html",
         "hu": "/hu/callux-pedikur.html",
         "canonical": "/hu/callux-pedikur.html",
@@ -169,7 +168,7 @@ PAGES = [
         "lang": "hu",
         "title": "Szempilla és szemöldök Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Szempilla lifting, műszempilla és szemöldök laminálás Frasnachtban, Arbon mellett (Thurgau). Természetes hatás az Arboni régióban.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/wimpernlifting-brauen-laminierung.html",
         "hu": "/hu/szempilla-szemoldok-lifting.html",
         "canonical": "/hu/szempilla-szemoldok-lifting.html",
@@ -179,7 +178,7 @@ PAGES = [
         "lang": "hu",
         "title": "Piercing Arbon / Frasnacht | Fatime Beauty Nails",
         "description": "Steril fül- és orrpiercing prémium ékszerrel Frasnachtban, Arbon mellett (TG). Gyors, higiénikus – szalon az Arboni régióban.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/piercing.html",
         "hu": "/hu/piercing.html",
         "canonical": "/hu/piercing.html",
@@ -189,7 +188,7 @@ PAGES = [
         "lang": "hu",
         "title": "Árlista | Fatime Beauty Nails Arbon / Frasnacht (TG)",
         "description": "Aktuális árak: kozmetika, manikűr, pedikűr, szempilla, szemöldök és piercing – Fatime Beauty Nails Frasnachtban, Arbon mellett.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/preisliste.html",
         "hu": "/hu/arlista.html",
         "canonical": "/hu/arlista.html",
@@ -219,7 +218,7 @@ PAGES = [
         "lang": "hu",
         "title": "Házirend | Fatime Beauty Nails Arbon / Frasnacht",
         "description": "A Fatime Beauty Nails házirendje Frasnachtban, Arbon mellett – a nyugodt, zökkenőmentes kezelésekért.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/hausordnung.html",
         "hu": "/hu/hazirend.html",
         "canonical": "/hu/hazirend.html",
@@ -229,7 +228,7 @@ PAGES = [
         "lang": "hu",
         "title": "Adatkezelési tájékoztató | Fatime Beauty Nails",
         "description": "Adatkezelési tájékoztató – Fatime Beauty Nails Frasnacht / Arbon. Személyes adatok védelme a weboldalon és kapcsolatfelvétel során.",
-        "og_image": "/assets/imgs/Hero_background_img.png",
+        "og_image": "/assets/imgs/Hero_background_img.jpg",
         "de": "/datenschutzerklaerung.html",
         "hu": "/hu/adatkezelesi-tajekoztato.html",
         "canonical": "/hu/adatkezelesi-tajekoztato.html",
@@ -242,7 +241,7 @@ def local_business_jsonld() -> str:
         "@context": "https://schema.org",
         "@type": "BeautySalon",
         "name": "Fatime Beauty Nails",
-        "image": f"{BASE}/assets/imgs/Hero_img.png",
+        "image": f"{BASE}/assets/imgs/og-share.jpg",
         "url": f"{BASE}/",
         "telephone": "+41762183856",
         "email": "fatimegor8@gmail.com",
@@ -415,7 +414,6 @@ def main() -> None:
         apply_page(page)
     write_robots_and_sitemap()
     print("Done. BASE =", BASE)
-    print("Éles domainnél cseréld a BASE-t ebben a fájlban, majd futtasd újra.")
 
 
 if __name__ == "__main__":
