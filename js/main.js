@@ -1,5 +1,25 @@
 (function () {
   /**
+   * Mobil: rögzített viewport-magasság — ne ugorjon a layout,
+   * amikor a böngésző alsó/felső sávja el/előjön görgetéskor.
+   * Csak betöltéskor + tájolásváltáskor frissül (nem visualViewport resize-ra).
+   */
+  (function lockStableViewportHeight() {
+    var root = document.documentElement;
+
+    function lock() {
+      var h = window.innerHeight;
+      if (!h || h < 100) return;
+      root.style.setProperty("--app-vh", h + "px");
+    }
+
+    lock();
+    window.addEventListener("orientationchange", function () {
+      window.setTimeout(lock, 250);
+    });
+  })();
+
+  /**
    * 125% → html font-size 14.6px; 150% → 16/1.5.
    * devicePixelRatio alapján (ablakszélességtől független).
    */
@@ -10,12 +30,10 @@
 
     function apply() {
       var dpr = window.devicePixelRatio || 1;
-      // 125% körül (OS vagy böngésző zoom)
       if (dpr >= 1.15 && dpr < 1.35) {
         root.style.setProperty("font-size", TARGET_125 + "px", "important");
         return;
       }
-      // 150% körül
       if (dpr >= 1.4 && dpr < 1.65) {
         root.style.setProperty("font-size", BASE / 1.5 + "px", "important");
         return;
@@ -25,9 +43,7 @@
 
     apply();
     window.addEventListener("resize", apply);
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", apply);
-    }
+    /* Nincs visualViewport listener — a böngészősáv toggle ne futtasson semmit */
   })();
 
   var header = document.querySelector(".site-header");
@@ -177,7 +193,7 @@
   document.querySelectorAll(".faq-item__trigger").forEach(bindAccordionTrigger);
   document.querySelectorAll(".service-panel__trigger").forEach(bindAccordionTrigger);
 
-  /* Referenciák + Rólam masonry: lightbox, lapozás, átlátszó háttér */
+  /* Referenciák + Rólam masonry + page-gallery: lightbox, lapozás, overlay */
   (function refLightbox() {
     var grids = document.querySelectorAll(".ref-grid, .rolam-masonry");
     var pageGalleries = document.querySelectorAll("[data-page-gallery]");

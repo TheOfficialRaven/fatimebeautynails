@@ -43,8 +43,12 @@
   --partners-gutter: 5.625rem;
   --header-h: 5rem; /* 80px @ 16px */
   --header-outer-h: calc(var(--header-h) + 1px);
-  /* 1 képernyő: header + szekció; a legnagyobb viewport-magasság, hogy ne maradjon rés alul */
-  --screen-fill: calc(100vh - var(--header-outer-h));
+  /*
+   * 1 képernyő: header + szekció.
+   * svh = stabil mobil viewport (nem ugrik, ha a böngészősáv el/előjön).
+   * --app-vh: JS egyszer rögzíti (orientationchange-ig), ha van.
+   */
+  --screen-fill: calc(var(--app-vh, 100vh) - var(--header-outer-h));
   /* Egységes lekerekítés: kártyák/gombok 6px; nagy tartalmi képek ugyanaz */
   --radius: 6px;
   --radius-sm: var(--radius);
@@ -62,15 +66,9 @@
   --service-acc-border: rgba(195, 183, 142, 0.88);
 }
 
-@supports (height: 100dvh) {
+@supports (height: 100svh) {
   :root {
-    --screen-fill: calc(max(100vh, 100dvh) - var(--header-outer-h));
-  }
-}
-
-@supports (height: 100lvh) {
-  :root {
-    --screen-fill: calc(max(100vh, 100dvh, 100lvh) - var(--header-outer-h));
+    --screen-fill: calc(var(--app-vh, 100svh) - var(--header-outer-h));
   }
 }
 
@@ -1550,7 +1548,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   }
 }
 
-/* ——— Referenciák lightbox (átlátszó háttér, lapozó a képen) ——— */
+/* ——— Referenciák / galéria lightbox (site modal overlay + lapozó) ——— */
 .ref-lightbox {
   position: fixed;
   inset: 0;
@@ -1579,7 +1577,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
+  /* Ugyanaz az overlay, mint a kapcsolat siker-modalnál */
+  background: rgba(43, 82, 58, 0.45);
   cursor: pointer;
 }
 
