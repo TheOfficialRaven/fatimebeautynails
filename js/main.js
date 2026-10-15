@@ -16,7 +16,7 @@
       }
       var dpr = window.devicePixelRatio || 1;
       if (dpr >= 1.2 && dpr < 1.35) {
-        root.style.fontSize = BASE / 1.25 + "px";
+        root.style.fontSize = "14.6px";
       } else if (dpr >= 1.4 && dpr < 1.65) {
         root.style.fontSize = BASE / 1.5 + "px";
       } else {

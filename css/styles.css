@@ -20,7 +20,7 @@
   --font-gold-script: "Dancing Script", cursive;
   /* 16px gyökér: 60px → 3.75rem, 40px → 2.5rem, 16px → 1rem */
   --fs-h1: 3.75rem;
-  --fs-h2: clamp(2rem, 2.8vw, 2.35rem);
+  --fs-h2: 2.5rem; /* 40px @ 16px gyökér */
   /* Bekezdés: 16px @ 16px gyökér; kisebb breakpointokon enyhén csökkentve */
   --fs-p: 1.08rem;
   --fs-btn: 0.95rem;
@@ -102,7 +102,7 @@ html {
  */
 @media (min-width: 1025px) and (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
   html {
-    font-size: 12.8px; /* 16 / 1.25 */
+    font-size: 14.6px; /* 125% méretezés: 14.6px gyökér */
   }
 }
 
@@ -4961,7 +4961,7 @@ a.service-card:focus-visible {
     --fs-nav-bar: 1rem;
     --fs-btn-header: 0.9rem;
     --header-h: 72px;
-    --fs-h2: clamp(1.85rem, 2.6vw, 2.15rem);
+    --fs-h2: 2.25rem; /* tablet: enyhén kisebb, mint a 40px desktop */
     --fs-section-gold-accent: 1.5rem;
     --fs-p: 1rem;
   }
