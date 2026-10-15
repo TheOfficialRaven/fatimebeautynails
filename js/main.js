@@ -1,38 +1,32 @@
 (function () {
   /**
-   * 125%/150% megjelenítés ≈ 100%-os kinézet (csak desktop).
-   * devicePixelRatio alapján — NEM outerWidth/innerWidth (az ablakcsökkentésnél
-   * tévesen zsugorította a tipográfiát).
+   * 125% → html font-size 14.6px; 150% → 16/1.5.
+   * devicePixelRatio alapján (ablakszélességtől független).
    */
   (function compensateDisplayScale() {
-    var mqDesktop = window.matchMedia("(min-width: 1025px)");
     var root = document.documentElement;
     var BASE = 16;
+    var TARGET_125 = 14.6;
 
     function apply() {
-      if (!mqDesktop.matches) {
-        root.style.removeProperty("font-size");
+      var dpr = window.devicePixelRatio || 1;
+      // 125% körül (OS vagy böngésző zoom)
+      if (dpr >= 1.15 && dpr < 1.35) {
+        root.style.setProperty("font-size", TARGET_125 + "px", "important");
         return;
       }
-      var dpr = window.devicePixelRatio || 1;
-      if (dpr >= 1.2 && dpr < 1.35) {
-        root.style.fontSize = "14.6px";
-      } else if (dpr >= 1.4 && dpr < 1.65) {
-        root.style.fontSize = BASE / 1.5 + "px";
-      } else {
-        root.style.removeProperty("font-size");
+      // 150% körül
+      if (dpr >= 1.4 && dpr < 1.65) {
+        root.style.setProperty("font-size", BASE / 1.5 + "px", "important");
+        return;
       }
+      root.style.removeProperty("font-size");
     }
 
     apply();
     window.addEventListener("resize", apply);
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", apply);
-    }
-    if (typeof mqDesktop.addEventListener === "function") {
-      mqDesktop.addEventListener("change", apply);
-    } else if (typeof mqDesktop.addListener === "function") {
-      mqDesktop.addListener(apply);
     }
   })();
 

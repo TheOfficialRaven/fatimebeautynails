@@ -96,17 +96,17 @@ html {
 }
 
 /*
- * Desktop 125% / 150% kijelző- vagy böngésző-méretezés:
- * gyökér font-size vissza a 100%-os vizuális méretre (rem tipográfia + gutter).
- * Csak 1025px+ — Retina 2dppx+ nem érintett. Ablakszélességtől független.
+ * 125% / 150% kijelző- vagy böngésző-méretezés: gyökér font-size.
+ * Nincs min-width kapu — 125% zoomban a CSS viewport gyakran < 1025px.
+ * Retina 2dppx+ nem érintett.
  */
-@media (min-width: 1025px) and (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
+@media (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
   html {
-    font-size: 14.6px; /* 125% méretezés: 14.6px gyökér */
+    font-size: 14.6px;
   }
 }
 
-@media (min-width: 1025px) and (min-resolution: 1.45dppx) and (max-resolution: 1.55dppx) {
+@media (min-resolution: 1.45dppx) and (max-resolution: 1.55dppx) {
   html {
     font-size: calc(16px / 1.5);
   }
