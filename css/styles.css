@@ -11,7 +11,9 @@
   --color-white: #ffffff;
   --color-off-white: #faf9f7;
   --color-text: #2b523a;
-  --color-text-muted: rgba(43, 82, 58, 0.72);
+  /* Bekezdés / tompa törzsszöveg: kicsit sötétebb a jobb kontraszthoz (címek/UI zöldje változatlan) */
+  --color-text-body: #234832;
+  --color-text-muted: rgba(35, 72, 52, 0.88);
   --color-border: rgba(43, 82, 58, 0.18);
   /* Lábléc: ugyanaz a zöld, mint a szekciók (pl. process) háttere */
   --color-footer-bg: var(--color-green);
@@ -192,8 +194,9 @@ h3 {
 
 p {
   font-size: var(--fs-p);
-  font-weight: 300 !important; /* bekezdés: ne legyen bold, csak ahol külön kérjük */
+  font-weight: 300 !important;
   line-height: 1.3 !important;
+  color: var(--color-text-body);
   margin: 0 0 1em;
 }
 
@@ -864,7 +867,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .hero__lead {
-  color: var(--color-text);
+  color: var(--color-text-body);
   margin-bottom: 2rem;
   max-width: min(38rem, 100%);
   line-height: 1.3;
@@ -2380,7 +2383,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   font-family: var(--font-sans);
   font-size: var(--fs-p);
   line-height: 1.3;
-  color: rgba(43, 82, 58, 0.55);
+  color: var(--color-text-muted);
   margin: 0 0 2rem;
 }
 
@@ -3867,16 +3870,21 @@ a.service-card:focus-visible {
   }
 }
 
-/* Árlista: mobil / keskeny képernyő — nincs vízszintes görgetés, sorok kártyaként */
+/* Árlista mobil: egy kártya / tábla — a th a fejléc, belül nincs kártya-a-kártyában */
 @media (max-width: 900px) {
   .arlista-content .price-table {
     --price-inset-x: 1.1rem;
   }
 
   .arlista-content .price-table-wrap {
+    overflow: hidden;
     overflow-x: visible;
     margin-bottom: 2rem;
     -webkit-overflow-scrolling: auto;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(43, 74, 66, 0.1);
+    background: var(--color-white);
+    box-shadow: 0 3px 14px rgba(43, 74, 66, 0.05);
   }
 
   .arlista-content .price-table {
@@ -3887,12 +3895,11 @@ a.service-card:focus-visible {
     border-spacing: 0;
   }
 
-  /* Csoportcím a táblában: látható, nagyobb; oszlopfejlécek csak képernyőolvasónak */
   .arlista-content .price-table thead {
     position: static;
     width: auto;
     height: auto;
-    margin: 0 0 0.65rem;
+    margin: 0;
     padding: 0;
     overflow: visible;
     clip: auto;
@@ -3917,89 +3924,98 @@ a.service-card:focus-visible {
     display: block;
   }
 
+  /* th = kártya fejléc (nem külön lebegő kártya) */
   .arlista-content .price-table thead tr.price-table__head-row--group th {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    border-radius: var(--radius-card);
+    margin: 0;
+    border: none;
+    border-radius: 0;
     font-family: var(--font-serif);
     font-size: clamp(1.12rem, 4.2vw, 1.35rem);
     font-weight: 400;
-    padding: 0.75rem 0.9rem;
+    padding: 0.85rem 1rem;
     line-height: 1.35;
+    background: var(--color-green);
+    color: var(--color-white);
   }
 
   .arlista-content .price-table tbody {
     display: block;
+    padding: 0.15rem 0;
   }
 
+  /* Sorok: sima lista, nem kártyák */
   .arlista-content .price-table tbody tr {
     display: block;
-    margin-bottom: 0.7rem;
-    padding: 0.65rem 0.8rem;
-    border: 1px solid rgba(43, 74, 66, 0.08);
-    border-radius: var(--radius-card);
-    background: #fcfcfb;
-    box-shadow: 0 2px 10px rgba(43, 74, 66, 0.04);
-    overflow: hidden;
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(43, 74, 66, 0.1);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .arlista-content .price-table tbody tr:last-child {
+    border-bottom: none;
   }
 
   .arlista-content .price-table tbody td {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    padding: 0.45rem 0;
+    padding: 0.2rem 0;
     border: none;
-    border-bottom: 1px solid rgba(43, 74, 66, 0.1);
     background: transparent !important;
-  }
-
-  .arlista-content .price-table tbody tr td:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
   }
 
   .arlista-content .price-table tbody td.price-table__service {
     font-weight: 600;
-    margin: -0.65rem -0.8rem 0.55rem;
-    padding: 0.65rem 0.8rem;
+    margin: 0 0 0.35rem;
+    padding: 0;
     width: auto;
-    border-bottom: none;
+    border: none;
+    border-radius: 0;
     text-align: left;
-    color: var(--color-white);
-    background: var(--color-green) !important;
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    color: var(--color-text);
+    background: transparent !important;
   }
 
-  /* Leírás zöld háttéren: ne maradjon zöld szöveg */
   .arlista-content .price-table tbody td.price-table__service .price-table__desc {
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--color-text-muted);
   }
 
   .arlista-content .price-table tbody td:not(.price-table__service) {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 0.75rem;
     text-align: left;
   }
 
   .arlista-content .price-table tbody td:not(.price-table__service)::before {
     content: attr(data-label);
-    display: block;
-    font-weight: 600;
-    font-size: 1rem;
+    display: inline;
+    font-weight: 500;
+    font-size: 0.95rem;
     line-height: 1.35;
     color: var(--color-text-muted);
-    margin-bottom: 0.2rem;
+    margin: 0;
     text-align: left;
   }
 
   .arlista-content .price-table tbody td.price-table__price,
   .arlista-content .price-table tbody td.price-table__dash {
-    text-align: left;
-    white-space: normal;
+    text-align: right;
+    white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Méretes mátrixok: kártyán belül méret→ár rács (nem összenyomott tábla) */
+  /* Méretes mátrixok: ugyanaz a lapos kártya-struktúra, árak rácsban mini-kártyák nélkül */
   .arlista-content .price-table-wrap:has(.price-table--sizes) {
     overflow-x: visible;
   }
@@ -4023,12 +4039,14 @@ a.service-card:focus-visible {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    border-radius: var(--radius-card);
+    border-radius: 0;
     font-family: var(--font-serif);
     font-size: clamp(1.12rem, 4.2vw, 1.35rem);
     font-weight: 400;
-    padding: 0.75rem 0.9rem;
+    padding: 0.85rem 1rem;
     line-height: 1.35;
+    background: var(--color-green);
+    color: var(--color-white);
   }
 
   .arlista-content .price-table--sizes thead tr.price-table__head-row--cols {
@@ -4050,65 +4068,70 @@ a.service-card:focus-visible {
   .arlista-content .price-table--sizes tbody tr {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(5.25rem, 1fr));
-    gap: 0.55rem 0.45rem;
-    align-items: stretch;
-    margin-bottom: 0.7rem;
-    padding: 0.65rem 0.8rem 0.85rem;
-    border: 1px solid rgba(43, 74, 66, 0.08);
-    border-radius: var(--radius-card);
-    background: #fcfcfb;
-    box-shadow: 0 2px 10px rgba(43, 74, 66, 0.04);
-    overflow: hidden;
+    gap: 0.45rem 0.65rem;
+    align-items: start;
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(43, 74, 66, 0.1);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .arlista-content .price-table--sizes tbody tr:last-child {
+    border-bottom: none;
   }
 
   .arlista-content .price-table--sizes tbody td {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: auto;
     margin: 0;
-    padding: 0.55rem 0.35rem;
-    border: 1px solid rgba(43, 74, 66, 0.1);
-    border-radius: var(--radius-card);
-    background: var(--color-white) !important;
-    text-align: center;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent !important;
+    text-align: left;
     box-sizing: border-box;
   }
 
   .arlista-content .price-table--sizes tbody tr td:last-child {
-    padding-bottom: 0.55rem;
-    border-bottom: 1px solid rgba(43, 74, 66, 0.1);
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   .arlista-content .price-table--sizes tbody td.price-table__service {
     grid-column: 1 / -1;
     display: block;
     font-weight: 600;
-    margin: -0.65rem -0.8rem 0.15rem;
-    padding: 0.65rem 0.8rem;
+    margin: 0 0 0.25rem;
+    padding: 0;
     width: auto;
     border: none;
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    border-radius: 0;
     text-align: left;
-    color: var(--color-white);
-    background: var(--color-green) !important;
+    color: var(--color-text);
+    background: transparent !important;
   }
 
   .arlista-content .price-table--sizes tbody td:not(.price-table__service)::before {
     content: attr(data-label);
     display: block;
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-weight: 500;
+    font-size: 0.9rem;
     line-height: 1.3;
     color: var(--color-text-muted);
-    margin-bottom: 0.25rem;
-    text-align: center;
+    margin-bottom: 0.15rem;
+    text-align: left;
   }
 
   .arlista-content .price-table--sizes tbody td.price-table__price,
   .arlista-content .price-table--sizes tbody td.price-table__dash {
-    text-align: center;
+    text-align: left;
     white-space: nowrap;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
@@ -5933,4 +5956,25 @@ p,
 .contact__intro {
   font-weight: 300 !important;
   line-height: 1.3 !important;
+}
+
+/* Világos háttéren: tompa törzsszövegek (a fehér / sötét-háttér szövegeket nem bántjuk) */
+.section-subtitle:not(.section-subtitle--on-dark),
+.service-card__text,
+.faq-item__panel p,
+.hazirend-rules__text,
+.legal-doc__text,
+.legal-doc__meta,
+.legal-doc__meta p,
+.split-info__body p,
+.process-card__text,
+.page-manikur .service-showcase__body > p,
+.service-panel__panel-inner p,
+.contact-success-modal__text,
+.contact__intro {
+  color: var(--color-text-muted);
+}
+
+.process-section__intro.section-subtitle--on-dark {
+  color: rgba(255, 255, 255, 0.95);
 }
