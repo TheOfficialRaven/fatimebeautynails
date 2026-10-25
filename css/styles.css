@@ -106,39 +106,38 @@ html {
   }
 
   /*
-   * Kapcsolat képek: ne a teljes viewportot töltsék (vh nem zsugorodik a 14.6px-szel).
-   * Magasság rem-ben → arányos a formmal; oszlop is kicsit keskenyebb.
+   * 125%: kép + form azonos magasság (rem-alapú — a vh nem zsugorodik a 14.6px-szel).
+   * Szélesség: ugyanaz a 40%, mint 100%-on / főoldalon.
    */
   .contact {
+    --contact-panel-h: min(36rem, calc(var(--screen-fill) * 0.88));
     min-height: auto;
   }
 
   .contact__split {
     min-height: auto;
-  }
-
-  .contact__form-wrap {
-    min-height: auto;
-  }
-
-  .contact__media {
-    flex: 0 0 34%;
-    max-width: 34%;
-    height: min(36rem, calc(var(--screen-fill) * 0.88));
-    max-height: min(36rem, calc(var(--screen-fill) * 0.88));
-  }
-
-  .contact.contact--after-overlap-hero .contact__split {
     align-items: flex-start;
   }
 
+  .contact__media,
   .contact.contact--after-overlap-hero .contact__media {
-    flex: 0 0 34%;
-    max-width: 34%;
-    height: min(36rem, calc(var(--screen-fill) * 0.88));
-    max-height: min(36rem, calc(var(--screen-fill) * 0.88));
+    flex: 0 0 40%;
+    max-width: 40%;
+    height: var(--contact-panel-h);
+    max-height: var(--contact-panel-h);
     min-height: 0;
     align-self: flex-start;
+  }
+
+  .contact__form-wrap,
+  .contact.contact--after-overlap-hero .contact__form-wrap {
+    min-height: 0;
+    height: var(--contact-panel-h);
+    max-height: var(--contact-panel-h);
+    overflow-y: auto;
+    justify-content: center;
+    padding-top: clamp(1.15rem, 2.8vw, 1.85rem);
+    padding-bottom: clamp(1.15rem, 2.8vw, 1.85rem);
   }
 }
 
@@ -3375,18 +3374,20 @@ a.service-card:focus-visible {
 }
 
 .contact.contact--after-overlap-hero .contact__split {
-  min-height: auto;
-  align-items: stretch;
+  min-height: var(--screen-fill);
+  align-items: flex-start;
 }
 
-/* Kép magassága = form; jobb alsó sarok is lekerekítve (főoldalon csak a jobb felső) */
+/* Ugyanaz a kép-oszlop, mint a főoldalon (40% + screen-fill); jobb alsó sarok is lekerekítve */
 .contact.contact--after-overlap-hero .contact__media {
-  height: auto;
+  flex: 0 0 40%;
+  max-width: 40%;
+  height: var(--screen-fill);
+  max-height: var(--screen-fill);
   min-height: 0;
-  max-height: none;
   position: relative;
   top: auto;
-  align-self: stretch;
+  align-self: flex-start;
   border-top-right-radius: var(--radius-media);
   border-bottom-right-radius: var(--radius-media);
 }
@@ -3397,7 +3398,9 @@ a.service-card:focus-visible {
 }
 
 .contact.contact--after-overlap-hero .contact__form-wrap {
-  min-height: auto;
+  min-height: var(--screen-fill);
+  max-height: var(--screen-fill);
+  overflow-y: auto;
   padding-top: var(--section-space);
   padding-bottom: var(--section-space);
 }
