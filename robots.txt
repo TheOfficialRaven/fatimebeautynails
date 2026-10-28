@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Előnézet / belső oldalak — ne indexelje a Google
+Disallow: /preview-og.html
+Disallow: /preview-salon-email.html
+
 Sitemap: https://www.fatimebeautynails.ch/sitemap.xml

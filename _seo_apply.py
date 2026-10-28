@@ -16,9 +16,9 @@ PAGES = [
         "title": "Fatime Beauty Nails | Kosmetik, Nails & Beauty in Arbon / Frasnacht (TG)",
         "description": "Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, Kosmetik, Wimpern, Brauen und Piercing. Termine in der Region Arbon, Romanshorn und Umgebung.",
         "og_image": "/assets/imgs/og-share.jpg",
-        "de": "/index.html",
-        "hu": "/hu/index.html",
-        "canonical": "/index.html",
+        "de": "/",
+        "hu": "/hu/",
+        "canonical": "/",
         "home": True,
     },
     {
@@ -128,9 +128,9 @@ PAGES = [
         "title": "Fatime Beauty Nails | Kozmetika, köröm & beauty Arbon / Frasnacht (TG)",
         "description": "Szépségszalon Frasnachtban, Arbon mellett (Thurgau): manikűr, pedikűr, kozmetika, szempilla, szemöldök és piercing. Időpont a régióban – Arbon, Romanshorn és környéke.",
         "og_image": "/assets/imgs/og-share.jpg",
-        "de": "/index.html",
-        "hu": "/hu/index.html",
-        "canonical": "/hu/index.html",
+        "de": "/",
+        "hu": "/hu/",
+        "canonical": "/hu/",
         "home": True,
     },
     {
@@ -236,41 +236,7 @@ PAGES = [
 ]
 
 
-def local_business_jsonld() -> str:
-    data = {
-        "@context": "https://schema.org",
-        "@type": "BeautySalon",
-        "name": "Fatime Beauty Nails",
-        "image": f"{BASE}/assets/imgs/og-share.jpg",
-        "url": f"{BASE}/",
-        "telephone": "+41762183856",
-        "email": "fatimegor8@gmail.com",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Frasnacht",
-            "addressLocality": "Arbon",
-            "postalCode": "9320",
-            "addressRegion": "TG",
-            "addressCountry": "CH",
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 47.5167,
-            "longitude": 9.4333,
-        },
-        "areaServed": [
-            {"@type": "City", "name": "Arbon"},
-            {"@type": "City", "name": "Frasnacht"},
-            {"@type": "City", "name": "Romanshorn"},
-            {"@type": "AdministrativeArea", "name": "Thurgau"},
-        ],
-        "sameAs": [
-            "https://www.facebook.com/profile.php?id=61574023973561",
-            "https://www.instagram.com/fatimegor/",
-        ],
-        "priceRange": "$$",
-        "inLanguage": ["de", "hu"],
-    }
+def _json_script(data: dict) -> str:
     import json
 
     return (
@@ -278,6 +244,120 @@ def local_business_jsonld() -> str:
         + json.dumps(data, ensure_ascii=False, indent=2)
         + "\n</script>"
     )
+
+
+def local_business_jsonld(lang: str) -> str:
+    """Local BeautySalon + WebSite graph for homepage (DE/HU)."""
+    desc_de = (
+        "Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, "
+        "Kosmetik, Wimpernlifting, Brauenlaminierung und Piercing. "
+        "Termine auf Deutsch und Ungarisch – Region Arbon, Romanshorn und Umgebung."
+    )
+    desc_hu = (
+        "Szépségszalon Frasnachtban, Arbon mellett (Thurgau): manikűr, pedikűr, "
+        "kozmetika, szempilla lifting, szemöldök laminálás és piercing. "
+        "Időpont németül és magyarul – Arbon, Romanshorn és környéke."
+    )
+    salon_id = f"{BASE}/#salon"
+    website_id = f"{BASE}/#website"
+    data = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BeautySalon",
+                "@id": salon_id,
+                "name": "Fatime Beauty Nails",
+                "alternateName": ["Fatime Beauty", "Fatime Beauty & Nails"],
+                "description": desc_hu if lang == "hu" else desc_de,
+                "image": f"{BASE}/assets/imgs/og-share.jpg",
+                "url": f"{BASE}/" if lang == "de" else f"{BASE}/hu/",
+                "telephone": "+41762183856",
+                "email": "fatimegor8@gmail.com",
+                "priceRange": "$$",
+                "currenciesAccepted": "CHF",
+                "paymentAccepted": "Cash",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Frasnacht",
+                    "addressRegion": "TG",
+                    "postalCode": "9320",
+                    "addressCountry": "CH",
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 47.5167,
+                    "longitude": 9.4333,
+                },
+                "hasMap": "https://www.google.com/maps/search/?api=1&query=Frasnacht+Arbon+Switzerland",
+                "areaServed": [
+                    {"@type": "City", "name": "Arbon"},
+                    {"@type": "City", "name": "Frasnacht"},
+                    {"@type": "City", "name": "Romanshorn"},
+                    {"@type": "AdministrativeArea", "name": "Thurgau"},
+                ],
+                "knowsLanguage": ["de", "hu"],
+                "availableLanguage": [
+                    {"@type": "Language", "name": "German", "alternateName": "de"},
+                    {"@type": "Language", "name": "Hungarian", "alternateName": "hu"},
+                ],
+                "sameAs": [
+                    "https://www.facebook.com/profile.php?id=61574023973561",
+                    "https://www.instagram.com/fatimegor/",
+                ],
+                "makesOffer": [
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Kosmetik / Kozmetika",
+                            "areaServed": "Arbon, Frasnacht, Thurgau",
+                        },
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Maniküre & Modellage / Manikűr és műköröm",
+                        },
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Callux Pediküre / Callux pedikűr",
+                        },
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Wimpern & Brauen / Szempilla és szemöldök",
+                        },
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Piercing",
+                        },
+                    },
+                ],
+            },
+            {
+                "@type": "WebSite",
+                "@id": website_id,
+                "url": f"{BASE}/",
+                "name": "Fatime Beauty Nails",
+                "inLanguage": ["de-CH", "hu"],
+                "publisher": {"@id": salon_id},
+                "potentialAction": {
+                    "@type": "CommunicateAction",
+                    "target": f"{BASE}/kontakt.html",
+                },
+            },
+        ],
+    }
+    return _json_script(data)
 
 
 def build_head_block(page: dict) -> str:
@@ -299,9 +379,11 @@ def build_head_block(page: dict) -> str:
         '<meta name="geo.position" content="47.5167;9.4333" />',
         '<meta name="ICBM" content="47.5167, 9.4333" />',
         f'<link rel="canonical" href="{canon}" />',
+        # CH célzás: de-CH + hu; x-default → német főoldal
         f'<link rel="alternate" hreflang="de" href="{de}" />',
+        f'<link rel="alternate" hreflang="de-CH" href="{de}" />',
         f'<link rel="alternate" hreflang="hu" href="{hu}" />',
-        f'<link rel="alternate" hreflang="x-default" href="{de}" />',
+        f'<link rel="alternate" hreflang="x-default" href="{BASE}/" />',
         f'<meta property="og:type" content="website" />',
         f'<meta property="og:locale" content="{og_locale}" />',
         f'<meta property="og:locale:alternate" content="{og_alt}" />',
@@ -310,13 +392,14 @@ def build_head_block(page: dict) -> str:
         f'<meta property="og:description" content="{desc}" />',
         f'<meta property="og:url" content="{canon}" />',
         f'<meta property="og:image" content="{og_img}" />',
+        f'<meta property="og:image:alt" content="Fatime Beauty Nails – Beauty-Salon Arbon / Frasnacht" />',
         f'<meta name="twitter:card" content="summary_large_image" />',
         f'<meta name="twitter:title" content="{title}" />',
         f'<meta name="twitter:description" content="{desc}" />',
         f'<meta name="twitter:image" content="{og_img}" />',
     ]
     if page.get("home"):
-        lines.append(local_business_jsonld())
+        lines.append(local_business_jsonld(page["lang"]))
     return "\n  ".join(lines)
 
 
@@ -375,9 +458,17 @@ def apply_page(page: dict) -> None:
 
 
 def write_robots_and_sitemap() -> None:
+    from datetime import date
+
+    today = date.today().isoformat()
+
     Path("robots.txt").write_text(
         f"""User-agent: *
 Allow: /
+
+# Előnézet / belső oldalak — ne indexelje a Google
+Disallow: /preview-og.html
+Disallow: /preview-salon-email.html
 
 Sitemap: {BASE}/sitemap.xml
 """,
@@ -386,21 +477,43 @@ Sitemap: {BASE}/sitemap.xml
 
     urls = []
     for p in PAGES:
-        # Skip pure legal pages from high priority but include them
-        priority = "1.0" if p.get("home") else ("0.9" if "kontakt" in p["path"] or "kapcsolat" in p["path"] or "preisliste" in p["path"] or "arlista" in p["path"] else "0.8")
-        if "datenschutz" in p["path"] or "adatkezelesi" in p["path"] or "hausordnung" in p["path"] or "hazirend" in p["path"]:
+        priority = (
+            "1.0"
+            if p.get("home")
+            else (
+                "0.9"
+                if any(
+                    k in p["path"]
+                    for k in ("kontakt", "kapcsolat", "preisliste", "arlista")
+                )
+                else "0.8"
+            )
+        )
+        if any(
+            k in p["path"]
+            for k in ("datenschutz", "adatkezelesi", "hausordnung", "hazirend")
+        ):
             priority = "0.3"
+        de = BASE + p["de"]
+        hu = BASE + p["hu"]
+        # xhtml:link hreflang — kétnyelvű felfedezés (DE + HU)
         urls.append(
             f"""  <url>
     <loc>{BASE}{p['canonical']}</loc>
+    <lastmod>{today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>{priority}</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="{de}" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="{de}" />
+    <xhtml:link rel="alternate" hreflang="hu" href="{hu}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/" />
   </url>"""
         )
 
     Path("sitemap.xml").write_text(
         """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 """
         + "\n".join(urls)
         + "\n</urlset>\n",

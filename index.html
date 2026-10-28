@@ -15,18 +15,20 @@
   <meta name="geo.placename" content="Arbon, Frasnacht" />
   <meta name="geo.position" content="47.5167;9.4333" />
   <meta name="ICBM" content="47.5167, 9.4333" />
-  <link rel="canonical" href="https://www.fatimebeautynails.ch/index.html" />
-  <link rel="alternate" hreflang="de" href="https://www.fatimebeautynails.ch/index.html" />
-  <link rel="alternate" hreflang="hu" href="https://www.fatimebeautynails.ch/hu/index.html" />
-  <link rel="alternate" hreflang="x-default" href="https://www.fatimebeautynails.ch/index.html" />
+  <link rel="canonical" href="https://www.fatimebeautynails.ch/" />
+  <link rel="alternate" hreflang="de" href="https://www.fatimebeautynails.ch/" />
+  <link rel="alternate" hreflang="de-CH" href="https://www.fatimebeautynails.ch/" />
+  <link rel="alternate" hreflang="hu" href="https://www.fatimebeautynails.ch/hu/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.fatimebeautynails.ch/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_CH" />
   <meta property="og:locale:alternate" content="hu_HU" />
   <meta property="og:site_name" content="Fatime Beauty Nails" />
   <meta property="og:title" content="Fatime Beauty Nails | Kosmetik, Nails & Beauty in Arbon / Frasnacht (TG)" />
   <meta property="og:description" content="Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, Kosmetik, Wimpern, Brauen und Piercing. Termine in der Region Arbon, Romanshorn und Umgebung." />
-  <meta property="og:url" content="https://www.fatimebeautynails.ch/index.html" />
+  <meta property="og:url" content="https://www.fatimebeautynails.ch/" />
   <meta property="og:image" content="https://www.fatimebeautynails.ch/assets/imgs/og-share.jpg" />
+  <meta property="og:image:alt" content="Fatime Beauty Nails – Beauty-Salon Arbon / Frasnacht" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fatime Beauty Nails | Kosmetik, Nails & Beauty in Arbon / Frasnacht (TG)" />
   <meta name="twitter:description" content="Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, Kosmetik, Wimpern, Brauen und Piercing. Termine in der Region Arbon, Romanshorn und Umgebung." />
@@ -34,51 +36,130 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BeautySalon",
-  "name": "Fatime Beauty Nails",
-  "image": "https://www.fatimebeautynails.ch/assets/imgs/og-share.jpg",
-  "url": "https://www.fatimebeautynails.ch/",
-  "telephone": "+41762183856",
-  "email": "fatimegor8@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Frasnacht",
-    "addressLocality": "Arbon",
-    "postalCode": "9320",
-    "addressRegion": "TG",
-    "addressCountry": "CH"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 47.5167,
-    "longitude": 9.4333
-  },
-  "areaServed": [
+  "@graph": [
     {
-      "@type": "City",
-      "name": "Arbon"
+      "@type": "BeautySalon",
+      "@id": "https://www.fatimebeautynails.ch/#salon",
+      "name": "Fatime Beauty Nails",
+      "alternateName": [
+        "Fatime Beauty",
+        "Fatime Beauty & Nails"
+      ],
+      "description": "Beauty-Salon in Frasnacht bei Arbon (Thurgau): Maniküre, Pediküre, Kosmetik, Wimpernlifting, Brauenlaminierung und Piercing. Termine auf Deutsch und Ungarisch – Region Arbon, Romanshorn und Umgebung.",
+      "image": "https://www.fatimebeautynails.ch/assets/imgs/og-share.jpg",
+      "url": "https://www.fatimebeautynails.ch/",
+      "telephone": "+41762183856",
+      "email": "fatimegor8@gmail.com",
+      "priceRange": "$$",
+      "currenciesAccepted": "CHF",
+      "paymentAccepted": "Cash",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Frasnacht",
+        "addressRegion": "TG",
+        "postalCode": "9320",
+        "addressCountry": "CH"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.5167,
+        "longitude": 9.4333
+      },
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=Frasnacht+Arbon+Switzerland",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Arbon"
+        },
+        {
+          "@type": "City",
+          "name": "Frasnacht"
+        },
+        {
+          "@type": "City",
+          "name": "Romanshorn"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Thurgau"
+        }
+      ],
+      "knowsLanguage": [
+        "de",
+        "hu"
+      ],
+      "availableLanguage": [
+        {
+          "@type": "Language",
+          "name": "German",
+          "alternateName": "de"
+        },
+        {
+          "@type": "Language",
+          "name": "Hungarian",
+          "alternateName": "hu"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61574023973561",
+        "https://www.instagram.com/fatimegor/"
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Kosmetik / Kozmetika",
+            "areaServed": "Arbon, Frasnacht, Thurgau"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Maniküre & Modellage / Manikűr és műköröm"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Callux Pediküre / Callux pedikűr"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wimpern & Brauen / Szempilla és szemöldök"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Piercing"
+          }
+        }
+      ]
     },
     {
-      "@type": "City",
-      "name": "Frasnacht"
-    },
-    {
-      "@type": "City",
-      "name": "Romanshorn"
-    },
-    {
-      "@type": "AdministrativeArea",
-      "name": "Thurgau"
+      "@type": "WebSite",
+      "@id": "https://www.fatimebeautynails.ch/#website",
+      "url": "https://www.fatimebeautynails.ch/",
+      "name": "Fatime Beauty Nails",
+      "inLanguage": [
+        "de-CH",
+        "hu"
+      ],
+      "publisher": {
+        "@id": "https://www.fatimebeautynails.ch/#salon"
+      },
+      "potentialAction": {
+        "@type": "CommunicateAction",
+        "target": "https://www.fatimebeautynails.ch/kontakt.html"
+      }
     }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/profile.php?id=61574023973561",
-    "https://www.instagram.com/fatimegor/"
-  ],
-  "priceRange": "$$",
-  "inLanguage": [
-    "de",
-    "hu"
   ]
 }
 </script>

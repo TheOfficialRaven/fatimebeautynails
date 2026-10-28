@@ -1,0 +1,16 @@
+# Régi HU fájlnevek a gyökérben → kanonikus DE / HU célok (301, SEO)
+/kapcsolat.html           /kontakt.html                              301
+/arlista.html             /preisliste.html                           301
+/rolam.html               /ueber-mich.html                           301
+/hazirend.html            /hausordnung.html                          301
+/callux-pedikur.html      /callux-pedikuere.html                     301
+/manikur-mukorom.html     /manikuere-modellage.html                  301
+/kozmetikai-kezelesek.html /kosmetische-behandlungen.html            301
+/szempilla-szemoldok-lifting.html /wimpernlifting-brauen-laminierung.html 301
+/pilla.html               /wimpernlifting-brauen-laminierung.html  301
+/wimpern.html             /wimpernlifting-brauen-laminierung.html  301
+/hu/pilla.html            /hu/szempilla-szemoldok-lifting.html     301
+
+# Tiszta kezdő URL-ek
+/index.html               /                                          301
+/hu/index.html            /hu/                                       301
