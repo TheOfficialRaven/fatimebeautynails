@@ -22,6 +22,7 @@
   /**
    * 125% → html font-size 14.6px; 150% → 16/1.5.
    * devicePixelRatio alapján (ablakszélességtől független).
+   * data-display-scale: CSS magasságzárokhoz (a resolution media query felülíródhat).
    */
   (function compensateDisplayScale() {
     var root = document.documentElement;
@@ -32,18 +33,43 @@
       var dpr = window.devicePixelRatio || 1;
       if (dpr >= 1.15 && dpr < 1.35) {
         root.style.setProperty("font-size", TARGET_125 + "px", "important");
+        root.setAttribute("data-display-scale", "125");
         return;
       }
       if (dpr >= 1.4 && dpr < 1.65) {
         root.style.setProperty("font-size", BASE / 1.5 + "px", "important");
+        root.setAttribute("data-display-scale", "150");
         return;
       }
       root.style.removeProperty("font-size");
+      root.removeAttribute("data-display-scale");
     }
 
     apply();
     window.addEventListener("resize", apply);
     /* Nincs visualViewport listener — a böngészősáv toggle ne futtasson semmit */
+  })();
+
+  /**
+   * Kapcsolat szekció: pontos viewport-magasság (header alatt).
+   * innerHeight − header — 100% / 125% zoom mellett is egyezik a látható képernyővel.
+   */
+  (function lockContactPanelHeight() {
+    var root = document.documentElement;
+
+    function apply() {
+      var header = document.querySelector(".site-header");
+      var headerH = header ? header.getBoundingClientRect().height : 80;
+      var h = window.innerHeight - headerH;
+      if (!h || h < 200) return;
+      root.style.setProperty("--contact-panel-h", Math.round(h) + "px");
+    }
+
+    apply();
+    window.addEventListener("resize", apply);
+    window.addEventListener("orientationchange", function () {
+      window.setTimeout(apply, 250);
+    });
   })();
 
   var header = document.querySelector(".site-header");
