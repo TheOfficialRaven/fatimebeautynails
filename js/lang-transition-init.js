@@ -264,7 +264,7 @@
     /*
      * 1) visibility maszk le (body látszik), de main még opacity 0
      * 2) scroll újra
-     * 3) main + footer + szöveg együtt fade-in
+     * 3) main + footer (+ hero képek) együtt fade-in — scrollY=0-nál is
      */
     root().classList.remove("lang-scroll-pending");
     if (y > 0) instantScrollTo(y);
@@ -278,15 +278,13 @@
         root().style.removeProperty("background-color");
       } catch (e2) {}
 
-      if (y > 0) {
-        main.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
-        main.style.opacity = "1";
-        if (footer) {
-          footer.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
-          footer.style.opacity = "1";
-        }
-        instantScrollTo(y);
+      main.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
+      main.style.opacity = "1";
+      if (footer) {
+        footer.style.transition = "opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)";
+        footer.style.opacity = "1";
       }
+      if (y > 0) instantScrollTo(y);
 
       inputBlocked = false;
       enterTimer = window.setTimeout(function () {
@@ -335,14 +333,15 @@
       root().style.scrollBehavior = "auto";
     } catch (e) {}
 
-    /* Mid-scroll: main/footer tartsuk opacity 0-n a CSS mellett is */
-    if (y > 0) {
-      root().classList.add("lang-scroll-pending");
-      root().classList.add("lang-content-pending");
-      main.style.opacity = "0";
-      var footer = document.querySelector(".site-footer");
-      if (footer) footer.style.opacity = "0";
-    }
+    /*
+     * Main/footer (hero képek is) opacity 0 — mindig, ne csak mid-scrollnál.
+     * lang-scroll-pending csak y>0-nál (body visibility maszk a scroll restore-hoz).
+     */
+    root().classList.add("lang-content-pending");
+    if (y > 0) root().classList.add("lang-scroll-pending");
+    main.style.opacity = "0";
+    var footerEnter = document.querySelector(".site-footer");
+    if (footerEnter) footerEnter.style.opacity = "0";
 
     main.classList.add("lang-text-motion", "lang-text-motion--enter");
     var nodes = mark(main);
@@ -432,15 +431,16 @@
         mark(main);
         main.classList.add("lang-text-motion", "lang-text-motion--exit");
 
-        /* Mid-scroll: képek se villanhassanak — main is fade-out */
-        if (y > 0) {
-          main.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
-          main.style.opacity = "0";
-          var footer = document.querySelector(".site-footer");
-          if (footer) {
-            footer.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
-            footer.style.opacity = "0";
-          }
+        /*
+         * Mindig fade-out a main-re (hero képek is) — ne csak mid-scrollnál.
+         * ScrollY=0-nál korábban csak a szöveg tűnt el → a hero kép megvillant.
+         */
+        main.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
+        main.style.opacity = "0";
+        var footer = document.querySelector(".site-footer");
+        if (footer) {
+          footer.style.transition = "opacity 0.26s cubic-bezier(0.22, 0.61, 0.36, 1)";
+          footer.style.opacity = "0";
         }
 
         var target = a.href;

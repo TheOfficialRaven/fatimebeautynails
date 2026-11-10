@@ -6,33 +6,38 @@
    */
   (function lockStableViewportHeight() {
     var root = document.documentElement;
+    var lastH = 0;
 
     function lock() {
       var h = window.innerHeight;
       if (!h || h < 100) return;
+      /* Csak érdemi változáskor (orientáció / zoom / ablak) — böngészősáv zaj szűrése mobilón */
+      if (Math.abs(h - lastH) < 24 && lastH > 0) return;
+      lastH = h;
       root.style.setProperty("--app-vh", h + "px");
     }
 
     lock();
+    window.addEventListener("resize", lock);
     window.addEventListener("orientationchange", function () {
+      lastH = 0;
       window.setTimeout(lock, 250);
     });
   })();
 
   /**
-   * 125% → html font-size 14.6px; 150% → 16/1.5.
-   * devicePixelRatio alapján (ablakszélességtől független).
-   * data-display-scale: CSS magasságzárokhoz (a resolution media query felülíródhat).
+   * 125% → 16/1.25 (=12.8px); 150% → 16/1.5 — közel a 100%-os vizuális mérethez.
+   * devicePixelRatio alapján (OS / böngésző zoom).
+   * data-display-scale: CSS tokenekhez (képek, térközök).
    */
   (function compensateDisplayScale() {
     var root = document.documentElement;
     var BASE = 16;
-    var TARGET_125 = 14.6;
 
     function apply() {
       var dpr = window.devicePixelRatio || 1;
       if (dpr >= 1.15 && dpr < 1.35) {
-        root.style.setProperty("font-size", TARGET_125 + "px", "important");
+        root.style.setProperty("font-size", BASE / 1.25 + "px", "important");
         root.setAttribute("data-display-scale", "125");
         return;
       }

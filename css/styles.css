@@ -20,30 +20,32 @@
   --font-serif: "Gilda Display", Georgia, serif;
   --font-sans: "League Spartan", system-ui, sans-serif;
   --font-gold-script: "Dancing Script", cursive;
-  /* 16px gyökér: 60px → 3.75rem, 40px → 2.5rem, 16px → 1rem */
-  --fs-h1: 3.75rem;
-  --fs-h2: 2.5rem; /* 40px @ 16px gyökér */
-  /* Bekezdés: 16px @ 16px gyökér; kisebb breakpointokon enyhén csökkentve */
-  --fs-p: 1.1rem;
+  /*
+   * Fluid tipográfia / tér — nagy desktopon ≈ eredeti (60 / 40 / 17.6 px),
+   * laptopon és nagyított viewporton arányosan csökken (design arányok megmaradnak).
+   */
+  --fs-h1: clamp(2.5rem, 1.55rem + 2.35vw, 3.75rem);
+  --fs-h2: clamp(1.95rem, 1.35rem + 1.45vw, 2.5rem);
+  --fs-p: clamp(1.02rem, 0.96rem + 0.2vw, 1.1rem);
   --fs-btn: 0.95rem;
   --btn-pad-y: 0.62rem;
   --btn-pad-x: 1.3rem;
   /* Navbar CTA */
   --fs-btn-header: 0.9rem;
   /* Navbar linkek, nyelvváltó, logo szöveg */
-  --fs-nav-bar: 1.1rem;
+  --fs-nav-bar: clamp(0.95rem, 0.85rem + 0.25vw, 1.1rem);
   /* Arany színű szekció-alcímek (script / kiemelő sor) */
-  --fs-section-gold-accent: 1.7rem;
-  --hero-content-max: 42rem;
+  --fs-section-gold-accent: clamp(1.35rem, 1.05rem + 0.55vw, 1.7rem);
+  --hero-content-max: clamp(28rem, 52vw, 42rem);
   --container: 87.5rem; /* 1400px @ 16px */
-  /* 180px oldalsó margó a tartalomnak (rem @ 16px gyökér) */
-  --section-inline: 11.25rem;
-  /* Egységes szekció-függőleges tér (nem a teljes magasságú képoszlopokra) */
-  --section-space: clamp(4rem, 6vw, 5.8rem);
+  /* Oldalsó margó: 180px nagy desktopon, laptopon / zoomon kisebb */
+  --section-inline: clamp(2.75rem, 9.4vw, 11.25rem);
+  /* Egységes szekció-függőleges tér */
+  --section-space: clamp(3.35rem, 2.6rem + 2.8vw, 5.8rem);
   --section-space-half: calc(var(--section-space) * 0.5);
-  /* Partnerek sáv: 90px oldalt (5.625rem @ 16px) */
-  --partners-gutter: 5.625rem;
-  --header-h: 5rem; /* 80px @ 16px */
+  /* Partnerek sáv */
+  --partners-gutter: clamp(1.75rem, 4.5vw, 5.625rem);
+  --header-h: clamp(4.25rem, 3.8rem + 0.6vw, 5rem);
   --header-outer-h: calc(var(--header-h) + 1px);
   /*
    * 1 képernyő: header + szekció.
@@ -51,6 +53,8 @@
    * --app-vh: JS egyszer rögzíti (orientationchange-ig), ha van.
    */
   --screen-fill: calc(var(--app-vh, 100vh) - var(--header-outer-h));
+  /* Full-bleed szekciók (nem hero): magasabb, mint 1 képernyő */
+  --screen-fill-plus: calc(var(--screen-fill) + clamp(3.5rem, 7vh, 6.5rem));
   /* Egységes lekerekítés: kártyák/gombok 6px; nagy tartalmi képek ugyanaz */
   --radius: 6px;
   --radius-sm: var(--radius);
@@ -71,6 +75,7 @@
 @supports (height: 100svh) {
   :root {
     --screen-fill: calc(var(--app-vh, 100svh) - var(--header-outer-h));
+    --screen-fill-plus: calc(var(--screen-fill) + clamp(3.5rem, 7vh, 6.5rem));
   }
 }
 
@@ -93,16 +98,18 @@ html {
   scroll-padding-top: var(--header-outer-h);
   /* Nyelvváltáskor ne mozduljon az elrendezés a scrollbar megjelenése/eltűnése miatt */
   scrollbar-gutter: stable;
+  /* Hero negatív margók / full-bleed: ne legyen vízszintes scroll */
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 /*
- * 125% / 150% kijelző- vagy böngésző-méretezés: gyökér font-size.
- * Nincs min-width kapu — 125% zoomban a CSS viewport gyakran < 1025px.
+ * 125% / 150%: gyökér font-size ≈ 100%-os vizuális méret (16/scale).
  * Retina 2dppx+ nem érintett.
  */
 @media (min-resolution: 1.2dppx) and (max-resolution: 1.3dppx) {
   html {
-    font-size: 14.6px;
+    font-size: calc(16px / 1.25);
   }
 }
 
@@ -110,6 +117,46 @@ html {
   html {
     font-size: calc(16px / 1.5);
   }
+}
+
+/*
+ * 125%: rem-alapú tokenek + px-alapú ikon/kép méretek összehúzása,
+ * hogy a galéria / szolgáltatás / partner vizuálisan se legyen nagyobb a 100%-nál.
+ */
+html[data-display-scale="125"] {
+  --fs-h1: clamp(2.25rem, 1.4rem + 2vw, 3.35rem);
+  --fs-h2: clamp(1.75rem, 1.25rem + 1.2vw, 2.25rem);
+  --fs-p: clamp(0.98rem, 0.94rem + 0.15vw, 1.05rem);
+  --fs-section-gold-accent: clamp(1.2rem, 1rem + 0.45vw, 1.5rem);
+  --section-space: clamp(2.85rem, 2.2rem + 2.2vw, 4.85rem);
+  --gallery-grid-gap: 0.75rem;
+  --partners-logo-h: clamp(2.35rem, 3.5vw, 3.25rem);
+  --screen-fill-plus: calc(var(--screen-fill) + clamp(2.75rem, 5.5vh, 5.25rem));
+  --hero-content-max: clamp(26rem, 48vw, 38rem);
+}
+
+html[data-display-scale="125"] .service-card__icon img,
+html[data-display-scale="125"] .services .service-card__icon img {
+  height: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+html[data-display-scale="125"] .process-card__icon img {
+  height: clamp(2.5rem, 5.5vw, 3.5rem);
+}
+
+html[data-display-scale="150"] {
+  --fs-h1: clamp(2.1rem, 1.3rem + 1.8vw, 3.1rem);
+  --fs-h2: clamp(1.65rem, 1.15rem + 1.1vw, 2.1rem);
+  --fs-p: clamp(0.95rem, 0.92rem + 0.12vw, 1.02rem);
+  --section-space: clamp(2.5rem, 2rem + 1.8vw, 4.25rem);
+  --gallery-grid-gap: 0.65rem;
+  --partners-logo-h: clamp(2.1rem, 3.2vw, 2.95rem);
+  --screen-fill-plus: calc(var(--screen-fill) + clamp(2.25rem, 4.5vh, 4.5rem));
+}
+
+html[data-display-scale="150"] .service-card__icon img,
+html[data-display-scale="150"] .services .service-card__icon img {
+  height: clamp(2.25rem, 4.5vw, 3.15rem);
 }
 
 @media (max-width: 480px) {
@@ -127,11 +174,125 @@ html {
 
 @media (min-width: 1025px) {
   html {
-    --layout-gutter: var(--section-inline);
+    /* Fluid gutter: ~180px nagy monitoron, laptop / böngésző-zoom esetén arányos */
+    --layout-gutter: clamp(2.75rem, 9.4vw, 11.25rem);
   }
 
   .partners {
-    --partners-gutter: calc(var(--layout-gutter) / 2);
+    --partners-gutter: max(1.25rem, calc(var(--layout-gutter) / 2));
+  }
+}
+
+/*
+ * Laptop / közép-desktop (1025–1439) + tipikus böngésző-zoom viewportok:
+ * ugyanaz a kompozíció, kicsit sűrűbb tér / tipográfia — nem tablet stack.
+ */
+@media (min-width: 1025px) and (max-width: 1439px) {
+  :root {
+    --section-space: clamp(3.35rem, 3.8vw, 4.85rem);
+    --hero-content-max: min(36rem, 100%);
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  }
+
+  .hero__content {
+    padding-block: clamp(1.85rem, 3.8vw, 3.25rem);
+    padding-right: clamp(1.1rem, 2.8vw, 2.25rem);
+  }
+
+  .hero__lead {
+    margin-bottom: 1.5rem;
+    max-width: min(34rem, 100%);
+  }
+
+  .hero__media {
+    margin-left: clamp(-6.5rem, -11vw, -2rem);
+  }
+
+  .hero__image-bg,
+  .page-hero__image-bg {
+    left: clamp(18%, 30vw, 38%);
+  }
+
+  .why-me__content {
+    padding: calc(var(--section-space) * 1.02) clamp(2.25rem, 5vw, 4.5rem)
+      calc(var(--section-space) * 1.02) clamp(2rem, 4.5vw, 4rem);
+  }
+
+  .contact__form-wrap {
+    padding-inline: clamp(1.35rem, 4.5vw, 4rem);
+  }
+}
+
+/* Keskenyebb laptop sáv (pl. 1366 / 125% zoom ≈ 1090–1280) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  :root {
+    --fs-section-gold-accent: clamp(1.3rem, 1.1rem + 0.4vw, 1.5rem);
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  }
+
+  .nav {
+    gap: clamp(0.55rem, 1.2vw, 1rem);
+  }
+
+  .nav__list {
+    gap: clamp(0.4rem, 1vw, 0.85rem);
+  }
+
+  .header__inner {
+    gap: 1rem;
+  }
+}
+
+/*
+ * Alacsony viewport (laptop + nagyítás): hero / why-me ne vágja le a tartalmat.
+ * Desktop kompozíció megmarad — csak a függőleges sűrűség csökken.
+ */
+@media (min-width: 901px) and (max-height: 820px) {
+  .hero__content {
+    padding-block: clamp(1.35rem, 3.5vh, 2.35rem);
+  }
+
+  .hero__tagline {
+    margin-bottom: 0.65rem;
+  }
+
+  .hero__title {
+    margin-bottom: 0.85rem;
+  }
+
+  .hero__lead {
+    margin-bottom: 1.15rem;
+  }
+
+  .why-me {
+    --why-me-extra-h: clamp(1.25rem, 2.5vw, 2.75rem);
+  }
+
+  .why-me__content {
+    padding-block: clamp(1.5rem, 4vh, 2.75rem);
+  }
+
+  .page-hero {
+    --page-hero-pad-y: clamp(1.5rem, 3.5vh, 2.5rem);
+  }
+
+  .contact__form-wrap,
+  .contact.contact--after-overlap-hero .contact__form-wrap {
+    padding-block: clamp(0.85rem, 2.2vh, 1.65rem);
+  }
+
+  .contact-form {
+    gap: 0.65rem;
+  }
+
+  .contact-form .field textarea {
+    min-height: 4.5rem;
   }
 }
 
@@ -144,6 +305,8 @@ body {
   color: var(--color-text);
   background: var(--color-off-white);
   -webkit-font-smoothing: antialiased;
+  max-width: 100%;
+  overflow-x: clip;
   /*
    * Közös tartalomszélesség + oldalsó margó (ugyanaz a számítás mindenhol).
    * A % a használat helyén oldódik (container szülője = teljes szélesség).
@@ -532,6 +695,34 @@ html.lang-exit .site-header {
   transition: none !important;
 }
 
+/* Hero / page-hero média: ne animáljon layoutot nyelvváltás közben (villanás) */
+html.lang-enter-pending .hero__image-bg,
+html.lang-enter-pending .hero__image-bg img,
+html.lang-enter-pending .hero__image-wrap,
+html.lang-enter-pending .hero__media,
+html.lang-enter-pending .hero__media::after,
+html.lang-enter-pending .page-hero__image-bg,
+html.lang-enter-pending .page-hero__image-bg img,
+html.lang-enter-pending .page-hero__grid::before,
+html.lang-content-pending .hero__image-bg,
+html.lang-content-pending .hero__image-bg img,
+html.lang-content-pending .hero__image-wrap,
+html.lang-content-pending .hero__media,
+html.lang-content-pending .hero__media::after,
+html.lang-content-pending .page-hero__image-bg,
+html.lang-content-pending .page-hero__image-bg img,
+html.lang-content-pending .page-hero__grid::before,
+html.lang-exit .hero__image-bg,
+html.lang-exit .hero__image-bg img,
+html.lang-exit .hero__image-wrap,
+html.lang-exit .hero__media,
+html.lang-exit .hero__media::after,
+html.lang-exit .page-hero__image-bg,
+html.lang-exit .page-hero__image-bg img,
+html.lang-exit .page-hero__grid::before {
+  transition: none !important;
+}
+
 html.lang-scroll-pending body {
   visibility: hidden !important;
 }
@@ -540,10 +731,15 @@ html.lang-scroll-pending .site-header {
   visibility: visible !important;
 }
 
+/*
+ * Main/footer (hero / page-hero képek is) rejtve nyelvváltáskor —
+ * ne csak a szöveg tűnjön el (scrollY=0-nál a kép különben megvillan).
+ */
+html.lang-enter-pending main,
+html.lang-enter-pending .site-footer,
 html.lang-content-pending main,
 html.lang-content-pending .site-footer {
   opacity: 0 !important;
-  /* Ne legyen „üres” flash a tartalom megjelenése előtt */
   pointer-events: none;
 }
 
@@ -609,6 +805,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     visibility: visible !important;
   }
 
+  html.lang-enter-pending main,
+  html.lang-enter-pending .site-footer,
   html.lang-content-pending main,
   html.lang-content-pending .site-footer {
     opacity: 1 !important;
@@ -767,12 +965,14 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 .hero {
   position: relative;
   min-height: var(--screen-fill);
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 0;
   background: var(--color-white);
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
 }
 
 .hero__grid {
@@ -1303,8 +1503,18 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 /* ——— References ——— */
 .references {
-  padding: var(--section-space) 0;
+  /* Minden méreten ~1 képernyő + kicsi ráhagyás; egységes függőleges margó */
+  --ref-services-pad-y: var(--section-space);
+  --ref-services-head-gap: clamp(0.85rem, 1.5vw, 1.35rem);
+  padding: var(--ref-services-pad-y) 0;
   background: var(--color-white);
+  min-height: var(--screen-fill-plus);
+  height: var(--screen-fill-plus);
+  max-height: var(--screen-fill-plus);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gallery-grid {
@@ -1318,10 +1528,102 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   box-sizing: border-box;
 }
 
-/* Főoldali referenciák: enyhén tájolt cellák; sorok azonos magasságúak */
+/* Alap (desktop): 3×2 — a cellák a fennmaradó magasságot töltik ki */
 .ref-grid .ref-grid__cell,
 .ref-grid .gallery-item {
-  aspect-ratio: 5 / 4;
+  aspect-ratio: auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.references > .container,
+.services > .container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.references .section-head,
+.services .section-head {
+  flex: 0 0 auto;
+  margin-bottom: var(--ref-services-head-gap);
+}
+
+.references .ref-grid.gallery-grid,
+.services .services__grid {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-content: stretch;
+  align-items: stretch;
+  gap: var(--gallery-grid-gap);
+  grid-auto-rows: 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
+/* ——— Services: ugyanaz a full-bleed magasság ——— */
+.services {
+  --ref-services-pad-y: var(--section-space);
+  --ref-services-head-gap: clamp(0.85rem, 1.5vw, 1.35rem);
+  background: var(--color-green);
+  padding: var(--ref-services-pad-y) 0;
+  min-height: var(--screen-fill-plus);
+  height: var(--screen-fill-plus);
+  max-height: var(--screen-fill-plus);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Tablet ≤1024: 2 oszlop → 3 sor a 6 elemhez */
+@media (max-width: 1024px) {
+  .references .ref-grid.gallery-grid,
+  .services .services__grid {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobil ≤900: 2×3 a screen-fill-hez (1 oszlop túl szűk lenne 6 sorral) */
+@media (max-width: 900px) {
+  .references,
+  .services {
+    --ref-services-pad-y: clamp(1.5rem, 4vw, 2.5rem);
+    --ref-services-head-gap: clamp(0.75rem, 2.5vw, 1.1rem);
+  }
+
+  .references .ref-grid.gallery-grid,
+  .services .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .services .service-card {
+    min-height: 0;
+    height: 100%;
+    aspect-ratio: auto;
+    overflow: hidden;
+    padding: clamp(0.55rem, 2vw, 0.85rem) clamp(0.45rem, 1.5vw, 0.7rem);
+  }
+
+  .services .service-card__icon {
+    margin-bottom: 0.45rem;
+  }
+
+  .services .service-card__icon img {
+    height: clamp(2.25rem, 8vw, 3rem);
+  }
+
+  .services .service-card__title {
+    font-size: clamp(1.05rem, 3.5vw, 1.25rem);
+    margin-bottom: 0.4rem;
+  }
+
+  .services .service-card__text {
+    font-size: clamp(0.82rem, 2.8vw, 0.95rem);
+    line-height: 1.25;
+  }
 }
 
 .ref-grid__cell,
@@ -1708,12 +2010,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   }
 }
 
-/* ——— Services (alap; ≥1025px felülírás a media blokkban) ——— */
-.services {
-  background: var(--color-green);
-  padding: var(--section-space) 0;
-}
-
+/* ——— Services grid / kártyák (a szekció screen-fill a .services blokkban) ——— */
 .services__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1730,13 +2027,14 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   border-radius: var(--radius-gallery);
   text-align: center;
   box-shadow: var(--shadow-gallery-card);
-  /* Alap: 3/2 arány; tartalom / sor miatt nőhet — a rács többi kártyája vele tart */
-  aspect-ratio: var(--gallery-cell-aspect);
+  /* Screen-fill rács: arány a sorokból jön, nem fix aspect-ratio */
+  aspect-ratio: auto;
   height: 100%;
   align-self: stretch;
   box-sizing: border-box;
   min-width: 0;
   min-height: 0;
+  overflow: hidden;
   border: 1px solid transparent;
   display: flex;
   flex-direction: column;
@@ -1759,9 +2057,10 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 .service-card__icon img {
-  height: clamp(56px, 7vw, 72px);
+  /* rem: 125%/150% gyökér-kompenzációval együtt zsugorodik */
+  height: clamp(3.5rem, 7vw, 4.5rem);
   width: auto;
-  max-width: min(100%, 140px);
+  max-width: min(100%, 8.75rem);
   object-fit: contain;
   display: block;
 }
@@ -1783,12 +2082,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   overflow-wrap: anywhere;
 }
 
-/* Szolgáltatás-kártyák: kompakt megjelenés tablet fölött (901–1024: 2 oszlop, ugyanaz a belső arány mint desktopon) */
+/* Szolgáltatás-kártyák: kompakt belső tér — magasságot a screen-fill rács adja */
 @media (min-width: 901px) {
-  .services .section-head {
-    margin-bottom: clamp(0.85rem, 1.5vw, 1.35rem);
-  }
-
   .services .services__grid {
     align-items: stretch;
     grid-auto-rows: 1fr;
@@ -1798,31 +2093,34 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     width: 100%;
     height: 100%;
     align-self: stretch;
-    /* Nincs rögzített arány: a sor legmagasabb kártyájához igazodik (kicsinyítéskor is) */
     aspect-ratio: auto;
-    min-height: clamp(15.5rem, 21vw, 19.5rem);
+    min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: clamp(0.7rem, 1.1vw, 0.95rem) clamp(0.55rem, 0.9vw, 0.8rem);
+    padding: clamp(0.65rem, 1.1vw, 0.95rem) clamp(0.5rem, 0.9vw, 0.8rem);
     border-radius: var(--radius-gallery);
     box-shadow: var(--shadow-gallery-card);
     box-sizing: border-box;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .services .service-card__icon {
-    margin-bottom: clamp(0.75rem, 1.15vw, 1.05rem);
+    margin-bottom: clamp(0.55rem, 1.1vh, 1.05rem);
   }
 
   .services .service-card__icon img {
-    height: clamp(48px, 5.2vw, 68px);
+    height: clamp(2.625rem, 5.5vh, 4.25rem);
   }
 
   .services .service-card__title {
-    font-size: clamp(1.35rem, 1.9vw, 1.6rem);
-    margin-bottom: clamp(0.9rem, 1.25vw, 1.2rem);
+    font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+    margin-bottom: clamp(0.55rem, 1.1vh, 1.2rem);
+  }
+
+  .services .service-card__text {
+    font-size: clamp(0.92rem, 1.35vh, 1.05rem);
   }
 }
 
@@ -1843,10 +2141,6 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
   .contact__split {
     padding-right: var(--page-gutter);
-  }
-
-  .references .section-head {
-    margin-bottom: clamp(0.85rem, 1.5vw, 1.35rem);
   }
 
   .services .services__grid {
@@ -1960,8 +2254,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .testimonial-card__avatar {
   flex-shrink: 0;
-  width: clamp(56px, 8vw, 72px);
-  height: clamp(56px, 8vw, 72px);
+  width: clamp(3.5rem, 8vw, 4.5rem);
+  height: clamp(3.5rem, 8vw, 4.5rem);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-gold);
@@ -2313,10 +2607,12 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 /* ——— Contact ——— */
 .contact {
   /*
-   * Pontosan 1 képernyő (header alatt).
+   * Kicsit több, mint 1 képernyő (header alatt) — a hero kivételével.
    * --contact-panel-h: JS (innerHeight − header) — 100% / 125% zoomon is helyes.
    */
-  --contact-panel-min-h: var(--contact-panel-h, var(--screen-fill));
+  --contact-panel-min-h: calc(
+    var(--contact-panel-h, var(--screen-fill)) + clamp(3.5rem, 7vh, 6.5rem)
+  );
   padding: 0;
   background: var(--color-white);
   height: var(--contact-panel-min-h);
@@ -2961,7 +3257,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
  */
 .page-hazirend .page-hero__grid::before,
 .page-arlista .page-hero__grid::before,
-.page-kapcsolat .page-hero__grid::before {
+.page-kapcsolat .page-hero__grid::before,
+.page-legal .page-hero__grid::before {
   content: none !important;
   display: none !important;
   background: none !important;
@@ -2969,7 +3266,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .page-hazirend .page-hero.page-hero--hazirend,
 .page-arlista .page-hero.page-hero--hazirend,
-.page-kapcsolat .page-hero.page-hero--hazirend {
+.page-kapcsolat .page-hero.page-hero--hazirend,
+.page-legal .page-hero.page-hero--hazirend {
   background-color: var(--color-white);
   background-image: none;
 }
@@ -3038,7 +3336,8 @@ a.service-card:focus-visible {
  * - következő szekció: negatív margin + nagyobb padding → elég rés a tartalom előtt */
 .page-hazirend,
 .page-kapcsolat,
-.page-arlista {
+.page-arlista,
+.page-legal {
   --hazirend-panel-overlap: clamp(5.5rem, 14vmin, 9.5rem);
   background: var(--color-white);
 }
@@ -3337,7 +3636,8 @@ a.service-card:focus-visible {
 
   .page-hazirend,
   .page-kapcsolat,
-  .page-arlista {
+  .page-arlista,
+  .page-legal {
     --hazirend-panel-overlap: clamp(4.75rem, 16vmin, 8rem);
   }
 
@@ -3347,7 +3647,8 @@ a.service-card:focus-visible {
 
   .hazirend-rules-section,
   .contact.contact--after-overlap-hero,
-  .arlista-content {
+  .arlista-content,
+  .legal-doc {
     margin-top: calc(-1 * var(--hazirend-panel-overlap));
     padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)) + clamp(1rem, 3vw, 1.75rem));
   }
@@ -3506,12 +3807,15 @@ html[data-display-scale="125"] .contact-form .field textarea {
 .legal-doc {
   position: relative;
   z-index: 1;
-  padding: var(--section-space) 0;
+  margin-top: calc(-1 * var(--hazirend-panel-overlap));
+  padding-top: calc(var(--section-space) + (2 * var(--hazirend-panel-overlap)) + clamp(0.75rem, 2vw, 1.5rem));
+  padding-bottom: var(--section-space);
   background: var(--color-white);
 }
 
+/* Ugyanaz a .container szélesség / bal szél, mint a hazirend-hero-panel */
 .legal-doc__inner {
-  max-width: 48rem;
+  max-width: none;
 }
 
 .legal-doc__meta {
@@ -3608,7 +3912,8 @@ html[data-display-scale="125"] .contact-form .field textarea {
 
   .hazirend-rules-section,
   .arlista-content,
-  .contact.contact--after-overlap-hero {
+  .contact.contact--after-overlap-hero,
+  .legal-doc {
     margin-top: 0;
     padding-top: var(--section-space);
   }
@@ -4419,9 +4724,9 @@ html[data-display-scale="125"] .contact-form .field textarea {
 
 .process-card__icon img {
   display: block;
-  height: clamp(56px, 7vw, 72px);
+  height: clamp(3.5rem, 7vw, 4.5rem);
   width: auto;
-  max-width: min(100%, 140px);
+  max-width: min(100%, 8.75rem);
   object-fit: contain;
 }
 
@@ -4451,7 +4756,7 @@ html[data-display-scale="125"] .contact-form .field textarea {
   }
 
   .process-section .process-card__icon img {
-    height: clamp(48px, 5.2vw, 68px);
+    height: clamp(3rem, 5.2vw, 4.25rem);
   }
 
   .process-section .process-card__title {
@@ -5051,7 +5356,8 @@ html[data-display-scale="125"] .contact-form .field textarea {
 @media (max-width: 1024px) {
   .page-hazirend,
   .page-kapcsolat,
-  .page-arlista {
+  .page-arlista,
+  .page-legal {
     --hazirend-panel-overlap: clamp(5rem, 13vmin, 8.5rem);
   }
 
@@ -5068,11 +5374,11 @@ html[data-display-scale="125"] .contact-form .field textarea {
   }
 
   .services .service-card {
-    /* Tartalom nőhet az arány fölé; a sorban minden kártya a legmagasabbhoz igazodik */
     aspect-ratio: auto;
     height: 100%;
     align-self: stretch;
-    overflow: visible;
+    overflow: hidden;
+    min-height: 0;
   }
 
   /* Vélemények: mobil karusel vezérlők (desktop kontrollok elrejtve) */
@@ -5755,8 +6061,11 @@ html[data-display-scale="125"] .contact-form .field textarea {
     grid-template-columns: 1fr;
   }
 
-  .services__grid {
-    grid-template-columns: minmax(0, 1fr);
+  /* Referenciák / szolgáltatások: maradjon 2×3 a screen-fill miatt */
+  .references .ref-grid.gallery-grid,
+  .services .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
   }
 
   .faq__columns {
