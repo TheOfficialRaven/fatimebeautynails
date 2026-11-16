@@ -4,6 +4,7 @@
   --color-green-dark: #43604d;
   --color-gold: #c3b78e;
   --color-gold-hover: #b0a47c;
+  --color-gold-soft: #c3b78e;
   --header-gold: #c3b78e;
   --header-gold-hover: #b0a47c;
   --header-nav-text: #2b523a;
@@ -1577,22 +1578,8 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   overflow: hidden;
 }
 
-/* Tablet ≤1024: 2 oszlop → 3 sor a 6 elemhez */
-@media (max-width: 1024px) {
-  .references .ref-grid.gallery-grid,
-  .services .services__grid {
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* Mobil ≤900: 2×3 a screen-fill-hez (1 oszlop túl szűk lenne 6 sorral) */
-@media (max-width: 900px) {
-  .references,
-  .services {
-    --ref-services-pad-y: clamp(1.5rem, 4vw, 2.5rem);
-    --ref-services-head-gap: clamp(0.75rem, 2.5vw, 1.1rem);
-  }
-
+/* Tablet 901–1024: szolgáltatások 2×3; referenciák 2×3 */
+@media (min-width: 901px) and (max-width: 1024px) {
   .references .ref-grid.gallery-grid,
   .services .services__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1600,11 +1587,55 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   }
 
   .services .service-card {
-    min-height: 0;
-    height: 100%;
     aspect-ratio: auto;
+    height: 100%;
+    align-self: stretch;
     overflow: hidden;
-    padding: clamp(0.55rem, 2vw, 0.85rem) clamp(0.45rem, 1.5vw, 0.7rem);
+    min-height: 0;
+  }
+}
+
+/* ≤1024: referenciák 3 sor (2 oszlop a 900–1024 / saját szabályokból) */
+@media (max-width: 1024px) {
+  .references .ref-grid.gallery-grid {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobil ≤900: szolgáltatások 1 oszlop (egymás alatt); referenciák marad 2×3 */
+@media (max-width: 900px) {
+  .references,
+  .services {
+    --ref-services-pad-y: clamp(1.5rem, 4vw, 2.5rem);
+    --ref-services-head-gap: clamp(0.75rem, 2.5vw, 1.1rem);
+  }
+
+  .references .ref-grid.gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Magasság ne legyen screen-fill — 6 kártya egymás alatt kiférjen */
+  .services {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .services .services__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+    align-content: start;
+  }
+
+  .services .service-card {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: auto;
+    overflow: visible;
+    padding: clamp(0.85rem, 3vw, 1.15rem) clamp(0.75rem, 2.5vw, 1rem);
   }
 
   .services .service-card__icon {
@@ -1672,21 +1703,23 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 }
 
 /*
- * Nagyobb „doboz” + középre: levágja a PNG széli fehér kereteket és a szubpixel réseket.
+ * 100% méret — ne nagyítsuk a képet (a 118% mindig elhomályosított).
+ * Hoveren csak enyhe zoom.
  */
 .gallery-grid img,
 .gallery-item img {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 118%;
-  height: 118%;
+  width: 100%;
+  height: 100%;
   max-width: none;
   max-height: none;
   transform: translate(-50%, -50%);
   object-fit: cover;
   object-position: center;
   display: block;
+  image-rendering: auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -1697,7 +1730,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .gallery-item:hover img,
 .gallery-item:focus-visible img {
-  transform: translate(-50%, -50%) scale(1.08);
+  transform: translate(-50%, -50%) scale(1.03);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1789,14 +1822,15 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 118%;
-  height: 118%;
+  width: 100%;
+  height: 100%;
   max-width: none;
   max-height: none;
   transform: translate(-50%, -50%);
   object-fit: cover;
   object-position: center;
   display: block;
+  image-rendering: auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -1804,7 +1838,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 .rolam-masonry__cell:hover img,
 .rolam-masonry__cell:focus-visible img {
-  transform: translate(-50%, -50%) scale(1.08);
+  transform: translate(-50%, -50%) scale(1.03);
 }
 
 /*
@@ -1812,46 +1846,48 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
  * Az általános .rolam-masonry__cell img után kell állnia.
  */
 .rolam-masonry__cell--bl img {
-  width: 130%;
-  height: 130%;
+  width: 100%;
+  height: 100%;
   object-position: center top;
-  transform: translate(-56%, -52%);
+  transform: translate(-50%, -46%);
 }
 
 .rolam-masonry__cell--bl:hover img,
 .rolam-masonry__cell--bl:focus-visible img {
-  transform: translate(-56%, -52%) scale(1.08);
+  transform: translate(-50%, -46%) scale(1.03);
 }
 
-@media (max-width: 700px) {
+/* Telefon: 2 egyforma oszlop, egyforma méretű cellák */
+@media (max-width: 900px) {
   .rolam-masonry {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: none;
+    grid-auto-rows: auto;
     min-height: 0;
+    gap: var(--gallery-grid-gap);
   }
 
   .rolam-masonry__cell--tl,
   .rolam-masonry__cell--tr,
   .rolam-masonry__cell--bl,
   .rolam-masonry__cell--br {
-    grid-column: 1;
+    grid-column: auto;
     grid-row: auto;
-  }
-
-  .rolam-masonry__cell--tl {
     aspect-ratio: 3 / 4;
-    min-height: min(72vw, 20rem);
+    min-height: 0;
+    width: 100%;
   }
 
-  .rolam-masonry__cell--tr,
-  .rolam-masonry__cell--bl {
-    aspect-ratio: 5 / 4;
-    min-height: min(42vw, 14rem);
+  .rolam-masonry__cell--bl img,
+  .rolam-masonry__cell--bl:hover img,
+  .rolam-masonry__cell--bl:focus-visible img {
+    object-position: center center;
+    transform: translate(-50%, -50%);
   }
 
-  .rolam-masonry__cell--br {
-    aspect-ratio: 3 / 4;
-    min-height: min(72vw, 20rem);
+  .rolam-masonry__cell--bl:hover img,
+  .rolam-masonry__cell--bl:focus-visible img {
+    transform: translate(-50%, -50%) scale(1.03);
   }
 }
 
@@ -3111,25 +3147,32 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   font-family: var(--font-sans);
   line-height: 1.6;
   letter-spacing: 0.03em;
-  color: var(--color-gold);
-  opacity: 0.92;
+  color: var(--color-white);
+  opacity: 1;
 }
 
 .footer__legal-sep {
   margin: 0 0.4rem;
-  opacity: 0.75;
+  color: var(--color-white);
+  opacity: 0.85;
 }
 
 .footer__legal-link {
-  color: inherit;
+  color: var(--color-gold);
   text-decoration: none;
-  border-bottom: 1px solid rgba(195, 183, 142, 0.45);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .footer__legal-link:hover {
-  color: var(--color-white);
-  border-bottom-color: rgba(255, 255, 255, 0.5);
+  color: var(--color-gold-hover);
+  border-bottom-color: var(--color-gold);
+  text-decoration: none;
+  transform: translateY(-2px);
 }
 
 /* ——— Aloldal: Kozmetikai kezelések ——— */
@@ -4577,13 +4620,14 @@ html[data-display-scale="125"] .contact-form .field textarea {
   max-width: none;
   object-fit: cover;
   object-position: center center;
-  /* PNG beégetett keret + árnyék levágása */
-  transform: scale(1.18);
+  /* Ne nagyítsuk — a scale(1.18) elhomályosította a fotókat */
+  transform: none;
   transform-origin: center center;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   filter: none;
+  image-rendering: auto;
 }
 
 /* Kereten belül felfelé igazítva: a kép teteje látszik, alul vágódik */
@@ -5369,18 +5413,6 @@ html[data-display-scale="125"] .contact-form .field textarea {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .services .service-card {
-    aspect-ratio: auto;
-    height: 100%;
-    align-self: stretch;
-    overflow: hidden;
-    min-height: 0;
-  }
-
   /* Vélemények: mobil karusel vezérlők (desktop kontrollok elrejtve) */
   .testimonials__head,
   .testimonials__head .section-title,
@@ -6061,11 +6093,16 @@ html[data-display-scale="125"] .contact-form .field textarea {
     grid-template-columns: 1fr;
   }
 
-  /* Referenciák / szolgáltatások: maradjon 2×3 a screen-fill miatt */
-  .references .ref-grid.gallery-grid,
-  .services .services__grid {
+  /* Referenciák: 2×3; szolgáltatások: 1 oszlop (lásd fenti ≤900 services szabály) */
+  .references .ref-grid.gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+
+  .services .services__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: auto;
   }
 
   .faq__columns {

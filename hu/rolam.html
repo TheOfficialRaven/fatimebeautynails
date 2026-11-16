@@ -36,13 +36,20 @@
   <!-- SEO:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gilda+Display&family=League+Spartan:wght@300;400;500;600;700&display=swap" />
   <link
     href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gilda+Display&family=League+Spartan:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
   />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-utilities.min.css" />
-  <link rel="stylesheet" href="../css/styles.css" />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gilda+Display&family=League+Spartan:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
+  <link rel="stylesheet" href="../css/styles.min.css" />
 
 </head>
 <body class="page-rolam">
@@ -108,7 +115,7 @@
   <main class="page-sub page-sub--rolam">
     <section class="page-hero" aria-labelledby="page-hero-title">
       <div class="page-hero__image-bg" aria-hidden="true">
-        <img src="../assets/imgs/Hero_background_img.png" alt="" width="1200" height="1400" loading="eager" />
+        <img src="../assets/imgs/Hero_background_img.webp" alt="" width="1200" height="800" loading="eager" />
       </div>
       <div class="page-hero__grid">
         <div class="page-hero__content">
@@ -125,7 +132,7 @@
       <div class="why-me__grid">
         <div class="why-me__media">
           <img
-            src="../assets/imgs/Rolam_main.webp"
+            src="../assets/imgs/Rolam_main.jpg"
             alt="Szakember portré"
             width="800"
             height="1200"
@@ -180,7 +187,7 @@
         <div class="rolam-masonry">
           <div class="rolam-masonry__cell rolam-masonry__cell--tl">
             <img
-              src="../assets/imgs/page-gallery/rolam/rolam-01.webp"
+              src="../assets/imgs/page-gallery/rolam/rolam-01.jpg"
               alt="Fatime Beauty Nails — stúdió"
               width="800"
               height="1067"
@@ -189,7 +196,7 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--tr">
             <img
-              src="../assets/imgs/page-gallery/rolam/rolam-02.webp"
+              src="../assets/imgs/page-gallery/rolam/rolam-02.jpg"
               alt="Fatime Beauty Nails — stúdió"
               width="800"
               height="1067"
@@ -198,7 +205,7 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--bl">
             <img
-              src="../assets/imgs/page-gallery/rolam/rolam-03.webp"
+              src="../assets/imgs/page-gallery/rolam/rolam-03.jpg"
               alt="Fatime Beauty Nails — stúdió"
               width="800"
               height="1067"
@@ -207,7 +214,7 @@
           </div>
           <div class="rolam-masonry__cell rolam-masonry__cell--br">
             <img
-              src="../assets/imgs/page-gallery/rolam/rolam-04.webp"
+              src="../assets/imgs/page-gallery/rolam/rolam-04.jpg"
               alt="Fatime Beauty Nails — stúdió"
               width="800"
               height="1067"
@@ -723,8 +730,8 @@
     </div>
   </div>
 
-  <script src="../js/lang-transition-init.js"></script>
-  <script src="../js/main.js"></script>
+  <script src="../js/lang-transition-init.js" defer></script>
+  <script src="../js/main.min.js" defer></script>
 </body>
 </html>
 

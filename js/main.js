@@ -7,6 +7,7 @@
   (function lockStableViewportHeight() {
     var root = document.documentElement;
     var lastH = 0;
+    var scheduled = false;
 
     function lock() {
       var h = window.innerHeight;
@@ -14,11 +15,17 @@
       /* Csak érdemi változáskor (orientáció / zoom / ablak) — böngészősáv zaj szűrése mobilón */
       if (Math.abs(h - lastH) < 24 && lastH > 0) return;
       lastH = h;
-      root.style.setProperty("--app-vh", h + "px");
+      /* Írás rAF-ben: elkerüli a forced reflow-t a layout-olvasás után */
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(function () {
+        scheduled = false;
+        root.style.setProperty("--app-vh", lastH + "px");
+      });
     }
 
     lock();
-    window.addEventListener("resize", lock);
+    window.addEventListener("resize", lock, { passive: true });
     window.addEventListener("orientationchange", function () {
       lastH = 0;
       window.setTimeout(lock, 250);
@@ -33,25 +40,31 @@
   (function compensateDisplayScale() {
     var root = document.documentElement;
     var BASE = 16;
+    var scheduled = false;
 
     function apply() {
-      var dpr = window.devicePixelRatio || 1;
-      if (dpr >= 1.15 && dpr < 1.35) {
-        root.style.setProperty("font-size", BASE / 1.25 + "px", "important");
-        root.setAttribute("data-display-scale", "125");
-        return;
-      }
-      if (dpr >= 1.4 && dpr < 1.65) {
-        root.style.setProperty("font-size", BASE / 1.5 + "px", "important");
-        root.setAttribute("data-display-scale", "150");
-        return;
-      }
-      root.style.removeProperty("font-size");
-      root.removeAttribute("data-display-scale");
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(function () {
+        scheduled = false;
+        var dpr = window.devicePixelRatio || 1;
+        if (dpr >= 1.15 && dpr < 1.35) {
+          root.style.setProperty("font-size", BASE / 1.25 + "px", "important");
+          root.setAttribute("data-display-scale", "125");
+          return;
+        }
+        if (dpr >= 1.4 && dpr < 1.65) {
+          root.style.setProperty("font-size", BASE / 1.5 + "px", "important");
+          root.setAttribute("data-display-scale", "150");
+          return;
+        }
+        root.style.removeProperty("font-size");
+        root.removeAttribute("data-display-scale");
+      });
     }
 
     apply();
-    window.addEventListener("resize", apply);
+    window.addEventListener("resize", apply, { passive: true });
     /* Nincs visualViewport listener — a böngészősáv toggle ne futtasson semmit */
   })();
 
@@ -61,17 +74,23 @@
    */
   (function lockContactPanelHeight() {
     var root = document.documentElement;
+    var scheduled = false;
 
     function apply() {
-      var header = document.querySelector(".site-header");
-      var headerH = header ? header.getBoundingClientRect().height : 80;
-      var h = window.innerHeight - headerH;
-      if (!h || h < 200) return;
-      root.style.setProperty("--contact-panel-h", Math.round(h) + "px");
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(function () {
+        scheduled = false;
+        var header = document.querySelector(".site-header");
+        var headerH = header ? header.offsetHeight : 80;
+        var h = window.innerHeight - headerH;
+        if (!h || h < 200) return;
+        root.style.setProperty("--contact-panel-h", Math.round(h) + "px");
+      });
     }
 
     apply();
-    window.addEventListener("resize", apply);
+    window.addEventListener("resize", apply, { passive: true });
     window.addEventListener("orientationchange", function () {
       window.setTimeout(apply, 250);
     });
@@ -528,32 +547,26 @@
     }
 
     function measure() {
-      var vw = Math.round(viewport.getBoundingClientRect().width);
+      /* Olvasás és írás szétválasztása — kevesebb forced reflow */
+      var vw = Math.round(viewport.offsetWidth);
       if (vw < 1) return;
       var gapPx = parseGapPx();
       var mobile = isMobile();
-      var slideW;
-      if (mobile) {
-        slideW = vw;
+      var slideW = mobile ? vw : Math.round((vw - gapPx) / 2);
+      var tx = mobile
+        ? Math.round(slideIdx * (slideW + gapPx))
+        : Math.round(pageIdx * (vw + gapPx));
+      window.requestAnimationFrame(function () {
         slides.forEach(function (slide) {
           slide.style.flex = "0 0 " + slideW + "px";
           slide.style.width = slideW + "px";
           slide.style.maxWidth = slideW + "px";
           slide.style.minWidth = slideW + "px";
         });
-        track.style.transform = "translateX(-" + Math.round(slideIdx * (slideW + gapPx)) + "px)";
-      } else {
-        slideW = Math.round((vw - gapPx) / 2);
-        slides.forEach(function (slide) {
-          slide.style.flex = "0 0 " + slideW + "px";
-          slide.style.width = slideW + "px";
-          slide.style.maxWidth = slideW + "px";
-          slide.style.minWidth = slideW + "px";
-        });
-        track.style.transform = "translateX(-" + Math.round(pageIdx * (vw + gapPx)) + "px)";
-      }
-      syncDesktopPairHeights(mobile);
-      updateViewportHeight();
+        track.style.transform = "translateX(-" + tx + "px)";
+        syncDesktopPairHeights(mobile);
+        updateViewportHeight();
+      });
     }
 
     function setAria() {
