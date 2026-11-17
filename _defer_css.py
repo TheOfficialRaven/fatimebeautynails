@@ -157,20 +157,11 @@ def fix_file(path: Path) -> bool:
     elif "/*critical*/" in text:
         text = CRITICAL_BLOCK_RE.sub(f"/*critical*/{CRITICAL}", text, count=1)
 
-    # Replace blocking stylesheet OR refresh already-deferred preload block
-    if CSS_LINK_RE.search(text):
-        text = CSS_LINK_RE.sub(async_css_block(prefix), text, count=1)
-    elif PRELOAD_CSS_RE.search(text):
-        text = PRELOAD_CSS_RE.sub(lambda m: async_css_block("" if m.group(1).startswith("css/") else "../"), text, count=1)
-    elif f'href="{prefix}css/styles.min.css"' in text and 'as="style"' in text:
-        # Already deferred with different markup — only ensure css-ready onload
-        text = text.replace(
-            "onload=\"this.onload=null;this.rel='stylesheet'\"",
-            "onload=\"this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('css-ready')\"",
-        )
-    elif "http-equiv=\"refresh\"" in text or "window.location.replace" in text:
-        pass  # redirect stubs
-    else:
+    # CSS loader markup: do NOT rewrite here — use _apply_async_css_safe /
+    # _fix_css_loader_html.py. Rewriting preload/noscript nests and causes jumps.
+    if "http-equiv=\"refresh\"" in text or "window.location.replace" in text:
+        pass
+    elif f'css/styles.min.css' not in text:
         print("NO CSS LINK", path)
 
     if text != orig:

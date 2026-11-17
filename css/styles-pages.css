@@ -11,7 +11,6 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero__image-bg::after,
@@ -35,7 +34,6 @@
   object-fit: cover;
   object-position: right center;
   display: block;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .page-hero__image-bg img {
@@ -50,7 +48,6 @@
   width: auto;
   max-width: none;
   display: block;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ——— Rólam: drótváz szerinti „masonry” (2×3 rács, szimmetrikus fordított T-rövid / rövid-T) ——— */
