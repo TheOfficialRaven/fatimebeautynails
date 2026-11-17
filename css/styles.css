@@ -1145,6 +1145,31 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* MOBILE_PSI_HERO_BASE: required on home (pages CSS not loaded) */
+.hero__image-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.19);
+  pointer-events: none;
+}
+
+.hero__image-bg img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  object-position: right center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
 /* Előtér: transzparens PNG, ahol üres, átlátszik a háttér */
 .hero__image-figure {
   position: relative;
@@ -1569,6 +1594,140 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 
 /* Mobil ≤900: szolgáltatások 1 oszlop (egymás alatt); referenciák marad 2×3 */
 @media (max-width: 900px) {
+  /* MOBILE_PSI_HERO_LAYOUT */
+  /* Home hero mobile — must live in core CSS (home does not load pages CSS) */
+  .hero {
+    --hero-mobile-overlay: rgba(18, 17, 13, 0.52);
+    min-height: var(--screen-fill);
+  }
+
+  .hero__image-bg {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .hero__image-bg img {
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(min(30vh, 300px), auto);
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+
+  .hero__media {
+    grid-row: 1;
+    grid-column: 1;
+    order: 0;
+    position: absolute;
+    inset: 0;
+    margin-left: 0;
+    min-height: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero__media::after {
+    opacity: 1;
+  }
+
+  .hero__image-wrap {
+    border-radius: 0;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  .hero__image-figure {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .hero__content {
+    grid-row: 1;
+    grid-column: 1;
+    margin-left: calc(
+      (
+          100cqw - min(var(--container), calc(100cqw - 2 * var(--layout-gutter)))
+        ) /
+        2
+    );
+    margin-right: calc(
+      (
+          100cqw - min(var(--container), calc(100cqw - 2 * var(--layout-gutter)))
+        ) /
+        2
+    );
+    width: min(var(--container), calc(100cqw - 2 * var(--layout-gutter)));
+    max-width: 100%;
+    justify-self: stretch;
+    position: relative;
+    z-index: 2;
+    padding-block: clamp(2rem, 6vw, 3rem);
+    padding-right: 0;
+    background: transparent;
+  }
+
+  .hero .hero__tagline {
+    font-size: max(1rem, calc(var(--fs-section-gold-accent) * 0.92));
+  }
+
+  .hero__title {
+    color: var(--color-white);
+  }
+
+  .hero .hero__title {
+    font-size: clamp(2.1rem, 5.4vw, 3.05rem);
+    line-height: 1.14;
+  }
+
+  .hero__lead {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .hero .hero__lead {
+    font-size: var(--fs-p);
+    line-height: 1.3;
+  }
+
+  /* CLS: reserve space for icons / partner logos before decode */
+  .service-card__icon {
+    width: clamp(2.25rem, 8vw, 3rem);
+    height: clamp(2.25rem, 8vw, 3rem);
+    aspect-ratio: 1 / 1;
+  }
+
+  .service-card__icon img,
+  .services .service-card__icon img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+  }
+
+  .partners__logo {
+    aspect-ratio: 2.75 / 1;
+    width: auto;
+    height: var(--partners-logo-h);
+    max-width: min(13rem, 46vw);
+  }
+
   .references,
   .services {
     --ref-services-pad-y: clamp(1.5rem, 4vw, 2.5rem);

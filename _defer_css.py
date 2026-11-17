@@ -59,8 +59,19 @@ CRITICAL = (
     ".page-hero__grid{position:relative;z-index:1;width:min(var(--container),calc(100% - (2 * var(--page-gutter))));margin-inline:auto}"
     ".page-hero__title{font-family:var(--font-serif);font-weight:400;font-size:var(--fs-h1);color:var(--color-text);margin:0 0 1rem}"
     ".page-hero__lead{color:var(--color-text-body);max-width:36rem;font-size:var(--fs-p);line-height:1.3;margin:0 0 1.5rem}"
-    "@media (max-width:900px){.nav-toggle{display:flex}.nav{display:none}.hero__grid{grid-template-columns:1fr}"
-    ".hero__content{width:100%;padding-inline:var(--page-gutter);background:transparent}.hero__media{margin-left:0}}"
+    "@media (max-width:900px){.nav-toggle{display:flex}.nav{display:none}"
+    ".hero__grid{grid-template-columns:1fr;position:relative;isolation:isolate}"
+    ".hero__image-bg{left:0;right:0;width:100%}"
+    ".hero__image-bg img{left:0;right:0;width:100%;height:100%;object-fit:cover;object-position:center}"
+    ".hero__media{position:absolute;inset:0;margin-left:0;z-index:0}"
+    '.hero__media::after{content:"";position:absolute;inset:0;z-index:2;'
+    "background:rgba(18,17,13,.52);opacity:1;pointer-events:none}"
+    ".hero__image-wrap{border-radius:0;min-height:100%;height:100%}"
+    ".hero__content{width:100%;padding-inline:var(--page-gutter);background:transparent;"
+    "position:relative;z-index:2;grid-row:1;grid-column:1}"
+    ".hero__title{color:#fff}.hero__lead{color:rgba(255,255,255,.92)}"
+    ".service-card__icon{width:3rem;height:3rem;aspect-ratio:1/1}"
+    ".service-card__icon img{width:100%;height:100%;aspect-ratio:1/1;object-fit:contain}}"
 )
 
 LANG_STYLE_RE = re.compile(
@@ -91,6 +102,12 @@ CRITICAL_BLOCK_RE = re.compile(
     re.S,
 )
 
+# When operating on style-inner (without closing tag), replace through end of critical CSS
+CRITICAL_INNER_RE = re.compile(
+    r"/\*critical\*/.*",
+    re.S,
+)
+
 # Full deferred CSS block (preload + noscript + fallback script)
 PRELOAD_CSS_RE = re.compile(
     r'[ \t]*<link rel="preload" href="((?:\.\./)?css/styles\.min\.css)" as="style"[^>]*>\s*'
@@ -113,7 +130,8 @@ def fix_file(path: Path) -> bool:
             if "/*critical*/" in inner or "--hero-content-max" in inner:
                 # Refresh critical block contents
                 if "/*critical*/" in inner:
-                    inner = CRITICAL_BLOCK_RE.sub(f"/*critical*/{CRITICAL}", inner, count=1)
+                    # inner has no </style>, so use CRITICAL_INNER_RE
+                    inner = CRITICAL_INNER_RE.sub(f"/*critical*/{CRITICAL}", inner, count=1)
                 else:
                     # Old inject without marker — append refreshed critical
                     inner = re.sub(
