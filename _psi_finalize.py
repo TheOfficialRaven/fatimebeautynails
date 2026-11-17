@@ -26,6 +26,12 @@ def main() -> None:
         minify_css((ROOT / "css" / "styles.css").read_text(encoding="utf-8")),
         encoding="utf-8",
     )
+    pages_src = ROOT / "css" / "styles-pages.css"
+    if pages_src.exists():
+        (ROOT / "css" / "styles-pages.min.css").write_text(
+            minify_css(pages_src.read_text(encoding="utf-8")),
+            encoding="utf-8",
+        )
     (ROOT / "js" / "main.min.js").write_text(
         minify_js((ROOT / "js" / "main.js").read_text(encoding="utf-8")),
         encoding="utf-8",
@@ -52,6 +58,9 @@ def main() -> None:
 
     print("html updated", updated)
     print("styles.min KB", round((ROOT / "css" / "styles.min.css").stat().st_size / 1024, 1))
+    pages_min = ROOT / "css" / "styles-pages.min.css"
+    if pages_min.exists():
+        print("styles-pages.min KB", round(pages_min.stat().st_size / 1024, 1))
     print("main.min KB", round((ROOT / "js" / "main.min.js").stat().st_size / 1024, 1))
     print("gold token", "#8a7644" in (ROOT / "css" / "styles.min.css").read_text(encoding="utf-8"))
 

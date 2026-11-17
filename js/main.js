@@ -225,6 +225,22 @@
     });
   });
 
+  /* Almenü linkre kattintáskor azonnal rejtés — ne játssza le a bezáró animációt oldalváltáskor */
+  document.querySelectorAll(".nav__sub a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.documentElement.classList.add("nav-sub-instant");
+      try {
+        if (document.activeElement && document.activeElement.blur) {
+          document.activeElement.blur();
+        }
+      } catch (err) {}
+    });
+  });
+
+  window.addEventListener("pageshow", function () {
+    document.documentElement.classList.remove("nav-sub-instant");
+  });
+
   function bindAccordionTrigger(btn) {
     btn.addEventListener("click", function () {
       var item = btn.closest(".faq-item") || btn.closest(".service-panel");
