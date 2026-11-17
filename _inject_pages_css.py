@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Inject deferred styles-pages.min.css on subpages (not homepage / redirects)."""
+"""Ensure styles-pages.min.css is linked on subpages (blocking, after core)."""
 from __future__ import annotations
 
 import re
@@ -13,56 +13,52 @@ SKIP_NAMES = {
     "preview-salon-email.html",
 }
 
-PAGES_BLOCK_RE = re.compile(
-    r"[ \t]*<link rel=\"preload\" href=\"((?:\.\./)?css/styles-pages\.min\.css)\" as=\"style\"[\s\S]*?"
-    r"(?:<noscript><link rel=\"stylesheet\" href=\"(?:\.\./)?css/styles-pages\.min\.css\"\s*/?></noscript>\s*)?",
+PAGES_LINK_RE = re.compile(
+    r'[ \t]*<link rel="stylesheet" href="(?:\.\./)?css/styles-pages\.min\.css"\s*/?>\s*',
     re.I,
 )
 
-CORE_BLOCK_END_RE = re.compile(
-    r'(<link rel="preload" href="((?:\.\./)?css/styles\.min\.css)" as="style"[^>]*>\s*'
-    r'<noscript><link rel="stylesheet" href="(?:\.\./)?css/styles\.min\.css"\s*/?></noscript>\s*'
-    r"<script>!function\(d\)\{var l=d\.querySelector\('link\[rel=preload\]\[as=style\]\[href=\"(?:\.\./)?css/styles\.min\.css\"\]'\);.*?</script>\s*)",
-    re.S | re.I,
+CORE_READY_RE = re.compile(
+    r'([ \t]*<link rel="stylesheet" href="((?:\.\./)?css/styles\.min\.css)"\s*/?>\s*)'
+    r'(?:[ \t]*<link rel="stylesheet" href="(?:\.\./)?css/styles-pages\.min\.css"\s*/?>\s*)?'
+    r'([ \t]*<script>document\.documentElement\.classList\.add\(["\']css-ready["\']\);?</script>\s*)?',
+    re.I,
 )
 
 
-def pages_css_block(prefix: str) -> str:
-    href = f"{prefix}css/styles-pages.min.css"
-    return (
-        f'  <link rel="preload" href="{href}" as="style" '
-        f'onload="this.onload=null;this.rel=\'stylesheet\'" />\n'
-        f'  <noscript><link rel="stylesheet" href="{href}" /></noscript>\n'
-    )
-
-
 def is_redirect(text: str) -> bool:
-    return "http-equiv=\"refresh\"" in text or "window.location.replace" in text
+    return 'http-equiv="refresh"' in text or "window.location.replace" in text
 
 
 def fix_file(path: Path) -> str:
     text = path.read_text(encoding="utf-8")
     if path.name in SKIP_NAMES or is_redirect(text):
-        # Ensure homepage does not load pages CSS
-        if PAGES_BLOCK_RE.search(text):
-            text2 = PAGES_BLOCK_RE.sub("", text)
-            if text2 != text:
-                path.write_text(text2, encoding="utf-8")
-                return "removed-from-home"
+        if PAGES_LINK_RE.search(text):
+            path.write_text(PAGES_LINK_RE.sub("", text), encoding="utf-8")
+            return "removed-from-home"
         return "skip"
 
-    prefix = "../" if path.parent.name == "hu" else ""
-    # Remove any existing pages block then re-inject cleanly
-    text = PAGES_BLOCK_RE.sub("", text)
+    if "css/styles.min.css" not in text:
+        return "skip-no-css"
 
-    m = CORE_BLOCK_END_RE.search(text)
+    prefix = "../" if path.parent.name == "hu" else ""
+    pages = f'{prefix}css/styles-pages.min.css'
+
+    m = CORE_READY_RE.search(text)
     if not m:
         return "no-core-css"
 
-    insert = m.group(1) + pages_css_block(prefix)
-    text = CORE_BLOCK_END_RE.sub(insert, text, count=1)
-    path.write_text(text, encoding="utf-8")
-    return "updated"
+    core_href = m.group(2)
+    block = (
+        f'  <link rel="stylesheet" href="{core_href}" />\n'
+        f'  <link rel="stylesheet" href="{pages}" />\n'
+        f'  <script>document.documentElement.classList.add("css-ready");</script>\n'
+    )
+    new = CORE_READY_RE.sub(block, text, count=1)
+    if new != text:
+        path.write_text(new, encoding="utf-8")
+        return "updated"
+    return "unchanged"
 
 
 def main() -> None:
@@ -70,7 +66,7 @@ def main() -> None:
     for path in list(ROOT.glob("*.html")) + list((ROOT / "hu").glob("*.html")):
         status = fix_file(path)
         counts[status] = counts.get(status, 0) + 1
-        if status in {"updated", "removed-from-home", "no-core-css"}:
+        if status.startswith("updated") or status in {"removed-from-home", "no-core-css"}:
             print(status, path.relative_to(ROOT))
     print("summary", counts)
 

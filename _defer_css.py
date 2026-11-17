@@ -53,7 +53,9 @@ CRITICAL = (
     ".hero__image-figure{width:100%;height:100%;min-height:100%;object-fit:cover;object-position:center;display:block}"
     ".hero__image-bg{position:absolute;top:0;right:0;bottom:0;left:clamp(24%,36vw,42%);z-index:0;overflow:hidden;pointer-events:none}"
     ".hero__image-bg img{position:absolute;top:0;right:0;height:100%;width:auto;max-width:none;object-fit:cover;object-position:right center}"
-    ".page-hero{position:relative;min-height:var(--screen-fill);height:var(--screen-fill);overflow:hidden;background:var(--color-white);display:flex;align-items:center}"
+    ".page-hero{--page-hero-pad-y:clamp(2.75rem,4vw,3.75rem);"
+    "--page-hero-h:max(calc(var(--screen-fill)*0.36),calc(var(--page-hero-pad-y)*2 + 15rem));"
+    "position:relative;min-height:var(--page-hero-h);height:auto;overflow:hidden;background:var(--color-white);display:flex;align-items:center}"
     ".page-hero__grid{position:relative;z-index:1;width:min(var(--container),calc(100% - (2 * var(--page-gutter))));margin-inline:auto}"
     ".page-hero__title{font-family:var(--font-serif);font-weight:400;font-size:var(--fs-h1);color:var(--color-text);margin:0 0 1rem}"
     ".page-hero__lead{color:var(--color-text-body);max-width:36rem;font-size:var(--fs-p);line-height:1.3;margin:0 0 1.5rem}"
@@ -73,16 +75,14 @@ CSS_LINK_RE = re.compile(
 
 
 def async_css_block(prefix: str) -> str:
+    """Non-blocking CSS; prefer _apply_async_css_safe.py for full site updates."""
     href = f"{prefix}css/styles.min.css"
-    # Non-blocking stylesheet: preload + promote to stylesheet on load (web.dev)
     return (
+        f'  <script>(function(d){{var left=1;function ready(){{d.documentElement.classList.add("css-ready")}}'
+        f'window.__cssReady=function(){{if(left>0&&--left<=0)ready()}};setTimeout(ready,2500);}})(document);</script>\n'
         f'  <link rel="preload" href="{href}" as="style" '
-        f'onload="this.onload=null;this.rel=\'stylesheet\';document.documentElement.classList.add(\'css-ready\')" />\n'
+        f'onload="this.onload=null;this.rel=\'stylesheet\';window.__cssReady&&window.__cssReady()" />\n'
         f'  <noscript><link rel="stylesheet" href="{href}" /></noscript>\n'
-        f'  <script>!function(d){{var l=d.querySelector(\'link[rel=preload][as=style][href="{href}"]\');'
-        f'if(l)l.addEventListener("load",function(){{this.rel="stylesheet";'
-        f'd.documentElement.classList.add("css-ready")}});'
-        f'setTimeout(function(){{d.documentElement.classList.add("css-ready")}},3000);}}(document);</script>\n'
     )
 
 

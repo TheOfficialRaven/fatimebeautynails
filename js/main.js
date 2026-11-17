@@ -336,13 +336,21 @@
       modal.classList.toggle("ref-lightbox--single", !navEnabled);
     }
 
+    function fullSrcFromImg(el) {
+      return (
+        el.getAttribute("data-full-src") ||
+        el.currentSrc ||
+        el.src
+      );
+    }
+
     function collectFromCells(cells) {
       items = [];
       Array.prototype.forEach.call(cells, function (cell) {
         var el = cell.querySelector("img");
         if (el) {
           items.push({
-            src: el.currentSrc || el.src,
+            src: fullSrcFromImg(el),
             alt: el.getAttribute("alt") || L.fallbackAlt,
           });
         }
@@ -405,7 +413,7 @@
       if (!el) return;
       items = [
         {
-          src: el.currentSrc || el.src,
+          src: fullSrcFromImg(el),
           alt: el.getAttribute("alt") || L.fallbackAlt,
         },
       ];
