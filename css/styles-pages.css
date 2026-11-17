@@ -2901,7 +2901,8 @@ html[data-display-scale="125"] .contact-form .field textarea {
     overflow: visible;
   }
 
-  .contact__media {
+  .contact__media,
+  .contact.contact--after-overlap-hero .contact__media {
     flex: none;
     max-width: none;
     width: 100%;
@@ -2912,9 +2913,17 @@ html[data-display-scale="125"] .contact-form .field textarea {
     max-height: none;
     min-height: min(42vh, 420px);
     aspect-ratio: 4 / 3;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
-  .contact__form-wrap {
+  .contact.contact--after-overlap-hero .contact__media img {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .contact__form-wrap,
+  .contact.contact--after-overlap-hero .contact__form-wrap {
     flex: none;
     max-width: none;
     width: 100%;
