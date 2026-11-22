@@ -250,6 +250,23 @@
         : item && (item.querySelector(".faq-item__panel") || item.querySelector(".service-panel__panel"));
       var expanded = btn.getAttribute("aria-expanded") === "true";
       var next = !expanded;
+
+      /* GYIK: egyszerre csak egy tétel legyen nyitva */
+      if (next && item && item.classList.contains("faq-item")) {
+        var root = item.closest(".faq") || document;
+        root.querySelectorAll(".faq-item.is-open").forEach(function (openItem) {
+          if (openItem === item) return;
+          openItem.classList.remove("is-open");
+          var openBtn = openItem.querySelector(".faq-item__trigger");
+          var openPanel =
+            (openBtn && openBtn.getAttribute("aria-controls")
+              ? document.getElementById(openBtn.getAttribute("aria-controls"))
+              : null) || openItem.querySelector(".faq-item__panel");
+          if (openBtn) openBtn.setAttribute("aria-expanded", "false");
+          if (openPanel) openPanel.setAttribute("aria-hidden", "true");
+        });
+      }
+
       btn.setAttribute("aria-expanded", next ? "true" : "false");
       if (item) item.classList.toggle("is-open", next);
       if (panel) panel.setAttribute("aria-hidden", next ? "false" : "true");
