@@ -998,8 +998,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
 /* ——— Hero (navbar + hero = 1 képernyő; kép jobb széléig, teljes magasság) ——— */
 .hero {
   position: relative;
+  /* Fix magasság: font swap / tartalom ne növelje a herót → kisebb CLS a háttéren */
   min-height: var(--screen-fill);
-  height: auto;
+  height: var(--screen-fill);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -1105,6 +1106,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   margin-bottom: 2rem;
   max-width: min(38rem, 100%);
   line-height: 1.3;
+  /* Stabilabb metrika font swap előtt/után */
+  font-size: var(--fs-p);
+  font-weight: 300;
   transition: color 0.5s ease;
 }
 
@@ -1157,6 +1161,9 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  /* Placehold szín dekódolás előtt — kevesebb „ugrás” érzés */
+  background: #e8ebe9;
+  contain: layout paint;
 }
 
 /* MOBILE_PSI_HERO_BASE: required on home (pages CSS not loaded) */
@@ -1169,17 +1176,19 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   pointer-events: none;
 }
 
-.hero__image-bg img {
+.hero__image-bg img,
+.hero__image-bg picture {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: auto;
+  inset: 0;
+  display: block;
+  width: 100%;
   height: 100%;
-  width: auto;
   max-width: none;
+}
+
+.hero__image-bg img {
   object-fit: cover;
   object-position: right center;
-  display: block;
 }
 
 
@@ -1276,6 +1285,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   /* Ugyanakkora távolság a szekvenciák között, mint a logók között */
   padding-inline-end: var(--partners-logo-gap);
   list-style: none;
+  min-height: var(--partners-logo-h);
 }
 
 .partners__item {
@@ -1285,13 +1295,16 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   justify-content: center;
   margin: 0;
   padding: 0;
+  height: var(--partners-logo-h);
 }
 
 .partners__logo {
   display: block;
+  /* Magasság + arány → szélesség dekódolás előtt is megvan (unsized image / CLS) */
   height: var(--partners-logo-h);
-  width: auto;
+  width: calc(var(--partners-logo-h) * 2.45);
   max-width: min(13rem, 46vw);
+  aspect-ratio: 2.45 / 1;
   object-fit: contain;
   object-position: center;
   user-select: none;
@@ -1629,6 +1642,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   .hero {
     --hero-mobile-overlay: rgba(18, 17, 13, 0.52);
     min-height: var(--screen-fill);
+    height: var(--screen-fill);
   }
 
   .hero__image-bg {
@@ -1638,8 +1652,7 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
   }
 
   .hero__image-bg img {
-    left: 0;
-    right: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     max-width: none;
@@ -1751,12 +1764,6 @@ main.lang-text-motion--enter.lang-text-motion--enter-active .lang-text-motion__e
     object-fit: contain;
   }
 
-  .partners__logo {
-    aspect-ratio: 2.75 / 1;
-    width: auto;
-    height: var(--partners-logo-h);
-    max-width: min(13rem, 46vw);
-  }
 
   .references,
   .services {
